@@ -1,75 +1,61 @@
-// تعريف المنتج (الحذاء) بدلاً من الجهاز
-export interface Product {
-  id: string;
-  name: string;
-  slug: string; // رابط المنتج
-  brand: 'NIKE' | 'ADIDAS' | 'JORDAN' | 'NB' | 'LV' | 'OTHER';
-  category: 'MEN' | 'WOMEN' | 'KIDS' | 'UNISEX';
-  quality: 'MIRROR' | 'TOP_QUALITY' | 'ORIGINAL_MATERIAL';
-  price: number;
-  description?: string;
-  images: string[]; // مصفوفة لصور الحذاء
-  sizes: string[]; // مصفوفة للمقاسات المتاحة (مثلاً: 40, 41, 42)
-  status: 'IN_STOCK' | 'OUT_OF_STOCK' | 'PRE_ORDER';
-  createdAt: string;
-  updatedAt: string;
-}
+// src/types/index.ts
 
-// تعريف الطلب (Order) بدلاً من الـ Rom
-export interface Order {
-  id: string;
-  productId: string;
-  product?: Product;
-  customerName: string;
-  customerPhone: string;
-  customerAddress: string;
-  selectedSize: string;
-  quantity: number;
-  totalPrice: number;
-  status: 'PENDING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
-  createdAt: string;
-}
+export type Role = "OWNER" | "MANAGER" | "SALES" | "DESIGNER" | "MARKETING";
 
-// تعريف فريق العمل (كما هو مع تعديل الأدوار)
 export interface TeamMember {
   id: string;
   name: string;
-  role: 'OWNER' | 'MANAGER' | 'SALES' | 'MARKETING' | 'DESIGNER';
-  image?: string;
+  role: Role;
   bio?: string;
-  whatsapp?: string; // أضفنا واتساب بدلاً من تليجرام لسهولة التواصل
+  image?: string;
+  whatsapp?: string;
   instagram?: string;
+  github?: string; // خليناها عشان ميعملش Error لو مستخدمة في مكان تاني
+  twitter?: string;
+  telegram?: string;
   website?: string;
-  order: number;
 }
 
-// إحصائيات المتجر
-export interface StoreStats {
+export interface Rom {
   id: string;
-  totalSales: number;
-  totalProducts: number;
-  totalCustomers: number;
-  updatedAt: string;
-}
-
-// المستخدم (الأدمن)
-export interface User {
-  id: string;
-  email: string;
-  name?: string;
-  role: 'ADMIN' | 'MANAGER';
-}
-
-// مميزات المنتج (لعرضها في صفحة المميزات)
-export interface Feature {
-  title: string;
-  description: string;
-  icon: string;
-}
-
-// مقارنة الجودة (بين جودة Cavo وجودة السوق)
-export interface ComparisonFeature {
   name: string;
-  marketQuality: boolean | string;
-  cavoMirrorQuality: boolean | string;
+  version: string;
+  androidVersion: string;
+  releaseDate: string;
+  fileSize: string;
+  downloadUrl: string;
+  changelog: string;
+  isVipOnly: boolean;
+  status: "ACTIVE" | "INACTIVE";
+}
+
+// تعريف المنتج (الحذاء) لـ Cavo Store
+export interface Product {
+  id: string;
+  name: string;
+  brand: string;
+  price: string;
+  quality: string;
+  description?: string;
+  slug: string;
+  image?: string;
+  status: "ACTIVE" | "INACTIVE";
+  roms?: Rom[]; // بنسيب دي عشان لو الكود القديم بيعتمد عليها ميعطلش
+}
+
+// بنخلي Device هي هي Product عشان الكود القديم يفضل شغال
+export type Device = Product;
+
+export interface Stats {
+  totalProducts: number;
+  totalOrders: number;
+  totalCustomers: number;
+  totalRevenue: string;
+  salesPerDay: any[];
+  topSellingShoes: any[];
+  // المسميات القديمة عشان ميعملش Error
+  totalDevices?: number;
+  totalRoms?: number;
+  totalDownloads?: number;
+  totalTeamMembers?: number;
 }
