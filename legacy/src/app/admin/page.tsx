@@ -3,72 +3,34 @@ import { redirect } from "next/navigation";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { AdminDashboard } from "@/sections/admin-dashboard";
-import prisma from "@/lib/prisma";
+// تم تعطيل Prisma مؤقتاً لضمان عمل الـ Build على Vercel
+// import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard | Project Move",
+  title: "Cavo Admin | Dashboard",
 };
 
 async function getStats() {
   try {
-    const [totalDevices, totalRoms, totalDownloads, totalTeamMembers] = await Promise.all([
-      prisma.device.count(),
-      prisma.rom.count(),
-      prisma.download.count(),
-      prisma.teamMember.count(),
-    ]);
-
-    // Get downloads per day for the last 7 days
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-    const downloadsPerDay = await prisma.download.groupBy({
-      by: ["timestamp"],
-      where: {
-        timestamp: {
-          gte: sevenDaysAgo,
-        },
-      },
-      _count: {
-        id: true,
-      },
-    });
-
-    // Get downloads per device
-    const downloadsPerDevice = await prisma.device.findMany({
-      select: {
-        name: true,
-        codename: true,
-        _count: {
-          select: {
-            roms: {
-              select: {
-                downloads: true,
-              },
-            },
-          },
-        },
-      },
-      take: 5,
-    });
-
+    // هذي بيانات تجريبية (Mock Data) عشان لوحة التحكم تفتح معاك وتشوف شكلها
+    // أول ما نربط قاعدة البيانات هنرجع نستخدم الأوامر الحقيقية
     return {
-      totalDevices,
-      totalRoms,
-      totalDownloads,
-      totalTeamMembers,
-      downloadsPerDay,
-      downloadsPerDevice,
+      totalProducts: 124,      // إجمالي الأحذية
+      totalOrders: 45,        // إجمالي الطلبات
+      totalCustomers: 89,      // عدد الزبائن
+      totalRevenue: "15,400",  // إجمالي الأرباح
+      salesPerDay: [],
+      topSellingShoes: [],
     };
   } catch (error) {
     console.error("Error fetching stats:", error);
     return {
-      totalDevices: 0,
-      totalRoms: 0,
-      totalDownloads: 0,
-      totalTeamMembers: 0,
-      downloadsPerDay: [],
-      downloadsPerDevice: [],
+      totalProducts: 0,
+      totalOrders: 0,
+      totalCustomers: 0,
+      totalRevenue: "0",
+      salesPerDay: [],
+      topSellingShoes: [],
     };
   }
 }
@@ -77,11 +39,13 @@ export default async function AdminPage() {
   const supabase = createServerComponentClient({ cookies });
   const { data: { session } } = await supabase.auth.getSession();
 
+  // لو مفيش جلسة دخول، يحولك لصفحة تسجيل الدخول
   if (!session) {
     redirect("/admin/login");
   }
 
   const stats = await getStats();
 
+  // بنمرر البيانات للوحة التحكم لتنسيقها وعرضها
   return <AdminDashboard stats={stats} />;
 }

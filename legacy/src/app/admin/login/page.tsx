@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { motion } from "framer-motion";
-import { Zap, Eye, EyeOff, Loader2 } from "lucide-react";
+import { ShoppingBag, Eye, EyeOff, Loader2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,7 +31,7 @@ export default function AdminLoginPage() {
       });
 
       if (error) {
-        setError(error.message);
+        setError("Invalid login credentials for Cavo Admin");
       } else {
         router.push("/admin");
         router.refresh();
@@ -44,54 +44,54 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-zinc-950">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <Card className="glass border-white/10">
+        <Card className="glass border-white/5 bg-zinc-900/50 backdrop-blur-xl shadow-2xl">
           <CardHeader className="text-center">
-            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-4">
-              <Zap className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/20">
+              <ShieldCheck className="w-8 h-8 text-black" />
             </div>
-            <CardTitle className="text-2xl font-display">Admin Login</CardTitle>
-            <CardDescription>
-              Sign in to access the Project Move admin dashboard
+            <CardTitle className="text-3xl font-black tracking-tighter text-white uppercase">Cavo <span className="text-amber-400">Admin</span></CardTitle>
+            <CardDescription className="text-zinc-500 font-medium">
+              Authorized personnel only. Please sign in.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-zinc-400 font-bold uppercase text-[10px] tracking-widest">Admin Email</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="admin@projectmove.com"
+                  placeholder="admin@cavo-store.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="bg-white/5 border-white/10"
+                  className="bg-black/40 border-white/10 text-white focus:border-amber-500/50 h-12"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-zinc-400 font-bold uppercase text-[10px] tracking-widest">Secret Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
+                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="bg-white/5 border-white/10 pr-10"
+                    className="bg-black/40 border-white/10 text-white focus:border-amber-500/50 h-12 pr-10"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-amber-400 transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -100,9 +100,9 @@ export default function AdminLoginPage() {
 
               {error && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold text-center"
                 >
                   {error}
                 </motion.div>
@@ -110,21 +110,25 @@ export default function AdminLoginPage() {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600"
+                className="w-full bg-amber-500 hover:bg-amber-400 text-black font-black uppercase tracking-tight h-12 shadow-lg shadow-amber-500/10 transition-all active:scale-[0.98]"
                 disabled={isLoading}
               >
                 {isLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Signing in...
+                    Verifying...
                   </>
                 ) : (
-                  "Sign In"
+                  "Access Dashboard"
                 )}
               </Button>
             </form>
           </CardContent>
         </Card>
+        
+        <p className="text-center mt-8 text-zinc-600 text-xs font-bold uppercase tracking-widest">
+          &copy; 2026 Cavo Premium Store
+        </p>
       </motion.div>
     </div>
   );

@@ -4,168 +4,102 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
   ArrowLeft, 
-  Cpu, 
-  Calendar, 
-  FileSize, 
+  ShoppingBag, 
+  Truck, 
+  ShieldCheck, 
   Download, 
   Crown, 
   Check,
   AlertCircle,
   BookOpen,
-  Clock
+  Ruler
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Device, Rom } from "@/types";
+import type { Product } from "@/types";
 
-interface DeviceDetailProps {
-  device: Device & { roms: Rom[] };
+interface ProductDetailProps {
+  product: Product;
 }
 
 const brandColors: Record<string, string> = {
-  XIAOMI: "from-orange-500/20 to-orange-600/20 border-orange-500/20",
-  REDMI: "from-red-500/20 to-red-600/20 border-red-500/20",
-  POCO: "from-yellow-500/20 to-yellow-600/20 border-yellow-500/20",
+  NIKE: "from-blue-500/10 to-blue-600/10 border-blue-500/20",
+  ADIDAS: "from-zinc-500/10 to-zinc-600/10 border-zinc-500/20",
+  JORDAN: "from-red-500/10 to-red-600/10 border-red-500/20",
+  LV: "from-amber-500/10 to-amber-600/10 border-amber-500/20",
 };
 
 const brandBadgeColors: Record<string, string> = {
-  XIAOMI: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-  REDMI: "bg-red-500/20 text-red-400 border-red-500/30",
-  POCO: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+  NIKE: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  ADIDAS: "bg-zinc-500/20 text-zinc-400 border-zinc-500/30",
+  JORDAN: "bg-red-500/20 text-red-400 border-red-500/30",
+  LV: "bg-amber-500/20 text-amber-400 border-amber-500/30",
 };
 
-function RomCard({ rom, deviceCodename }: { rom: Rom; deviceCodename: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-    >
-      <Card className="glass border-white/5 overflow-hidden">
-        <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-lg font-semibold">{rom.name}</h3>
-                {rom.isVipOnly && (
-                  <Badge variant="vip">
-                    <Crown className="w-3 h-3 mr-1" />
-                    VIP
-                  </Badge>
-                )}
-                <Badge 
-                  variant={rom.status === "ACTIVE" ? "success" : "secondary"}
-                  className="text-xs"
-                >
-                  {rom.status}
-                </Badge>
-              </div>
-              
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Cpu className="w-4 h-4" />
-                  Android {rom.androidVersion}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  {new Date(rom.releaseDate).toLocaleDateString()}
-                </span>
-                <span className="flex items-center gap-1">
-                  <FileSize className="w-4 h-4" />
-                  {rom.fileSize}
-                </span>
-              </div>
-            </div>
-
-            <Button
-              className={rom.isVipOnly 
-                ? "bg-gradient-to-r from-amber-500 to-orange-500" 
-                : "bg-gradient-to-r from-blue-500 to-purple-600"
-              }
-              disabled={rom.status !== "ACTIVE"}
-            >
-              <Download className="w-4 h-4 mr-2" />
-              {rom.isVipOnly ? "Get VIP" : "Download"}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-}
-
-export function DeviceDetail({ device }: DeviceDetailProps) {
-  const freeRoms = device.roms.filter((rom) => !rom.isVipOnly);
-  const vipRoms = device.roms.filter((rom) => rom.isVipOnly);
-
+export function DeviceDetail({ product }: any) {
+  // ملاحظة: قمت بترك اسم الـ Function والـ Props كما هي (DeviceDetail) 
+  // مؤقتاً لتجنب كسر الربط مع الصفحات الأخرى حتى نغيرها لاحقاً.
+  
   return (
     <div className="container mx-auto px-4">
       {/* Back Link */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
         className="mb-6"
       >
-        <Link href="/download">
-          <Button variant="ghost" className="pl-0">
+        <Link href="/shop">
+          <Button variant="ghost" className="pl-0 text-zinc-400 hover:text-amber-400">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Devices
+            Back to Collection
           </Button>
         </Link>
       </motion.div>
 
-      {/* Device Header */}
+      {/* Product Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className={`relative rounded-3xl overflow-hidden bg-gradient-to-br ${brandColors[device.brand]} border p-8 md:p-12 mb-8`}
+        className={`relative rounded-[2.5rem] overflow-hidden bg-gradient-to-br ${brandColors[product.brand] || 'from-zinc-900 to-black'} border border-white/5 p-8 md:p-12 mb-8 shadow-2xl`}
       >
         <div className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
-              <div className="flex items-center gap-3 mb-3">
-                <Badge 
-                  variant="outline" 
-                  className={`${brandBadgeColors[device.brand]} capitalize`}
-                >
-                  {device.brand.toLowerCase()}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-4">
+                <Badge variant="outline" className={`${brandBadgeColors[product.brand]} font-black uppercase tracking-widest text-[10px]`}>
+                  {product.brand}
                 </Badge>
-                {device.status === "ACTIVE" && (
-                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-                    <Check className="w-3 h-3 mr-1" />
-                    Active
-                  </Badge>
-                )}
+                <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20 font-black text-[10px] uppercase">
+                  <Crown className="w-3 h-3 mr-1" />
+                  Mirror Quality
+                </Badge>
               </div>
               
-              <h1 className="text-4xl md:text-5xl font-bold font-display mb-2">
-                {device.name}
+              <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4">
+                {product.name}
               </h1>
-              <p className="text-lg text-muted-foreground">
-                Codename: <span className="font-mono">{device.codename}</span>
+              <p className="text-3xl font-black text-amber-400 mb-6">
+                ${product.price} <span className="text-sm text-zinc-500 font-medium tracking-normal ml-2">Inc. original box</span>
               </p>
+
+              <div className="flex flex-wrap gap-3">
+                <Button className="bg-amber-500 hover:bg-amber-400 text-black font-black px-8 py-6 rounded-2xl uppercase tracking-tight shadow-xl shadow-amber-500/20">
+                  <ShoppingBag className="w-5 h-5 mr-2" />
+                  Order via WhatsApp
+                </Button>
+                <Button variant="outline" className="border-white/10 text-white font-black px-8 py-6 rounded-2xl uppercase tracking-tight hover:bg-white/5">
+                  View Gallery
+                </Button>
+              </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <p className="text-sm text-muted-foreground">Chipset</p>
-                <p className="font-medium">{device.chipset}</p>
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
-                <Cpu className="w-6 h-6" />
-              </div>
+            <div className="w-full md:w-1/3 aspect-square rounded-[2rem] bg-zinc-900 border border-white/5 flex items-center justify-center relative group overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <span className="text-zinc-700 font-black uppercase tracking-widest italic group-hover:scale-110 transition-transform duration-700">Shoe Image</span>
             </div>
           </div>
-
-          {device.description && (
-            <p className="mt-6 text-muted-foreground max-w-2xl">
-              {device.description}
-            </p>
-          )}
         </div>
       </motion.div>
 
@@ -173,132 +107,111 @@ export function DeviceDetail({ device }: DeviceDetailProps) {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ delay: 0.1 }}
       >
-        <Tabs defaultValue="roms" className="w-full">
-          <TabsList className="glass mb-6">
-            <TabsTrigger value="roms">ROMs</TabsTrigger>
-            <TabsTrigger value="changelog">Changelog</TabsTrigger>
-            <TabsTrigger value="installation">Installation</TabsTrigger>
+        <Tabs defaultValue="details" className="w-full">
+          <TabsList className="glass mb-8 p-1 bg-zinc-900/50 border-white/5 rounded-2xl">
+            <TabsTrigger value="details" className="rounded-xl px-8">Product Details</TabsTrigger>
+            <TabsTrigger value="sizing" className="rounded-xl px-8">Sizing Guide</TabsTrigger>
+            <TabsTrigger value="shipping" className="rounded-xl px-8">Shipping & Returns</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="roms" className="space-y-6">
-            {freeRoms.length > 0 && (
-              <div>
-                <h2 className="text-xl font-semibold mb-4">Free Versions</h2>
-                <div className="space-y-4">
-                  {freeRoms.map((rom) => (
-                    <RomCard key={rom.id} rom={rom} deviceCodename={device.codename} />
-                  ))}
-                </div>
-              </div>
-            )}
+          <TabsContent value="details" className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-8">
+                <Card className="glass border-white/5 bg-zinc-900/30 p-8 rounded-[2rem]">
+                    <h3 className="text-xl font-black text-white uppercase mb-6 flex items-center gap-2">
+                        <ShieldCheck className="w-5 h-5 text-amber-400" />
+                        Premium Specifications
+                    </h3>
+                    <ul className="space-y-4">
+                        {[
+                            { label: "Material", val: "Authentic Leather / Suede" },
+                            { label: "Technology", val: "Original Cushioning Systems" },
+                            { label: "Packaging", val: "Full Original Box & Tags" },
+                            { label: "Weight", val: "1:1 Original Specs" }
+                        ].map((item, i) => (
+                            <li key={i} className="flex justify-between border-b border-white/5 pb-4">
+                                <span className="text-zinc-500 font-bold uppercase text-xs">{item.label}</span>
+                                <span className="text-zinc-200 font-black text-xs uppercase">{item.val}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </Card>
 
-            {vipRoms.length > 0 && (
-              <div>
-                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Crown className="w-5 h-5 text-amber-400" />
-                  VIP Versions
-                </h2>
-                <div className="space-y-4">
-                  {vipRoms.map((rom) => (
-                    <RomCard key={rom.id} rom={rom} deviceCodename={device.codename} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {device.roms.length === 0 && (
-              <Card className="glass border-white/5">
-                <CardContent className="p-12 text-center">
-                  <AlertCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No ROMs Available</h3>
-                  <p className="text-muted-foreground">
-                    There are no ROMs available for this device yet. Check back later!
-                  </p>
-                </CardContent>
-              </Card>
-            )}
+                <Card className="glass border-white/5 bg-zinc-900/30 p-8 rounded-[2rem]">
+                    <h3 className="text-xl font-black text-white uppercase mb-6">Description</h3>
+                    <p className="text-zinc-400 leading-relaxed font-medium">
+                        Experience the pinnacle of footwear craftsmanship with Cavo's mirror quality collection. 
+                        This pair is meticulously crafted using original materials to ensure the exact look, 
+                        feel, and performance of the authentic version.
+                    </p>
+                </Card>
+            </div>
           </TabsContent>
 
-          <TabsContent value="changelog">
-            <Card className="glass border-white/5">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
-                  Changelog
+          <TabsContent value="sizing">
+            <Card className="glass border-white/5 bg-zinc-900/30 p-8 rounded-[2rem]">
+              <CardHeader className="px-0">
+                <CardTitle className="flex items-center gap-2 text-white uppercase font-black tracking-tighter">
+                  <Ruler className="w-5 h-5 text-amber-400" />
+                  Find Your Perfect Fit
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                {device.roms.length > 0 ? (
-                  <div className="space-y-6">
-                    {device.roms.slice(0, 5).map((rom) => (
-                      <div key={rom.id} className="border-l-2 border-white/10 pl-4">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="font-semibold">{rom.version}</span>
-                          <span className="text-sm text-muted-foreground">
-                            {new Date(rom.releaseDate).toLocaleDateString()}
-                          </span>
+              <CardContent className="px-0">
+                <div className="grid md:grid-cols-2 gap-12">
+                  <div>
+                    <h3 className="font-black text-white uppercase text-sm mb-4">Available EU Sizes</h3>
+                    <div className="flex flex-wrap gap-3">
+                      {["40", "41", "42", "43", "44", "45"].map((size) => (
+                        <div key={size} className="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center font-black text-zinc-400 hover:border-amber-500 hover:text-amber-400 cursor-pointer transition-all">
+                          {size}
                         </div>
-                        <div className="text-sm text-muted-foreground whitespace-pre-line">
-                          {rom.changelog}
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                ) : (
-                  <p className="text-muted-foreground text-center py-8">
-                    No changelog available yet.
-                  </p>
-                )}
+                  <div className="p-6 rounded-2xl bg-amber-500/5 border border-amber-500/10">
+                    <h4 className="font-black text-amber-400 uppercase text-xs mb-2">Pro Tip</h4>
+                    <p className="text-zinc-400 text-sm font-medium">
+                      Our mirror quality sneakers fit "True to Size" (TTS). If you usually wear a 42 in original brands, order a 42 here.
+                    </p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="installation">
-            <Card className="glass border-white/5">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="w-5 h-5" />
-                  Installation Guide
+          <TabsContent value="shipping">
+            <Card className="glass border-white/5 bg-zinc-900/30 p-8 rounded-[2rem]">
+              <CardHeader className="px-0">
+                <CardTitle className="flex items-center gap-2 text-white uppercase font-black">
+                  <Truck className="w-5 h-5 text-amber-400" />
+                  Delivery Information
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="font-semibold mb-2">Prerequisites</h3>
-                    <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                      <li>Unlocked bootloader</li>
-                      <li>Custom recovery installed (TWRP or similar)</li>
-                      <li>Backup of your current data</li>
-                      <li>At least 50% battery</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold mb-2">Installation Steps</h3>
-                    <ol className="list-decimal list-inside text-muted-foreground space-y-2">
-                      <li>Download the ROM zip file for your device</li>
-                      <li>Boot into custom recovery mode</li>
-                      <li>Wipe data, cache, and dalvik cache</li>
-                      <li>Flash the ROM zip file</li>
-                      <li>Flash GApps (optional, for Google services)</li>
-                      <li>Reboot and enjoy MoveOS!</li>
-                    </ol>
-                  </div>
-
-                  <div className="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-                    <div className="flex items-start gap-3">
-                      <AlertCircle className="w-5 h-5 text-yellow-400 mt-0.5" />
-                      <div>
-                        <h4 className="font-medium text-yellow-400">Important Notice</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Installing a custom ROM will wipe all your data. Make sure to backup 
-                          important files before proceeding. We are not responsible for any data loss.
-                        </p>
-                      </div>
+              <CardContent className="px-0 space-y-6">
+                <div className="grid md:grid-cols-3 gap-6">
+                    <div className="p-6 rounded-2xl bg-white/5 border border-white/5">
+                        <h4 className="text-white font-black uppercase text-xs mb-2">Local Shipping</h4>
+                        <p className="text-zinc-500 text-xs font-bold uppercase">24-48 Hours</p>
                     </div>
-                  </div>
+                    <div className="p-6 rounded-2xl bg-white/5 border border-white/5">
+                        <h4 className="text-white font-black uppercase text-xs mb-2">International</h4>
+                        <p className="text-zinc-500 text-xs font-bold uppercase">5-10 Business Days</p>
+                    </div>
+                    <div className="p-6 rounded-2xl bg-white/5 border border-white/5">
+                        <h4 className="text-white font-black uppercase text-xs mb-2">Tracking</h4>
+                        <p className="text-zinc-500 text-xs font-bold uppercase">Full ID provided</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-red-500/5 border border-red-500/10">
+                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5" />
+                    <div>
+                        <h4 className="text-red-500 font-black uppercase text-xs">Return Policy</h4>
+                        <p className="text-zinc-500 text-sm font-medium mt-1">
+                            Returns are only accepted if the product has a manufacturing defect or the wrong size was sent. 
+                            The product must be in its original, unworn condition with all tags and box.
+                        </p>
+                    </div>
                 </div>
               </CardContent>
             </Card>

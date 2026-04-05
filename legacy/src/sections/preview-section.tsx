@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,36 +10,36 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const screenshots = [
+const shoePreviews = [
   {
     id: 1,
-    title: "Home Screen",
-    description: "Clean and customizable home screen with smooth animations",
-    color: "from-blue-500/30 to-purple-500/30",
+    title: "LV Trainer Blue",
+    description: "Premium calf leather with signature monogram embossing.",
+    color: "from-blue-600/40 to-zinc-900/40",
   },
   {
     id: 2,
-    title: "Settings",
-    description: "Intuitive settings with advanced customization options",
-    color: "from-purple-500/30 to-pink-500/30",
+    title: "NB 9060 Rain Cloud",
+    description: "Luxury suede overlays with mesh underlays for the ultimate dad-shoe vibe.",
+    color: "from-zinc-500/40 to-zinc-900/40",
   },
   {
     id: 3,
-    title: "Gaming Mode",
-    description: "Dedicated gaming mode for optimal performance",
-    color: "from-green-500/30 to-blue-500/30",
+    title: "AJ1 Retro High OG",
+    description: "The timeless classic in original-grade leather and perfect shape.",
+    color: "from-red-600/40 to-zinc-900/40",
   },
   {
     id: 4,
-    title: "Battery Manager",
-    description: "Advanced battery management and optimization",
-    color: "from-yellow-500/30 to-orange-500/30",
+    title: "Adidas Campus 00s",
+    description: "Bold proportions and premium suede for the perfect streetwear look.",
+    color: "from-zinc-100/10 to-zinc-900/40",
   },
   {
     id: 5,
-    title: "Quick Settings",
-    description: "Redesigned quick settings panel with custom tiles",
-    color: "from-red-500/30 to-pink-500/30",
+    title: "Dunk Low Panda",
+    description: "High-quality leather construction in the most iconic colorway.",
+    color: "from-zinc-400/20 to-zinc-900/40",
   },
 ];
 
@@ -47,33 +47,34 @@ export function PreviewSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % screenshots.length);
+    setCurrentIndex((prev) => (prev + 1) % shoePreviews.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + screenshots.length) % screenshots.length);
+    setCurrentIndex((prev) => (prev - 1 + shoePreviews.length) % shoePreviews.length);
   };
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent" />
+    <section className="py-32 relative overflow-hidden bg-zinc-950">
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(245,158,11,0.03)_0%,transparent_50%)]" />
 
-      <div className="container mx-auto px-4 relative">
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-20"
         >
-          <span className="text-purple-400 font-medium mb-4 block">UI Preview</span>
-          <h2 className="text-3xl md:text-5xl font-bold font-display mb-6">
-            Experience MoveOS
+          <span className="text-amber-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">New Arrivals</span>
+          <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-8">
+            The <span className="text-amber-400">Archive</span> Preview
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Take a glimpse at the sleek, modern interface designed for performance and aesthetics.
+          <p className="text-lg text-zinc-400 font-medium leading-relaxed">
+            Take a glimpse at our latest mirror-quality additions. Each pair is selected for its 
+            unmatched attention to detail and original-grade materials.
           </p>
         </motion.div>
 
@@ -85,49 +86,52 @@ export function PreviewSection() {
           transition={{ duration: 0.6 }}
           className="relative max-w-5xl mx-auto"
         >
-          {/* Main Display */}
-          <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden glass">
-            <div className={`absolute inset-0 bg-gradient-to-br ${screenshots[currentIndex].color} opacity-50`} />
+          {/* Main Display Area */}
+          <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-[3rem] overflow-hidden bg-zinc-900/50 border border-white/5 shadow-2xl backdrop-blur-md">
+            <div className={`absolute inset-0 bg-gradient-to-br ${shoePreviews[currentIndex].color} opacity-40 transition-all duration-1000`} />
             
-            {/* Phone Mockup */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-48 md:w-64 h-80 md:h-96 bg-gradient-to-b from-gray-800 to-gray-900 rounded-[2rem] p-2 shadow-2xl">
-                {/* Screen */}
-                <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-[1.5rem] overflow-hidden relative">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${screenshots[currentIndex].color}`} />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                    <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-4">
-                      <span className="text-2xl font-bold">M</span>
-                    </div>
-                    <h4 className="text-lg font-semibold mb-2">{screenshots[currentIndex].title}</h4>
-                    <p className="text-xs text-white/70">{screenshots[currentIndex].description}</p>
-                  </div>
+            {/* Center Content Mockup */}
+            <div className="absolute inset-0 flex items-center justify-center p-6">
+              <div className="relative w-full max-w-md h-full flex flex-col items-center justify-center">
+                {/* Visual Placeholder for Shoe */}
+                <div className="w-64 md:w-80 h-48 md:h-56 bg-zinc-800/80 rounded-[2.5rem] border border-white/5 shadow-2xl flex items-center justify-center relative group overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ShoppingBag className="w-16 h-16 text-zinc-700 group-hover:scale-110 transition-transform duration-700" />
+                    <div className="absolute bottom-4 text-[10px] font-black text-zinc-600 uppercase tracking-widest italic">Cavo Premium Store</div>
                 </div>
-                {/* Notch */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full" />
+                
+                {/* Text Info */}
+                <div className="mt-8 text-center px-4">
+                  <h4 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight mb-2">
+                    {shoePreviews[currentIndex].title}
+                  </h4>
+                  <p className="text-sm text-zinc-400 font-medium max-w-xs mx-auto">
+                    {shoePreviews[currentIndex].description}
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Navigation */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4">
+            {/* Navigation Controls */}
+            <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-8 px-8">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={prevSlide}
-                className="glass hover:bg-white/10"
+                className="w-12 h-12 rounded-full border border-white/5 bg-white/5 text-white hover:bg-amber-500 hover:text-black transition-all"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-6 h-6" />
               </Button>
               
-              <div className="flex gap-2">
-                {screenshots.map((_, index) => (
+              <div className="flex gap-3">
+                {shoePreviews.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
+                    className={`h-1.5 rounded-full transition-all duration-500 ${
                       index === currentIndex
-                        ? "w-8 bg-white"
-                        : "bg-white/30 hover:bg-white/50"
+                        ? "w-10 bg-amber-500"
+                        : "w-3 bg-white/10 hover:bg-white/30"
                     }`}
                   />
                 ))}
@@ -137,47 +141,51 @@ export function PreviewSection() {
                 variant="ghost"
                 size="icon"
                 onClick={nextSlide}
-                className="glass hover:bg-white/10"
+                className="w-12 h-12 rounded-full border border-white/5 bg-white/5 text-white hover:bg-amber-500 hover:text-black transition-all"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-6 h-6" />
               </Button>
             </div>
 
-            {/* Fullscreen Button */}
+            {/* Fullscreen Viewer Trigger */}
             <Dialog>
               <DialogTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute top-4 right-4 glass hover:bg-white/10"
+                  className="absolute top-6 right-6 w-12 h-12 rounded-2xl bg-white/5 text-white border border-white/5 hover:bg-amber-500 hover:text-black transition-all"
                 >
                   <Maximize2 className="w-5 h-5" />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-4xl bg-background/95 backdrop-blur-xl">
-                <div className={`aspect-video rounded-xl bg-gradient-to-br ${screenshots[currentIndex].color} flex items-center justify-center`}>
+              <DialogContent className="max-w-4xl bg-zinc-950 border-white/10 backdrop-blur-2xl p-0 overflow-hidden rounded-[2rem]">
+                <div className={`aspect-video w-full bg-gradient-to-br ${shoePreviews[currentIndex].color} flex items-center justify-center p-12`}>
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold mb-2">{screenshots[currentIndex].title}</h3>
-                    <p className="text-muted-foreground">{screenshots[currentIndex].description}</p>
+                    <h3 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4">
+                      {shoePreviews[currentIndex].title}
+                    </h3>
+                    <p className="text-lg text-white/60 font-medium max-w-md mx-auto">
+                      {shoePreviews[currentIndex].description}
+                    </p>
                   </div>
                 </div>
               </DialogContent>
             </Dialog>
           </div>
 
-          {/* Thumbnails */}
-          <div className="flex justify-center gap-3 mt-6">
-            {screenshots.map((screenshot, index) => (
+          {/* Thumbnails Navigation */}
+          <div className="flex justify-center gap-4 mt-10">
+            {shoePreviews.map((shoe, index) => (
               <button
-                key={screenshot.id}
+                key={shoe.id}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-20 h-14 rounded-lg overflow-hidden transition-all ${
+                className={`w-24 h-16 rounded-2xl overflow-hidden transition-all duration-500 border-2 ${
                   index === currentIndex
-                    ? "ring-2 ring-blue-500 scale-105"
-                    : "opacity-50 hover:opacity-75"
+                    ? "border-amber-500 scale-110 shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+                    : "border-transparent opacity-40 hover:opacity-70"
                 }`}
               >
-                <div className={`w-full h-full bg-gradient-to-br ${screenshot.color}`} />
+                <div className={`w-full h-full bg-gradient-to-br ${shoe.color}`} />
               </button>
             ))}
           </div>

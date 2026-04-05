@@ -2,41 +2,43 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Cpu, Check } from "lucide-react";
+import { ArrowRight, ShoppingBag, Check, Crown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Device } from "@/types";
+import type { Product } from "@/types";
 
-interface DeviceListProps {
-  devices: Device[];
+interface ProductListProps {
+  products: any[]; // تم تغيير المسمى ليتناسب مع المتجر
 }
 
+// ألوان البراندات العالمية للأحذية
 const brandColors: Record<string, string> = {
-  XIAOMI: "from-orange-500/20 to-orange-600/20",
-  REDMI: "from-red-500/20 to-red-600/20",
-  POCO: "from-yellow-500/20 to-yellow-600/20",
+  NIKE: "from-blue-600/10 to-zinc-900/40",
+  ADIDAS: "from-zinc-100/10 to-zinc-900/40",
+  JORDAN: "from-red-600/10 to-zinc-900/40",
+  LV: "from-amber-500/10 to-amber-900/40",
 };
 
 const brandBadgeColors: Record<string, string> = {
-  XIAOMI: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-  REDMI: "bg-red-500/20 text-red-400 border-red-500/30",
-  POCO: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+  NIKE: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  ADIDAS: "bg-zinc-100/10 text-zinc-400 border-white/10",
+  JORDAN: "bg-red-500/20 text-red-400 border-red-500/30",
+  LV: "bg-amber-500/20 text-amber-400 border-amber-500/30",
 };
 
-export function DeviceList({ devices }: DeviceListProps) {
-  if (devices.length === 0) {
+export function DeviceList({ products }: any) {
+  if (!products || products.length === 0) {
     return (
-      <section className="py-16">
+      <section className="py-24">
         <div className="container mx-auto px-4">
-          <div className="text-center py-16">
-            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
-              <Cpu className="w-8 h-8 text-muted-foreground" />
+          <div className="text-center py-20 bg-zinc-900/20 rounded-[3rem] border border-white/5 backdrop-blur-md">
+            <div className="w-20 h-20 rounded-3xl bg-amber-500/10 flex items-center justify-center mx-auto mb-6">
+              <ShoppingBag className="w-10 h-10 text-amber-500" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">No devices found</h3>
-            <p className="text-muted-foreground">
-              Check back later for new device support.
+            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">Our Collection is coming soon</h3>
+            <p className="text-zinc-500 font-medium">
+              We are currently updating our mirror-quality inventory.
             </p>
           </div>
         </div>
@@ -45,75 +47,72 @@ export function DeviceList({ devices }: DeviceListProps) {
   }
 
   return (
-    <section className="py-16">
+    <section className="py-24 bg-zinc-950">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {devices.map((device, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product: any, index: number) => (
             <motion.div
-              key={device.id}
+              key={product.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link href={`/download/${device.codename}`}>
-                <Card className="group glass border-white/5 hover:border-white/10 transition-all duration-300 hover-lift overflow-hidden">
+              <Link href={`/shop/${product.slug || product.id}`}>
+                <Card className="group glass border-white/5 hover:border-amber-500/20 transition-all duration-500 overflow-hidden rounded-[2.5rem] bg-zinc-900/30">
                   <CardContent className="p-0">
-                    {/* Image */}
-                    <div className={`relative h-48 bg-gradient-to-br ${brandColors[device.brand]} overflow-hidden`}>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-24 h-24 rounded-2xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                          <span className="text-4xl font-bold">{device.name[0]}</span>
-                        </div>
+                    {/* Image Area */}
+                    <div className={`relative h-64 bg-gradient-to-br ${brandColors[product.brand] || brandColors.NIKE} overflow-hidden flex items-center justify-center`}>
+                      <div className="relative z-10 text-center group-hover:scale-110 transition-transform duration-700">
+                        <ShoppingBag className="w-16 h-16 text-zinc-700 opacity-50 mx-auto mb-2" />
+                        <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest italic">{product.brand}</span>
                       </div>
-                      <div className="absolute top-4 right-4">
+                      
+                      <div className="absolute top-6 right-6">
                         <Badge 
                           variant="outline" 
-                          className={`${brandBadgeColors[device.brand]} capitalize`}
+                          className={`${brandBadgeColors[product.brand] || brandBadgeColors.NIKE} font-black uppercase text-[10px] px-3 py-1 rounded-full`}
                         >
-                          {device.brand.toLowerCase()}
+                          {product.brand}
                         </Badge>
                       </div>
-                      {device.roms && device.roms.length > 0 && (
-                        <div className="absolute bottom-4 left-4">
-                          <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-                            <Check className="w-3 h-3 mr-1" />
-                            Active
-                          </Badge>
-                        </div>
-                      )}
+
+                      <div className="absolute bottom-6 left-6">
+                        <Badge className="bg-amber-500 text-black border-0 font-black text-[10px] uppercase px-3 py-1 rounded-full shadow-lg">
+                          <Crown className="w-3 h-3 mr-1" />
+                          Mirror Quality
+                        </Badge>
+                      </div>
                     </div>
 
                     {/* Content */}
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-3">
+                    <div className="p-8">
+                      <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="text-xl font-semibold group-hover:text-blue-400 transition-colors">
-                            {device.name}
+                          <h3 className="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-amber-400 transition-colors">
+                            {product.name}
                           </h3>
-                          <p className="text-sm text-muted-foreground">
-                            Codename: {device.codename}
+                          <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mt-1">
+                            {product.quality || "1:1 Original Specs"}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 mb-4">
-                        <Cpu className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm text-muted-foreground">{device.chipset}</span>
+                      <div className="flex items-center gap-2 mb-6">
+                        <span className="text-2xl font-black text-amber-400">${product.price || '---'}</span>
+                        <span className="text-[10px] font-bold text-zinc-600 uppercase">Inc. Box</span>
                       </div>
 
-                      {device.roms && device.roms.length > 0 && (
-                        <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                          <div>
-                            <p className="text-xs text-muted-foreground">Latest Version</p>
-                            <p className="text-sm font-medium">{device.roms[0].version}</p>
-                          </div>
-                          <Button size="sm" variant="ghost" className="group/btn">
-                            View
-                            <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
-                          </Button>
+                      <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                        <div className="flex items-center gap-2 text-green-500">
+                          <Check className="w-4 h-4" />
+                          <span className="text-[10px] font-black uppercase tracking-widest">In Stock</span>
                         </div>
-                      )}
+                        <Button size="sm" variant="ghost" className="group/btn text-white font-black uppercase text-xs tracking-tighter hover:text-amber-400">
+                          Shop Now
+                          <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-2 transition-transform" />
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

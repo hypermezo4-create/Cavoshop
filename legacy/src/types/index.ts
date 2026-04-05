@@ -1,83 +1,75 @@
-export interface Device {
+// تعريف المنتج (الحذاء) بدلاً من الجهاز
+export interface Product {
   id: string;
   name: string;
-  codename: string;
-  brand: 'XIAOMI' | 'REDMI' | 'POCO';
-  chipset: string;
-  status: 'ACTIVE' | 'INACTIVE' | 'MAINTENANCE';
-  image?: string;
+  slug: string; // رابط المنتج
+  brand: 'NIKE' | 'ADIDAS' | 'JORDAN' | 'NB' | 'LV' | 'OTHER';
+  category: 'MEN' | 'WOMEN' | 'KIDS' | 'UNISEX';
+  quality: 'MIRROR' | 'TOP_QUALITY' | 'ORIGINAL_MATERIAL';
+  price: number;
   description?: string;
+  images: string[]; // مصفوفة لصور الحذاء
+  sizes: string[]; // مصفوفة للمقاسات المتاحة (مثلاً: 40, 41, 42)
+  status: 'IN_STOCK' | 'OUT_OF_STOCK' | 'PRE_ORDER';
   createdAt: string;
   updatedAt: string;
-  roms?: Rom[];
 }
 
-export interface Rom {
+// تعريف الطلب (Order) بدلاً من الـ Rom
+export interface Order {
   id: string;
-  deviceId: string;
-  device?: Device;
-  name: string;
-  version: string;
-  androidVersion: string;
-  type: 'FREE' | 'VIP';
-  downloadUrl: string;
-  fileSize: string;
-  changelog: string;
-  releaseDate: string;
-  screenshots: string[];
-  installationGuide?: string;
-  status: 'ACTIVE' | 'INACTIVE' | 'MAINTENANCE';
-  isVipOnly: boolean;
+  productId: string;
+  product?: Product;
+  customerName: string;
+  customerPhone: string;
+  customerAddress: string;
+  selectedSize: string;
+  quantity: number;
+  totalPrice: number;
+  status: 'PENDING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
   createdAt: string;
-  updatedAt: string;
-  downloadCount?: number;
 }
 
+// تعريف فريق العمل (كما هو مع تعديل الأدوار)
 export interface TeamMember {
   id: string;
   name: string;
-  role: 'LEADER' | 'DEVELOPER' | 'TESTER' | 'CONTRIBUTOR' | 'DESIGNER';
+  role: 'OWNER' | 'MANAGER' | 'SALES' | 'MARKETING' | 'DESIGNER';
   image?: string;
   bio?: string;
-  github?: string;
-  telegram?: string;
-  twitter?: string;
+  whatsapp?: string; // أضفنا واتساب بدلاً من تليجرام لسهولة التواصل
+  instagram?: string;
   website?: string;
   order: number;
 }
 
-export interface Download {
+// إحصائيات المتجر
+export interface StoreStats {
   id: string;
-  romId: string;
-  rom?: Rom;
-  timestamp: string;
-  ip?: string;
-  userAgent?: string;
-}
-
-export interface SiteStats {
-  id: string;
-  totalDownloads: number;
-  totalDevices: number;
-  totalRoms: number;
+  totalSales: number;
+  totalProducts: number;
+  totalCustomers: number;
   updatedAt: string;
 }
 
+// المستخدم (الأدمن)
 export interface User {
   id: string;
   email: string;
   name?: string;
-  role: 'ADMIN' | 'MODERATOR';
+  role: 'ADMIN' | 'MANAGER';
 }
 
+// مميزات المنتج (لعرضها في صفحة المميزات)
 export interface Feature {
   title: string;
   description: string;
   icon: string;
 }
 
+// مقارنة الجودة (بين جودة Cavo وجودة السوق)
 export interface ComparisonFeature {
   name: string;
-  free: boolean | string;
-  vip: boolean | string;
+  marketQuality: boolean | string;
+  cavoMirrorQuality: boolean | string;
 }

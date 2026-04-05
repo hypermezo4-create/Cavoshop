@@ -6,17 +6,26 @@ import { CTASection } from "@/sections/cta-section";
 import { StatsSection } from "@/sections/stats-section";
 
 export const metadata: Metadata = {
-  title: "Project Move | MoveOS - Performance Beyond Limits",
-  description: "Custom Android ROM for MediaTek Xiaomi/Redmi/Poco devices. Experience performance beyond limits with MoveOS.",
+  title: "CAVO STORE | Official Home of Premium Mirror Sneakers",
+  description: "Step into luxury with Cavo Store. We provide the highest quality 1:1 mirror sneakers, perfectly crafted for style and comfort.",
 };
 
 export default function HomePage() {
   return (
     <>
+      {/* قسم الواجهة الرئيسية */}
       <HeroSection />
+      
+      {/* قسم أرقام المبيعات والجودة */}
       <StatsSection />
+      
+      {/* مقدمة عن براند كافو */}
       <IntroSection />
+      
+      {/* معرض معاينة أحدث الأحذية */}
       <PreviewSection />
+      
+      {/* قسم دعوة الزبائن للشراء (Shop Now) */}
       <CTASection />
     </>
   );

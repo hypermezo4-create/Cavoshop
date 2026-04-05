@@ -2,100 +2,101 @@
 
 import { motion } from "framer-motion";
 import { 
-  Cpu, 
-  Battery, 
-  Gamepad2, 
-  Shield, 
+  Crown, 
+  Footprints, 
+  ShieldCheck, 
   Sparkles, 
-  RefreshCw,
-  Thermometer,
-  Palette,
-  Zap,
-  Settings,
-  Wifi,
-  Lock
+  Truck,
+  Box,
+  Layers,
+  HeartPulse,
+  Gem,
+  Award,
+  Search,
+  PackageCheck
 } from "lucide-react";
 
 const features = [
   {
-    icon: Cpu,
-    title: "Performance Tuned Kernel",
-    description: "Custom kernel optimizations for MediaTek chipsets delivering up to 30% better performance.",
+    icon: Crown,
+    title: "1:1 Mirror Quality",
+    description: "Every pair is an exact mirror of the original. We use the same blueprints and materials for 100% accuracy.",
   },
   {
-    icon: Thermometer,
-    title: "Advanced Thermal Control",
-    description: "Intelligent thermal management prevents overheating during intensive tasks and gaming.",
+    icon: Gem,
+    title: "Original Materials",
+    description: "From authentic Italian leather to genuine suede, we use the exact material grades used by luxury brands.",
   },
   {
-    icon: Gamepad2,
-    title: "Gaming Optimization",
-    description: "Dedicated gaming mode with performance profiles, touch optimization, and distraction-free experience.",
+    icon: HeartPulse,
+    title: "Comfort Technology",
+    description: "Our soles feature the same cushioning tech (Air, Boost, or Zoom) for maximum all-day comfort.",
   },
   {
-    icon: Battery,
-    title: "Battery Optimization",
-    description: "AI-driven power management extends battery life by up to 40% with smart background app control.",
+    icon: Layers,
+    title: "Precision Stitching",
+    description: "Hand-finished stitching with zero loose threads. Our craftsmen pay attention to the smallest details.",
+  },
+  {
+    icon: Box,
+    title: "Original Packaging",
+    description: "Receive your sneakers in the original-style box with all tags, extra laces, and accessories included.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Durability Guaranteed",
+    description: "Built to last. Our shoes undergo stress tests to ensure they maintain their shape and grip over time.",
+  },
+  {
+    icon: Search,
+    title: "UV Detail Accuracy",
+    description: "Even under UV light, our sneakers show the same hidden markings and stamps as the retail pairs.",
+  },
+  {
+    icon: Footprints,
+    title: "True to Size Fit",
+    description: "Our molds are based on original lasts, ensuring a perfect 'True to Size' (TTS) fit every time.",
+  },
+  {
+    icon: PackageCheck,
+    title: "Double Boxed Shipping",
+    description: "We protect your investment. All orders are double-boxed to ensure the original shoe box arrives mint.",
+  },
+  {
+    icon: Award,
+    title: "Expert QC Check",
+    description: "Every pair is manually inspected by our Quality Control team before being cleared for shipping.",
+  },
+  {
+    icon: Truck,
+    title: "Express Delivery",
+    description: "Fast and secure shipping lines directly from our warehouse to your doorstep in record time.",
   },
   {
     icon: Sparkles,
-    title: "Clean UI Design",
-    description: "Minimal bloatware with a modern, customizable interface. Choose from multiple themes and icon packs.",
-  },
-  {
-    icon: RefreshCw,
-    title: "OTA Update Support",
-    description: "Seamless over-the-air updates keep your device secure and up-to-date with the latest features.",
-  },
-  {
-    icon: Zap,
-    title: "Fast Boot & App Launch",
-    description: "Optimized boot sequence and app preloading for lightning-fast startup and app launches.",
-  },
-  {
-    icon: Palette,
-    title: "Customization Options",
-    description: "Extensive theming support, custom fonts, icon shapes, and accent colors to match your style.",
-  },
-  {
-    icon: Wifi,
-    title: "Network Optimization",
-    description: "Enhanced WiFi and mobile data performance with reduced latency and improved stability.",
-  },
-  {
-    icon: Shield,
-    title: "Security & Privacy",
-    description: "Regular security patches, privacy indicators, and granular permission controls.",
-  },
-  {
-    icon: Settings,
-    title: "Advanced Settings",
-    description: "Fine-tune every aspect of your device with our comprehensive settings panel.",
-  },
-  {
-    icon: Lock,
-    title: "App Locker",
-    description: "Built-in app locker with biometric authentication to protect your sensitive applications.",
+    title: "Elite Aesthetics",
+    description: "Colors, textures, and shapes that are indistinguishable from retail. Wear your pair with total confidence.",
   },
 ];
 
 export function FeaturesList() {
   return (
-    <section className="py-16">
+    <section className="py-24 bg-zinc-950">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="mb-16 text-center"
         >
-          <h2 className="text-2xl md:text-3xl font-bold font-display text-center">
-            Feature Highlights
+          <span className="text-amber-500 font-black uppercase tracking-[0.3em] text-xs mb-4 block">The Cavo Advantage</span>
+          <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter">
+            Premium <span className="text-amber-400">Craftsmanship</span>
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -105,12 +106,12 @@ export function FeaturesList() {
               transition={{ duration: 0.5, delay: index * 0.05 }}
               className="group"
             >
-              <div className="glass rounded-2xl p-6 h-full hover-lift">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-6 h-6 text-blue-400" />
+              <div className="glass rounded-[2rem] p-8 h-full bg-zinc-900/30 border border-white/5 hover:border-amber-500/30 transition-all duration-500 shadow-xl">
+                <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-amber-500/20 transition-all duration-500">
+                  <feature.icon className="w-7 h-7 text-amber-500" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <h3 className="text-xl font-black text-white uppercase mb-3 tracking-tight">{feature.title}</h3>
+                <p className="text-sm text-zinc-500 font-medium leading-relaxed">{feature.description}</p>
               </div>
             </motion.div>
           ))}

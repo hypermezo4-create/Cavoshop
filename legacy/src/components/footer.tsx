@@ -1,86 +1,86 @@
 "use client";
 
 import Link from "next/link";
-import { Zap, Github, Twitter, MessageCircle, Mail } from "lucide-react";
+import { Crown, Instagram, MessageCircle, Mail, MapPin, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const footerLinks = {
-  product: [
-    { label: "Features", href: "/features" },
-    { label: "Download", href: "/download" },
-    { label: "Changelog", href: "#" },
-    { label: "Roadmap", href: "#" },
+  shop: [
+    { label: "New Arrivals", href: "/shop" },
+    { label: "Best Sellers", href: "/shop" },
+    { label: "Mirror Quality Guide", href: "/features" },
+    { label: "All Collection", href: "/shop" },
   ],
-  community: [
-    { label: "Team", href: "/team" },
-    { label: "Contributors", href: "#" },
-    { label: "Testers", href: "#" },
+  brand: [
+    { label: "Our Story", href: "/about" },
+    { label: "Our Team", href: "/about" },
+    { label: "Wholesale", href: "#" },
   ],
   support: [
-    { label: "Documentation", href: "#" },
-    { label: "Installation", href: "#" },
-    { label: "FAQ", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Order Tracking", href: "#" },
+    { label: "Shipping Policy", href: "#" },
+    { label: "Returns & Exchanges", href: "#" },
+    { label: "Contact Us", href: "#" },
   ],
   legal: [
     { label: "Privacy Policy", href: "#" },
     { label: "Terms of Service", href: "#" },
-    { label: "License", href: "#" },
+    { label: "Cookie Policy", href: "#" },
   ],
 };
 
 const socialLinks = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: MessageCircle, href: "#", label: "Telegram" },
+  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: MessageCircle, href: "#", label: "WhatsApp" },
+  { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Mail, href: "#", label: "Email" },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-background/50 backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
-          {/* Brand */}
+    <footer className="border-t border-white/5 bg-zinc-950 backdrop-blur-md">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-12">
+          {/* Brand Section */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white" />
+            <Link href="/" className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                <Crown className="w-6 h-6 text-black" />
               </div>
               <div>
-                <span className="font-display font-bold">Project Move</span>
-                <p className="text-xs text-muted-foreground">MoveOS</p>
+                <span className="text-2xl font-black text-white uppercase tracking-tighter">CAVO</span>
+                <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] -mt-1">Premium Store</p>
               </div>
             </Link>
-            <p className="text-sm text-muted-foreground mb-6 max-w-xs">
-              Performance Beyond Limits. Custom Android ROM optimized for MediaTek Xiaomi/Redmi/Poco devices.
+            <p className="text-sm text-zinc-500 mb-8 max-w-xs font-medium leading-relaxed">
+              The ultimate destination for 1:1 mirror quality sneakers. We bring the world's most exclusive footwear directly to your doorstep.
             </p>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {socialLinks.map((social) => (
                 <Button
                   key={social.label}
                   variant="ghost"
                   size="icon"
-                  className="h-9 w-9 rounded-lg"
+                  className="h-10 w-10 rounded-xl bg-white/5 hover:bg-amber-500 hover:text-black transition-all"
                   asChild
                 >
                   <Link href={social.href} target="_blank" rel="noopener noreferrer">
-                    <social.icon className="w-4 h-4" />
+                    <social.icon className="w-5 h-5" />
                   </Link>
                 </Button>
               ))}
             </div>
           </div>
 
-          {/* Links */}
+          {/* Links Columns */}
           <div>
-            <h4 className="font-semibold mb-4 text-sm">Product</h4>
-            <ul className="space-y-2">
-              {footerLinks.product.map((link) => (
+            <h4 className="font-black text-white uppercase text-xs tracking-widest mb-6">Shop</h4>
+            <ul className="space-y-3">
+              {footerLinks.shop.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-zinc-500 hover:text-amber-400 font-medium transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -90,13 +90,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm">Community</h4>
-            <ul className="space-y-2">
-              {footerLinks.community.map((link) => (
+            <h4 className="font-black text-white uppercase text-xs tracking-widest mb-6">Brand</h4>
+            <ul className="space-y-3">
+              {footerLinks.brand.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-zinc-500 hover:text-amber-400 font-medium transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -106,13 +106,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm">Support</h4>
-            <ul className="space-y-2">
+            <h4 className="font-black text-white uppercase text-xs tracking-widest mb-6">Support</h4>
+            <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-zinc-500 hover:text-amber-400 font-medium transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -122,13 +122,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm">Legal</h4>
-            <ul className="space-y-2">
+            <h4 className="font-black text-white uppercase text-xs tracking-widest mb-6">Legal</h4>
+            <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-zinc-500 hover:text-amber-400 font-medium transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -138,14 +138,20 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Project Move. All rights reserved.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Made with passion for the Android community
-          </p>
+        {/* Bottom Section */}
+        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+          <div className="flex flex-col gap-1">
+            <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">
+              &copy; {new Date().getFullYear()} CAVO PREMIUM STORE.
+            </p>
+            <p className="text-[10px] text-zinc-600 font-bold uppercase">
+              All rights reserved. Designed for the elite.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 text-zinc-500">
+             <MapPin className="w-3 h-3 text-amber-500" />
+             <span className="text-[10px] font-black uppercase tracking-widest">Available in Cairo & Worldwide</span>
+          </div>
         </div>
       </div>
     </footer>
