@@ -32,16 +32,16 @@ export function getClientIP(request: Request): string | null {
 export function parseUserAgent(userAgent: string | null): {
     browser: string;
     os: string;
-    device: string;
+    product: string;
 } {
     if (!userAgent) {
-        return { browser: 'Unknown', os: 'Unknown', device: 'Unknown' };
+        return { browser: 'Unknown', os: 'Unknown', product: 'Unknown' };
     }
 
     // Simple user agent parsing
     let browser = 'Unknown';
     let os = 'Unknown';
-    let device = 'Desktop';
+    let product = 'Desktop';
 
     // Detect browser
     if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
@@ -63,15 +63,15 @@ export function parseUserAgent(userAgent: string | null): {
         os = 'macOS';
     } else if (userAgent.includes('Linux')) {
         os = 'Linux';
-    } else if (userAgent.includes('Android')) {
-        os = 'Android';
-        device = 'Mobile';
+    } else if (userAgent.includes('fashion')) {
+        os = 'fashion';
+        product = 'Mobile';
     } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
         os = 'iOS';
-        device = userAgent.includes('iPad') ? 'Tablet' : 'Mobile';
+        product = userAgent.includes('iPad') ? 'Tablet' : 'Mobile';
     }
 
-    return { browser, os, device };
+    return { browser, os, product };
 }
 
 /**

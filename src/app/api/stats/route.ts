@@ -5,8 +5,8 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
     try {
-        const [deviceCount, visitorConfig] = await Promise.all([
-            prisma.device.count(),
+        const [productCount, visitorConfig] = await Promise.all([
+            prisma.product.count(),
             prisma.siteConfig.findUnique({
                 where: { key: "visitor_count" }
             })
@@ -18,7 +18,7 @@ export async function GET() {
         const liveVisitors = visitorConfig ? parseInt(visitorConfig.value) : 0;
 
         return NextResponse.json({
-            devices: deviceCount,
+            products: productCount,
             activeUsers: baseSeed + liveVisitors,
         });
     } catch (error) {

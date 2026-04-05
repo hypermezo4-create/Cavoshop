@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// GET /api/roms/[id] - Get a specific ROM
+// GET /api/collections/[id] - Get a specific Collection
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -10,31 +10,31 @@ export async function GET(
     const rom = await prisma.rom.findUnique({
       where: { id: params.id },
       include: {
-        device: true,
+        product: true,
         _count: {
-          select: { downloads: true },
+          select: { orders: true },
         },
       },
     });
 
     if (!rom) {
       return NextResponse.json(
-        { success: false, error: "ROM not found" },
+        { success: false, error: "Collection not found" },
         { status: 404 }
       );
     }
 
     return NextResponse.json({ success: true, data: rom });
   } catch (error) {
-    console.error("Error fetching ROM:", error);
+    console.error("Error fetching Collection:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch ROM" },
+      { success: false, error: "Failed to fetch Collection" },
       { status: 500 }
     );
   }
 }
 
-// PUT /api/roms/[id] - Update a ROM
+// PUT /api/collections/[id] - Update a Collection
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -46,11 +46,11 @@ export async function PUT(
       version,
       androidVersion,
       type,
-      downloadUrl,
+      orderUrl,
       fileSize,
       changelog,
       releaseDate,
-      screenshots,
+      gallery,
       installationGuide,
       status,
       isVipOnly,
@@ -63,11 +63,11 @@ export async function PUT(
         version,
         androidVersion,
         type: type?.toUpperCase(),
-        downloadUrl,
+        orderUrl,
         fileSize,
         changelog,
         releaseDate: releaseDate ? new Date(releaseDate) : undefined,
-        screenshots,
+        gallery,
         installationGuide,
         status: status?.toUpperCase(),
         isVipOnly,
@@ -76,15 +76,15 @@ export async function PUT(
 
     return NextResponse.json({ success: true, data: rom });
   } catch (error) {
-    console.error("Error updating ROM:", error);
+    console.error("Error updating Collection:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to update ROM" },
+      { success: false, error: "Failed to update Collection" },
       { status: 500 }
     );
   }
 }
 
-// DELETE /api/roms/[id] - Delete a ROM
+// DELETE /api/collections/[id] - Delete a Collection
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -95,13 +95,13 @@ export async function DELETE(
     });
 
     return NextResponse.json(
-      { success: true, message: "ROM deleted successfully" },
+      { success: true, message: "Collection deleted successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error deleting ROM:", error);
+    console.error("Error deleting Collection:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to delete ROM" },
+      { success: false, error: "Failed to delete Collection" },
       { status: 500 }
     );
   }

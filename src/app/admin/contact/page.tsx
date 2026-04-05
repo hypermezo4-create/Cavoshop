@@ -51,16 +51,16 @@ export default function AdminContactPage() {
             {/* Header */}
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <div className="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
+                    <div className="flex items-center gap-2 text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
                         <MessageSquare className="w-3 h-3" />
                         Inbound Intelligence
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">Support Inbox</h1>
-                    <p className="text-zinc-500 text-sm font-medium mt-1">Manage user queries, bug reports, and feature requests.</p>
+                    <p className="text-zinc-500 text-sm font-medium mt-1">Manage customer messages, order questions, and sizing requests.</p>
                 </div>
                 <div className="flex items-center gap-4 px-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem]">
                     <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Unresolved:</span>
-                    <span className="text-sm font-black text-indigo-400">{submissions.filter(s => s.status === 'new').length}</span>
+                    <span className="text-sm font-black text-amber-400">{submissions.filter(s => s.status === 'new').length}</span>
                 </div>
             </header>
 
@@ -78,7 +78,7 @@ export default function AdminContactPage() {
                                 className={cn(
                                     "px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border",
                                     filter === status
-                                        ? "bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/20"
+                                        ? "bg-amber-600 border-amber-500 text-white shadow-lg shadow-amber-600/20"
                                         : "bg-white/[0.03] border-white/[0.05] text-zinc-500 hover:text-white hover:bg-white/[0.05]"
                                 )}
                             >
@@ -92,14 +92,14 @@ export default function AdminContactPage() {
                         <Terminal className="w-3 h-3" /> Payload Type
                     </label>
                     <div className="flex flex-wrap gap-2">
-                        {["all", "bug", "feature", "general"].map((type) => (
+                        {["all", "order", "size", "general"].map((type) => (
                             <button
                                 key={type}
                                 onClick={() => setTypeFilter(type)}
                                 className={cn(
                                     "px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border",
                                     typeFilter === type
-                                        ? "bg-violet-600 border-violet-500 text-white shadow-lg shadow-violet-600/20"
+                                        ? "bg-orange-600 border-orange-500 text-white shadow-lg shadow-orange-600/20"
                                         : "bg-white/[0.03] border-white/[0.05] text-zinc-500 hover:text-white hover:bg-white/[0.05]"
                                 )}
                             >
@@ -138,7 +138,7 @@ export default function AdminContactPage() {
                                 <tr key={sub.id} className="hover:bg-white/[0.02] transition-colors group">
                                     <td className="px-8 py-6">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-black">
+                                            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-black">
                                                 {sub.name[0]}
                                             </div>
                                             <span className="font-bold text-white whitespace-nowrap">{sub.name}</span>
@@ -148,9 +148,9 @@ export default function AdminContactPage() {
                                     <td className="px-8 py-6 text-center">
                                         <span className={cn(
                                             "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border",
-                                            sub.type === "bug" ? "bg-red-500/10 text-red-500 border-red-500/20" :
-                                                sub.type === "feature" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" :
-                                                    "bg-indigo-500/10 text-indigo-400 border-indigo-500/20"
+                                            sub.type === "order" ? "bg-red-500/10 text-red-500 border-red-500/20" :
+                                                sub.type === "size" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" :
+                                                    "bg-amber-500/10 text-amber-400 border-amber-500/20"
                                         )}>
                                             {sub.type}
                                         </span>
@@ -161,12 +161,12 @@ export default function AdminContactPage() {
                                             <span className={cn(
                                                 "w-2 h-2 rounded-full",
                                                 sub.status === "new" ? "bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.5)]" :
-                                                    sub.status === "read" ? "bg-indigo-500" : "bg-emerald-500"
+                                                    sub.status === "read" ? "bg-amber-500" : "bg-emerald-500"
                                             )} />
                                             <select
                                                 value={sub.status}
                                                 onChange={(e) => handleUpdateStatus(sub.id, e.target.value)}
-                                                className="bg-white/[0.03] border border-white/[0.05] rounded-xl px-3 py-2 text-xs font-black text-zinc-400 focus:outline-none focus:border-indigo-500/50 appearance-none cursor-pointer hover:text-white transition-colors"
+                                                className="bg-white/[0.03] border border-white/[0.05] rounded-xl px-3 py-2 text-xs font-black text-zinc-400 focus:outline-none focus:border-amber-500/50 appearance-none cursor-pointer hover:text-white transition-colors"
                                             >
                                                 <option value="new" className="bg-[#030406]">NEW</option>
                                                 <option value="read" className="bg-[#030406]">READ</option>
@@ -191,7 +191,7 @@ export default function AdminContactPage() {
                             <div key={sub.id} className="p-8 space-y-6 group">
                                 <div className="flex justify-between items-start gap-4">
                                     <div className="flex items-center gap-4 min-w-0">
-                                        <div className="w-12 h-12 rounded-2xl bg-indigo-600/10 border border-indigo-600/20 flex items-center justify-center text-indigo-400 font-black text-xl">
+                                        <div className="w-12 h-12 rounded-2xl bg-amber-600/10 border border-amber-600/20 flex items-center justify-center text-amber-400 font-black text-xl">
                                             {sub.name[0]}
                                         </div>
                                         <div className="min-w-0">
@@ -201,9 +201,9 @@ export default function AdminContactPage() {
                                     </div>
                                     <span className={cn(
                                         "px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border shrink-0",
-                                        sub.type === "bug" ? "bg-red-500/10 text-red-500 border-red-500/20" :
-                                            sub.type === "feature" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" :
-                                                "bg-indigo-500/10 text-indigo-400 border-indigo-500/20"
+                                        sub.type === "order" ? "bg-red-500/10 text-red-500 border-red-500/20" :
+                                            sub.type === "size" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" :
+                                                "bg-amber-500/10 text-amber-400 border-amber-500/20"
                                     )}>
                                         {sub.type}
                                     </span>
@@ -222,7 +222,7 @@ export default function AdminContactPage() {
                                     <select
                                         value={sub.status}
                                         onChange={(e) => handleUpdateStatus(sub.id, e.target.value)}
-                                        className="bg-indigo-600/10 border border-indigo-500/20 rounded-xl px-4 py-2 text-[10px] font-black text-indigo-400 focus:outline-none appearance-none cursor-pointer"
+                                        className="bg-amber-600/10 border border-amber-500/20 rounded-xl px-4 py-2 text-[10px] font-black text-amber-400 focus:outline-none appearance-none cursor-pointer"
                                     >
                                         <option value="new">MARK NEW</option>
                                         <option value="read">MARK READ</option>

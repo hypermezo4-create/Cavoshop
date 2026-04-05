@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// GET /api/downloads - Get download statistics
+// GET /api/orders - Get order statistics
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const romId = searchParams.get("romId");
     const days = parseInt(searchParams.get("days") || "7");
 
-    // Get total downloads
-    const totalDownloads = await prisma.download.count();
+    // Get total orders
+    const totalOrders = await prisma.order.count();
 
-    // Get downloads per day
+    // Get orders per day
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 
-    const downloadsPerDay = await prisma.download.groupBy({
+    const ordersPerDay = await prisma.order.groupBy({
       by: ["timestamp"],
       where: {
         timestamp: {
@@ -28,18 +28,18 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    // Get downloads per ROM
-    const downloadsPerRom = await prisma.rom.findMany({
+    // Get orders per Collection
+    const ordersPerRom = await prisma.rom.findMany({
       select: {
         id: true,
         name: true,
         version: true,
         _count: {
-          select: { downloads: true },
+          select: { orders: true },
         },
       },
       orderBy: {
-        downloads: {
+        orders: {
           _count: "desc",
         },
       },
@@ -49,21 +49,21 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: {
-        totalDownloads,
-        downloadsPerDay,
-        downloadsPerRom,
+        totalOrders,
+        ordersPerDay,
+        ordersPerRom,
       },
     });
   } catch (error) {
-    console.error("Error fetching download stats:", error);
+    console.error("Error fetching order stats:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch download statistics" },
+      { success: false, error: "Failed to fetch order statistics" },
       { status: 500 }
     );
   }
 }
 
-// POST /api/downloads - Record a new download
+// POST /api/orders - Record a new order
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 
     if (!romId) {
       return NextResponse.json(
-        { success: false, error: "ROM ID is required" },
+        { success: false, error: "Collection ID is required" },
         { status: 400 }
       );
     }
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
     const ip = request.headers.get("x-forwarded-for") || request.ip || "unknown";
     const userAgent = request.headers.get("user-agent") || "unknown";
 
-    const download = await prisma.download.create({
+    const order = await prisma.order.create({
       data: {
         romId,
         ip: ip.split(",")[0].trim(),
@@ -89,13 +89,13 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(
-      { success: true, data: download },
+      { success: true, data: order },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error recording download:", error);
+    console.error("Error recording order:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to record download" },
+      { success: false, error: "Failed to record order" },
       { status: 500 }
     );
   }

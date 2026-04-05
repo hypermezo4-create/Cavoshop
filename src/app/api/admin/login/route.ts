@@ -5,7 +5,7 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { email, password } = body;
 
-        const ADMIN_EMAIL = "mohamedmezo@projectmove.co";
+        const ADMIN_EMAIL = "admin@cavostore.com";
         const ADMIN_PASSWORD = "Mohamed0931#";
 
         if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {

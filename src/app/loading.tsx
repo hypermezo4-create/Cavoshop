@@ -9,8 +9,8 @@ export default function Loading() {
             {/* Background elements to match the site theme */}
             <div className="absolute inset-0 bg-mesh opacity-50" />
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full animate-pulse" />
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600/10 blur-[120px] rounded-full animate-pulse delay-700" />
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-600/10 blur-[120px] rounded-full animate-pulse" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-600/10 blur-[120px] rounded-full animate-pulse delay-700" />
             </div>
 
             <div className="relative z-10 flex flex-col items-center">
@@ -23,7 +23,7 @@ export default function Loading() {
                         repeatType: "reverse",
                         ease: "easeInOut"
                     }}
-                    className="w-24 h-24 bg-gradient-to-br from-blue-500 to-violet-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-500/20 mb-8"
+                    className="w-24 h-24 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-yellow-500/20 mb-8"
                 >
                     <Zap className="text-white w-12 h-12" />
                 </motion.div>
@@ -35,7 +35,7 @@ export default function Loading() {
                     className="flex flex-col items-center gap-2"
                 >
                     <h2 className="text-2xl font-black text-white tracking-tight">
-                        Project<span className="text-blue-500">Move</span>
+                        Project<span className="text-yellow-500">Move</span>
                     </h2>
                     <div className="flex gap-1.5">
                         {[0, 1, 2].map((i) => (
@@ -51,7 +51,7 @@ export default function Loading() {
                                     delay: i * 0.2,
                                     ease: "easeInOut"
                                 }}
-                                className="w-1.5 h-1.5 rounded-full bg-blue-500"
+                                className="w-1.5 h-1.5 rounded-full bg-yellow-500"
                             />
                         ))}
                     </div>

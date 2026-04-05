@@ -10,7 +10,7 @@ import { Image as ImageIcon, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function GalleryPage() {
-    const [screenshots, setScreenshots] = useState<any[]>([]);
+    const [gallery, setGallery] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [lightboxImage, setLightboxImage] = useState<any>(null);
@@ -19,16 +19,16 @@ export default function GalleryPage() {
         fetch("/api/screenshots")
             .then(res => res.json())
             .then(data => {
-                setScreenshots(Array.isArray(data) ? data : []);
+                setGallery(Array.isArray(data) ? data : []);
                 setLoading(false);
             })
             .catch(() => setLoading(false));
     }, []);
 
-    const categories = ["All", ...Array.from(new Set(screenshots.map(s => s.category).filter(Boolean)))];
-    const filteredScreenshots = selectedCategory === "All"
-        ? screenshots
-        : screenshots.filter(s => s.category === selectedCategory);
+    const categories = ["All", ...Array.from(new Set(gallery.map(s => s.category).filter(Boolean)))];
+    const filteredGallery = selectedCategory === "All"
+        ? gallery
+        : gallery.filter(s => s.category === selectedCategory);
 
     return (
         <main className="min-h-screen relative">
@@ -40,9 +40,9 @@ export default function GalleryPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6"
                     >
-                        <ImageIcon className="w-3.5 h-3.5" /> Screenshots
+                        <ImageIcon className="w-3.5 h-3.5" /> Gallery
                     </motion.div>
 
                     <motion.h1
@@ -50,7 +50,7 @@ export default function GalleryPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-white"
                     >
-                        Gallery <span className="text-blue-500">Showcase</span>
+                        Gallery <span className="text-yellow-500">Showcase</span>
                     </motion.h1>
 
                     <motion.p
@@ -59,7 +59,7 @@ export default function GalleryPage() {
                         transition={{ delay: 0.1 }}
                         className="text-zinc-400 text-lg mb-12 leading-relaxed"
                     >
-                        Explore MoveOS UI and features through screenshots.
+                        Explore Cavo UI and features through gallery.
                     </motion.p>
 
                     {/* Category Filter */}
@@ -69,7 +69,7 @@ export default function GalleryPage() {
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-5 py-2.5 rounded-full font-semibold text-sm transition-all ${selectedCategory === cat
-                                        ? "bg-gradient-to-r from-blue-500 to-violet-600 text-white shadow-lg shadow-blue-500/20"
+                                        ? "bg-gradient-to-r from-yellow-500 to-orange-600 text-white shadow-lg shadow-yellow-500/20"
                                         : "bg-white/5 hover:bg-white/10 text-zinc-400 border border-white/10"
                                     }`}
                             >
@@ -81,15 +81,15 @@ export default function GalleryPage() {
                     {/* Gallery Grid */}
                     {loading ? (
                         <div className="text-center py-20">
-                            <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+                            <div className="animate-spin w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full mx-auto"></div>
                         </div>
-                    ) : filteredScreenshots.length === 0 ? (
+                    ) : filteredGallery.length === 0 ? (
                         <div className="text-center py-20">
-                            <p className="text-zinc-500">No screenshots available.</p>
+                            <p className="text-zinc-500">No gallery available.</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {filteredScreenshots.map((screenshot, i) => (
+                            {filteredGallery.map((screenshot, i) => (
                                 <motion.div
                                     key={screenshot.id}
                                     initial={{ opacity: 0, y: 20 }}
@@ -108,7 +108,7 @@ export default function GalleryPage() {
                                     </div>
                                     <div className="p-6">
                                         {screenshot.category && (
-                                            <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase tracking-wider border border-blue-500/20 mb-3 inline-block">
+                                            <span className="px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 text-[10px] font-bold uppercase tracking-wider border border-yellow-500/20 mb-3 inline-block">
                                                 {screenshot.category}
                                             </span>
                                         )}

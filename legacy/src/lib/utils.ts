@@ -38,7 +38,7 @@ export function getBrandColor(brand: string): string {
     REDMI: 'bg-red-500',
     POCO: 'bg-yellow-500',
   };
-  return colors[brand] || 'bg-blue-500';
+  return colors[brand] || 'bg-yellow-500';
 }
 
 export function getStatusColor(status: string): string {
@@ -52,8 +52,8 @@ export function getStatusColor(status: string): string {
 
 export function getRoleColor(role: string): string {
   const colors: Record<string, string> = {
-    LEADER: 'bg-purple-500',
-    DEVELOPER: 'bg-blue-500',
+    LEADER: 'bg-orange-500',
+    DEVELOPER: 'bg-yellow-500',
     TESTER: 'bg-green-500',
     CONTRIBUTOR: 'bg-orange-500',
     DESIGNER: 'bg-pink-500',

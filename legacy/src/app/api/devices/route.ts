@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// GET /api/devices - List all devices
+// GET /api/products - List all products
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -26,10 +26,10 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    const devices = await prisma.device.findMany({
+    const products = await prisma.product.findMany({
       where,
       include: {
-        roms: {
+        collections: {
           where: { status: "ACTIVE" },
           orderBy: { releaseDate: "desc" },
           take: 1,
@@ -38,17 +38,17 @@ export async function GET(request: NextRequest) {
       orderBy: { name: "asc" },
     });
 
-    return NextResponse.json({ success: true, data: devices });
+    return NextResponse.json({ success: true, data: products });
   } catch (error) {
-    console.error("Error fetching devices:", error);
+    console.error("Error fetching products:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch devices" },
+      { success: false, error: "Failed to fetch products" },
       { status: 500 }
     );
   }
 }
 
-// POST /api/devices - Create a new device
+// POST /api/products - Create a new product
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -63,18 +63,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if codename already exists
-    const existingDevice = await prisma.device.findUnique({
+    const existingProduct = await prisma.product.findUnique({
       where: { codename },
     });
 
-    if (existingDevice) {
+    if (existingProduct) {
       return NextResponse.json(
-        { success: false, error: "Device with this codename already exists" },
+        { success: false, error: "Product with this codename already exists" },
         { status: 409 }
       );
     }
 
-    const device = await prisma.device.create({
+    const product = await prisma.product.create({
       data: {
         name,
         codename,
@@ -87,13 +87,13 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(
-      { success: true, data: device },
+      { success: true, data: product },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating device:", error);
+    console.error("Error creating product:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to create device" },
+      { success: false, error: "Failed to create product" },
       { status: 500 }
     );
   }

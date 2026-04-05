@@ -3,51 +3,41 @@ import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+type OrderPoint = { orderedAt: Date };
+
 export async function GET() {
-    try {
-        // Get downloads for last 30 days with daily breakdown
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  try {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-        const downloads = await prisma.download.findMany({
-            where: {
-                downloadedAt: {
-                    gte: thirtyDaysAgo,
-                },
-            },
-            select: {
-                downloadedAt: true,
-            },
-            orderBy: {
-                downloadedAt: 'asc',
-            },
-        });
+    const orders = await prisma.order.findMany({
+      where: { orderedAt: { gte: thirtyDaysAgo } },
+      select: { orderedAt: true },
+      orderBy: { orderedAt: 'asc' },
+    });
 
-        // Group downloads by date
-        const downloadsByDate: { [key: string]: number } = {};
+    const ordersByDate: Record<string, number> = {};
+    (orders as OrderPoint[]).forEach((order) => {
+      const date = order.orderedAt.toISOString().split('T')[0];
+      ordersByDate[date] = (ordersByDate[date] || 0) + 1;
+    });
 
-        downloads.forEach((download) => {
-            const date = download.downloadedAt.toISOString().split('T')[0];
-            downloadsByDate[date] = (downloadsByDate[date] || 0) + 1;
-        });
+    const chartData: Array<{ date: string; count: number; label: string }> = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toISOString().split('T')[0];
 
-        // Create array of last 30 days with counts (fill missing days with 0)
-        const chartData = [];
-        for (let i = 29; i >= 0; i--) {
-            const date = new Date();
-            date.setDate(date.getDate() - i);
-            const dateStr = date.toISOString().split('T')[0];
-
-            chartData.push({
-                date: dateStr,
-                count: downloadsByDate[dateStr] || 0,
-                label: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-            });
-        }
-
-        return NextResponse.json({ data: chartData });
-    } catch (error) {
-        console.error("Download trends fetch failed:", error);
-        return NextResponse.json({ error: "Failed to fetch download trends" }, { status: 500 });
+      chartData.push({
+        date: dateStr,
+        count: ordersByDate[dateStr] || 0,
+        label: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      });
     }
+
+    return NextResponse.json({ data: chartData });
+  } catch (error) {
+    console.error("Order trends fetch failed:", error);
+    return NextResponse.json({ error: "Failed to fetch order trends" }, { status: 500 });
+  }
 }

@@ -12,40 +12,40 @@ export async function GET() {
         startOfWeek.setDate(now.getDate() - 7);
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-        // Total downloads
-        const totalDownloads = await prisma.download.count();
+        // Total orders
+        const totalOrders = await prisma.order.count();
 
-        // Downloads today
-        const downloadsToday = await prisma.download.count({
+        // Orders today
+        const ordersToday = await prisma.order.count({
             where: {
-                downloadedAt: {
+                orderedAt: {
                     gte: startOfToday,
                 },
             },
         });
 
-        // Downloads this week
-        const downloadsThisWeek = await prisma.download.count({
+        // Orders this week
+        const ordersThisWeek = await prisma.order.count({
             where: {
-                downloadedAt: {
+                orderedAt: {
                     gte: startOfWeek,
                 },
             },
         });
 
-        // Downloads this month
-        const downloadsThisMonth = await prisma.download.count({
+        // Orders this month
+        const ordersThisMonth = await prisma.order.count({
             where: {
-                downloadedAt: {
+                orderedAt: {
                     gte: startOfMonth,
                 },
             },
         });
 
-        // Active devices (devices with at least one download)
-        const activeDevices = await prisma.device.count({
+        // Active products (products with at least one order)
+        const activeProducts = await prisma.product.count({
             where: {
-                downloads: {
+                orders: {
                     some: {},
                 },
             },
@@ -55,25 +55,25 @@ export async function GET() {
         const yesterday = new Date(startOfToday);
         yesterday.setDate(yesterday.getDate() - 1);
 
-        const downloadsYesterday = await prisma.download.count({
+        const ordersYesterday = await prisma.order.count({
             where: {
-                downloadedAt: {
+                orderedAt: {
                     gte: yesterday,
                     lt: startOfToday,
                 },
             },
         });
 
-        const todayGrowth = downloadsYesterday > 0
-            ? ((downloadsToday - downloadsYesterday) / downloadsYesterday) * 100
+        const todayGrowth = ordersYesterday > 0
+            ? ((ordersToday - ordersYesterday) / ordersYesterday) * 100
             : 0;
 
         return NextResponse.json({
-            totalDownloads,
-            downloadsToday,
-            downloadsThisWeek,
-            downloadsThisMonth,
-            activeDevices,
+            totalOrders,
+            ordersToday,
+            ordersThisWeek,
+            ordersThisMonth,
+            activeProducts,
             growth: {
                 today: Math.round(todayGrowth * 10) / 10, // Round to 1 decimal
             },

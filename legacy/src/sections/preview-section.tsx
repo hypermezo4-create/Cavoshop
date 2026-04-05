@@ -15,7 +15,7 @@ const shoePreviews = [
     id: 1,
     title: "LV Trainer Blue",
     description: "Premium calf leather with signature monogram embossing.",
-    color: "from-blue-600/40 to-zinc-900/40",
+    color: "from-yellow-600/40 to-zinc-900/40",
   },
   {
     id: 2,

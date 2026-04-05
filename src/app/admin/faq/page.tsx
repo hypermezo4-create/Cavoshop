@@ -82,7 +82,7 @@ export default function AdminFaqPage() {
             {/* Header */}
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <div className="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
+                    <div className="flex items-center gap-2 text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
                         <MessageSquare className="w-3 h-3" />
                         Knowledge Base
                     </div>
@@ -91,7 +91,7 @@ export default function AdminFaqPage() {
                 </div>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all shadow-2xl shadow-indigo-600/20 active:scale-95 group"
+                    className="flex items-center gap-3 px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all shadow-2xl shadow-amber-600/20 active:scale-95 group"
                 >
                     <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" /> Add FAQ Entry
                 </button>
@@ -100,18 +100,18 @@ export default function AdminFaqPage() {
             {/* Search & Filter Bar */}
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1 group">
-                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-indigo-400 transition-colors w-4 h-4" />
+                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-amber-400 transition-colors w-4 h-4" />
                     <input
                         type="text"
                         placeholder="Search questions or categories..."
-                        className="w-full pl-14 pr-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                        className="w-full pl-14 pr-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all font-medium"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
                 <div className="flex items-center gap-4 px-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem]">
-                    <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Active nodes:</span>
-                    <span className="text-sm font-black text-indigo-400">{filteredFaqs.length}</span>
+                    <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Total images:</span>
+                    <span className="text-sm font-black text-amber-400">{filteredFaqs.length}</span>
                 </div>
             </div>
 
@@ -134,11 +134,11 @@ export default function AdminFaqPage() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: i * 0.05 }}
-                            className="glass-premium rounded-[2.5rem] p-7 group hover:border-indigo-500/30 transition-all relative overflow-hidden flex flex-col justify-between"
+                            className="glass-premium rounded-[2.5rem] p-7 group hover:border-amber-500/30 transition-all relative overflow-hidden flex flex-col justify-between"
                         >
                             <div className="relative z-10 space-y-5">
                                 <div className="flex justify-between items-start">
-                                    <span className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                                    <span className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20">
                                         {faq.category}
                                     </span>
                                     <div className="flex gap-2">
@@ -167,7 +167,7 @@ export default function AdminFaqPage() {
                                 </div>
 
                                 <div>
-                                    <h3 className="text-xl font-black text-white tracking-tight mb-3 group-hover:text-indigo-400 transition-colors line-clamp-2">{faq.question}</h3>
+                                    <h3 className="text-xl font-black text-white tracking-tight mb-3 group-hover:text-amber-400 transition-colors line-clamp-2">{faq.question}</h3>
                                     <p className="text-zinc-500 text-sm font-medium line-clamp-3 leading-relaxed">
                                         {faq.answer}
                                     </p>
@@ -178,7 +178,7 @@ export default function AdminFaqPage() {
                                 <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">
                                     Sequence Index: {faq.order}
                                 </div>
-                                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full group-hover:scale-150 transition-transform shadow-lg shadow-indigo-500/50" />
+                                <div className="w-1.5 h-1.5 bg-amber-500 rounded-full group-hover:scale-150 transition-transform shadow-lg shadow-amber-500/50" />
                             </div>
                         </motion.div>
                     ))
@@ -204,7 +204,7 @@ export default function AdminFaqPage() {
                         >
                             <div className="flex justify-between items-start mb-10">
                                 <div>
-                                    <div className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.4em] mb-2 flex items-center gap-2">
+                                    <div className="text-[10px] font-black text-amber-500 uppercase tracking-[0.4em] mb-2 flex items-center gap-2">
                                         <Shield className="w-3 h-3" /> Entry Protocol v1.4
                                     </div>
                                     <h2 className="text-3xl font-black text-white tracking-tighter">{editingId ? "Modify FAQ" : "Register FAQ"}</h2>
@@ -219,46 +219,46 @@ export default function AdminFaqPage() {
 
                             <form onSubmit={handleSubmit} className="space-y-8">
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Question Ingress</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Question Ingress</label>
                                     <input
                                         required
                                         value={formData.question}
                                         onChange={e => setFormData({ ...formData, question: e.target.value })}
                                         placeholder="Type the inquiry designation..."
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold placeholder:text-zinc-800"
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold placeholder:text-zinc-800"
                                     />
                                 </div>
 
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Knowledge Payload</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Knowledge Payload</label>
                                     <textarea
                                         required
                                         rows={4}
                                         value={formData.answer}
                                         onChange={e => setFormData({ ...formData, answer: e.target.value })}
                                         placeholder="Define the official system response..."
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] px-6 py-5 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium resize-none placeholder:text-zinc-800"
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] px-6 py-5 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium resize-none placeholder:text-zinc-800"
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Category Tag</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Category Tag</label>
                                         <input
                                             required
                                             value={formData.category}
                                             onChange={e => setFormData({ ...formData, category: e.target.value })}
                                             placeholder="e.g. CORE"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-black uppercase tracking-widest"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-black uppercase tracking-widest"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Sequence Vector</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Sequence Vector</label>
                                         <input
                                             type="number"
                                             value={formData.order}
                                             onChange={e => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-mono font-bold"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-mono font-bold"
                                         />
                                     </div>
                                 </div>
@@ -266,7 +266,7 @@ export default function AdminFaqPage() {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full py-6 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 disabled:from-zinc-800 disabled:to-zinc-900 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] transition-all shadow-xl shadow-indigo-600/20 active:scale-95 flex items-center justify-center gap-4"
+                                    className="w-full py-6 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 disabled:from-zinc-800 disabled:to-zinc-900 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] transition-all shadow-xl shadow-amber-600/20 active:scale-95 flex items-center justify-center gap-4"
                                 >
                                     {isSubmitting ? (
                                         <Loader2 className="w-5 h-5 animate-spin" />

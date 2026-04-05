@@ -1,23 +1,23 @@
-# ProjectMove Website Features
+# Cavo Store Website Features
 
 ## 🌟 Public Features
 
 ### 1. **Homepage**
 - Premium hero section with **dynamic broadcast alerts**
 - High-impact feature highlights with hover animations
-- **Dynamic Statistics**: Live counters for Active Users (50K+) and Device Count
+- **Dynamic Statistics**: Live counters for Active Users (50K+) and Product Count
 - Instant synchronization (No more stale data)
 
 ### 2. **Features Page**
-- Comprehensive list of MoveOS features
+- Comprehensive list of Cavo features
 - Interactive feature cards
 - Visual demonstrations
 - Premium UI with animations
 
-### 3. **Download Center**
-- Device selection interface
-- ROM version browsing
-- Direct download links
+### 3. **Order Center**
+- Product selection interface
+- Collection version browsing
+- Direct order links
 - Build information (date, size, changelog)
 - Archive access for older versions
 
@@ -26,7 +26,7 @@
 - Requirements checklist
 - Troubleshooting section
 - Warning disclaimers
-- Device-specific notes
+- Product-specific notes
 
 ### 5. **FAQ System**
 - Dynamic FAQ content from database
@@ -44,7 +44,7 @@
 - Success feedback
 - Direct submission to admin panel
 
-### 7. **Screenshots Gallery**
+### 7. **Gallery Gallery**
 - Responsive image grid
 - Category filtering
 - Lightbox view for full-size images
@@ -53,12 +53,12 @@
 
 ### 8. **Community Page**
 - Dynamic social media links
-- Platform icons (GitHub, Telegram, Discord, Twitter)
+- Platform icons (Instagram, WhatsApp, Discord, Twitter)
 - Community guidelines
 - Join call-to-actions
 
-### 9. **Team Page**
-- Team member profiles
+### 9. **Staff Page**
+- Staff member profiles
 - Role indicators
 - Country information
 - Social links (Twitter, Website)
@@ -93,32 +93,32 @@
 - Recent activities
 
 ### 2. **Analytics Dashboard** 📊
-- **Real-time Statistics**: Total downloads, daily/monthly metrics, growth tracking
-- **Visual Charts**: Download trends (30-day), device popularity rankings  
-- **Geographic Tracking**: Country and city-level download distribution
-- **Device Analytics**: Top 10 devices with percentage breakdowns
-- Download timestamps
+- **Real-time Statistics**: Total orders, daily/monthly metrics, growth tracking
+- **Visual Charts**: Order trends (30-day), product popularity rankings  
+- **Geographic Tracking**: Country and city-level order distribution
+- **Product Analytics**: Top 10 products with percentage breakdowns
+- Order timestamps
 
-- **Real-Time Activity**: Live system logs from actual database activity
+- **Recent Activity**: Live store events from actual database activity
 - **Native Bottom Dock Navigation**: Native app-style mobile menu with blur effects
 - **Premium Glassmorphism**: High-clarity transparent overlays across the dashboard
 
-### 4. **Device Management**
-- Add/Edit/Delete devices
-- Device specifications
+### 4. **Product Management**
+- Add/Edit/Delete products
+- Product specifications
 - Image management
 - Active/Inactive toggle
 
-### 5. **ROM Cluster Management**
-- Create ROM versions
-- Upload ROM files
+### 5. **Collection Cluster Management**
+- Create Collection versions
+- Upload Collection files
 - Add changelogs
 - Set build dates and sizes
-- Archive old ROMs
-- Link ROMs to devices
+- Archive old Collections
+- Link Collections to products
 
-### 4. **Team Management**
-- Add/Edit/Delete team members
+### 4. **Staff Management**
+- Add/Edit/Delete staff members
 - Set roles (Founder, Developer, Maintainer)
 - Add social links
 - Profile image management
@@ -138,21 +138,21 @@
 - Update submission status
 - Read messages
 
-### 7. **Screenshots Management**
-- Upload screenshots
+### 7. **Gallery Management**
+- Upload gallery
 - Add titles and descriptions
 - Set categories
 - Order management
 - Delete images
 
-### 8. **Social Links Management**
+### 8. **Social Media Management**
 - Add social media platforms
 - Set URLs
 - Active/Inactive toggle
 - Platform-specific icons
 - Real-time footer updates
 
-### 9. **System Settings**
+### 9. **Store Settings**
 - Site configuration
 - General settings
 - Theme preferences
@@ -202,10 +202,10 @@
 - **Authentication:** Secure session-based auth
 
 ### Database Models
-- Device
+- Product
 - Rom
-- Download
-- TeamMember
+- Order
+- StaffMember
 - Faq
 - ContactForm
 - Screenshot
@@ -216,18 +216,18 @@
 **Public:**
 - `/api/faq` - Get all FAQs
 - `/api/contact` - Submit contact form
-- `/api/screenshots` - Get all screenshots
+- `/api/gallery` - Get all gallery
 - `/api/social` - Get active social links
-- `/api/downloads` - Get ROM downloads
+- `/api/orders` - Get Collection orders
 
 **Admin:**
 - `/api/admin/faq` - CRUD for FAQs
 - `/api/admin/contact` - Manage submissions
-- `/api/admin/screenshots` - CRUD for screenshots
+- `/api/admin/gallery` - CRUD for gallery
 - `/api/admin/social` - CRUD for social links
-- `/api/admin/devices` - CRUD for devices
-- `/api/admin/roms` - CRUD for ROMs
-- `/api/admin/team` - CRUD for team members
+- `/api/admin/products` - CRUD for products
+- `/api/admin/collections` - CRUD for Collections
+- `/api/admin/staff` - CRUD for staff members
 
 ---
 
@@ -267,10 +267,10 @@
 
 All content is **database-driven** and can be updated through the admin panel without touching code:
 - FAQs
-- Team members
-- Devices
-- ROMs
-- Screenshots
+- Staff members
+- Products
+- Collections
+- Gallery
 - Social links
 - Contact submissions
 

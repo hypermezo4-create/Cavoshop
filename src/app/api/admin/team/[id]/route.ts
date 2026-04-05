@@ -24,30 +24,30 @@ export async function PUT(req: Request, { params }: Params) {
             body.order = order;
         }
 
-        const member = await (prisma.teamMember as any).update({
+        const member = await (prisma.staffMember as any).update({
             where: { id: params.id },
             data: body,
         });
 
-        revalidatePath("/team");
+        revalidatePath("/staff");
         revalidatePath("/api/team");
 
         return NextResponse.json(member);
     } catch (error) {
-        return NextResponse.json({ error: "Failed to update team member" }, { status: 500 });
+        return NextResponse.json({ error: "Failed to update staff member" }, { status: 500 });
     }
 }
 
 export async function DELETE(req: Request, { params }: Params) {
     try {
-        await prisma.teamMember.delete({
+        await prisma.staffMember.delete({
             where: { id: params.id },
         });
-        revalidatePath("/team");
+        revalidatePath("/staff");
         revalidatePath("/api/team");
 
         return NextResponse.json({ success: true });
     } catch (error) {
-        return NextResponse.json({ error: "Failed to delete team member" }, { status: 500 });
+        return NextResponse.json({ error: "Failed to delete staff member" }, { status: 500 });
     }
 }

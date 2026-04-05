@@ -7,7 +7,7 @@ import {
   ShoppingBag, 
   Truck, 
   ShieldCheck, 
-  Download, 
+  Order, 
   Crown, 
   Check,
   AlertCircle,
@@ -25,21 +25,21 @@ interface ProductDetailProps {
 }
 
 const brandColors: Record<string, string> = {
-  NIKE: "from-blue-500/10 to-blue-600/10 border-blue-500/20",
+  NIKE: "from-yellow-500/10 to-yellow-600/10 border-yellow-500/20",
   ADIDAS: "from-zinc-500/10 to-zinc-600/10 border-zinc-500/20",
   JORDAN: "from-red-500/10 to-red-600/10 border-red-500/20",
   LV: "from-amber-500/10 to-amber-600/10 border-amber-500/20",
 };
 
 const brandBadgeColors: Record<string, string> = {
-  NIKE: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  NIKE: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
   ADIDAS: "bg-zinc-500/20 text-zinc-400 border-zinc-500/30",
   JORDAN: "bg-red-500/20 text-red-400 border-red-500/30",
   LV: "bg-amber-500/20 text-amber-400 border-amber-500/30",
 };
 
-export function DeviceDetail({ product }: any) {
-  // ملاحظة: قمت بترك اسم الـ Function والـ Props كما هي (DeviceDetail) 
+export function ProductDetail({ product }: any) {
+  // ملاحظة: قمت بترك اسم الـ Function والـ Props كما هي (ProductDetail) 
   // مؤقتاً لتجنب كسر الربط مع الصفحات الأخرى حتى نغيرها لاحقاً.
   
   return (

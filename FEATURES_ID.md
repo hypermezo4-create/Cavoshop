@@ -1,23 +1,23 @@
-# Fitur Website ProjectMove
+# Fitur Website Cavo Store
 
 ## 🌟 Fitur Publik
 
 ### 1. **Halaman Utama (Homepage)**
 - Hero section premium dengan **dynamic broadcast alert**
 - Highlight fitur unggulan dengan animasi hover tinggi
-- **Statistik Dinamis**: Live counter untuk Active Users (50K+) dan Device Count
+- **Statistik Dinamis**: Live counter untuk Active Users (50K+) dan Product Count
 - Konten dinamis yang terupdate secara instan (No stale data)
 
 ### 2. **Halaman Fitur**
-- Daftar lengkap fitur MoveOS
+- Daftar lengkap fitur Cavo
 - Kartu fitur interaktif
 - Demonstrasi visual
 - UI premium dengan animasi
 
-### 3. **Pusat Download**
-- Interface pemilihan device
-- Browsing versi ROM
-- Link download langsung
+### 3. **Pusat Order**
+- Interface pemilihan product
+- Browsing versi Collection
+- Link order langsung
 - Informasi build (tanggal, ukuran, changelog)
 - Akses arsip untuk versi lama
 
@@ -26,7 +26,7 @@
 - Checklist persyaratan
 - Bagian troubleshooting
 - Disclaimer peringatan
-- Catatan khusus per device
+- Catatan khusus per product
 
 ### 5. **Sistem FAQ**
 - Konten FAQ dinamis dari database
@@ -53,7 +53,7 @@
 
 ### 8. **Halaman Komunitas**
 - Link media sosial dinamis
-- Icon platform (GitHub, Telegram, Discord, Twitter)
+- Icon platform (Instagram, WhatsApp, Discord, Twitter)
 - Panduan komunitas
 - Call-to-action bergabung
 
@@ -94,41 +94,41 @@
 
 ### 2. **Dashboard Analytics** 📊
 - **Statistik Real-time:**
-  - Total download (sepanjang masa)
-  - Download hari ini dengan pertumbuhan %
-  - Download minggu ini
-  - Download bulan ini
-  - Jumlah device aktif
+  - Total order (sepanjang masa)
+  - Order hari ini dengan pertumbuhan %
+  - Order minggu ini
+  - Order bulan ini
+  - Jumlah product aktif
 
 - **Analitik Visual:**
-  - Chart tren download (30 hari terakhir)
-  - Chart bar device populer (Top 10)
+  - Chart tren order (30 hari terakhir)
+  - Chart bar product populer (Top 10)
   - Distribusi geografis (Top 20 negara)
   - Breakdown kota untuk negara teratas
 
 - **Enhanced Tracking:**
   - Alamat IP dan geolokasi
   - User agent (browser/OS)
-  - Identifikasi device
-  - Timestamp download
+  - Identifikasi product
+  - Timestamp order
 
 - **Aktivitas Real-Time**: Log sistem live dari aktivitas database aktual
 - **Bottom Dock Navigation**: Navigasi mobile bergaya aplikasi native dengan efek blur
 - **Glassmorphism Premium**: Overlay transparan dengan tingkat kejernihan tinggi
 
-### 4. **Manajemen Device**
-- Tambah/Edit/Hapus device
-- Spesifikasi device
+### 4. **Manajemen Product**
+- Tambah/Edit/Hapus product
+- Spesifikasi product
 - Manajemen gambar
 - Toggle Aktif/Nonaktif
 
-### 3. **Manajemen ROM Cluster**
-- Buat versi ROM
-- Upload file ROM
+### 3. **Manajemen Collection Cluster**
+- Buat versi Collection
+- Upload file Collection
 - Tambah changelog
 - Set tanggal build dan ukuran
-- Arsipkan ROM lama
-- Link ROM ke device
+- Arsipkan Collection lama
+- Link Collection ke product
 
 ### 4. **Manajemen Tim**
 - Tambah/Edit/Hapus anggota tim
@@ -215,10 +215,10 @@
 - **Autentikasi:** Auth berbasis session yang aman
 
 ### Model Database
-- Device
+- Product
 - Rom
-- Download
-- TeamMember
+- Order
+- StaffMember
 - Faq
 - ContactForm
 - Screenshot
@@ -229,18 +229,18 @@
 **Publik:**
 - `/api/faq` - Ambil semua FAQ
 - `/api/contact` - Kirim form kontak
-- `/api/screenshots` - Ambil semua screenshot
+- `/api/gallery` - Ambil semua screenshot
 - `/api/social` - Ambil link sosial aktif
-- `/api/downloads` - Ambil download ROM
+- `/api/orders` - Ambil order Collection
 
 **Admin:**
 - `/api/admin/faq` - CRUD untuk FAQ
 - `/api/admin/contact` - Kelola kiriman
-- `/api/admin/screenshots` - CRUD untuk screenshot
+- `/api/admin/gallery` - CRUD untuk screenshot
 - `/api/admin/social` - CRUD untuk link sosial
-- `/api/admin/devices` - CRUD untuk device
-- `/api/admin/roms` - CRUD untuk ROM
-- `/api/admin/team` - CRUD untuk anggota tim
+- `/api/admin/products` - CRUD untuk product
+- `/api/admin/collections` - CRUD untuk Collection
+- `/api/admin/staff` - CRUD untuk anggota tim
 
 ---
 
@@ -281,8 +281,8 @@
 Semua konten **berbasis database** dan bisa diupdate lewat panel admin tanpa perlu coding:
 - FAQ
 - Anggota tim
-- Device
-- ROM
+- Product
+- Collection
 - Screenshot
 - Link sosial
 - Kiriman kontak

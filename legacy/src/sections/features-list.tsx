@@ -65,7 +65,7 @@ const features = [
   {
     icon: Award,
     title: "Expert QC Check",
-    description: "Every pair is manually inspected by our Quality Control team before being cleared for shipping.",
+    description: "Every pair is manually inspected by our Quality Control staff before being cleared for shipping.",
   },
   {
     icon: Truck,

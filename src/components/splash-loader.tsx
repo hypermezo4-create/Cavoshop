@@ -38,7 +38,7 @@ export function SplashLoader({ children }: { children: React.ReactNode }) {
                                     repeat: Infinity,
                                     ease: "easeInOut"
                                 }}
-                                className="w-20 h-20 bg-gradient-to-br from-blue-500 to-violet-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-blue-500/20 mb-6"
+                                className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-yellow-500/20 mb-6"
                             >
                                 <Zap className="text-white w-10 h-10" />
                             </motion.div>
@@ -47,7 +47,7 @@ export function SplashLoader({ children }: { children: React.ReactNode }) {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="text-xl font-black text-white tracking-widest uppercase"
                             >
-                                Project<span className="text-blue-500">Move</span>
+                                Project<span className="text-yellow-500">Move</span>
                             </motion.h2>
                         </div>
                     </motion.div>

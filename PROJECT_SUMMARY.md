@@ -1,8 +1,8 @@
-# Project Move - Fullstack Website Summary
+# Cavo Store - Fullstack Website Summary
 
 ## Overview
 
-A modern, high-performance fullstack website for the **Project Move** custom Android ROM project featuring **MoveOS** - a performance-focused Android ROM optimized for MediaTek-powered Xiaomi/Redmi/Poco devices.
+A modern, high-performance fullstack website for the **Cavo Store** premium footwear destination featuring **Cavo** - a performance-focused footwear collection optimized for modern lifestyle-powered men, women, and kids products.
 
 ## Project Structure
 
@@ -13,17 +13,17 @@ project-move/
 │   │   ├── (pages)/            # Public pages
 │   │   │   ├── page.tsx        # Home page
 │   │   │   ├── features/       # Features page
-│   │   │   ├── download/       # Download page + dynamic routes
-│   │   │   ├── team/           # Team page
+│   │   │   ├── order/       # Order page + dynamic routes
+│   │   │   ├── staff/           # Staff page
 │   │   │   └── about/          # About page
 │   │   ├── admin/              # Admin dashboard
 │   │   │   ├── page.tsx        # Admin overview
 │   │   │   └── login/          # Admin login
 │   │   ├── api/                # API routes
-│   │   │   ├── devices/        # Device CRUD API
-│   │   │   ├── roms/           # ROM CRUD API
-│   │   │   ├── team/           # Team CRUD API
-│   │   │   ├── downloads/      # Download tracking API
+│   │   │   ├── products/        # Product CRUD API
+│   │   │   ├── collections/           # Collection CRUD API
+│   │   │   ├── staff/           # Staff CRUD API
+│   │   │   ├── orders/      # Order tracking API
 │   │   │   └── stats/          # Statistics API
 │   │   ├── globals.css         # Global styles
 │   │   ├── layout.tsx          # Root layout
@@ -43,11 +43,11 @@ project-move/
 │   │   ├── cta-section.tsx     # Call-to-action
 │   │   ├── features-list.tsx   # Features list
 │   │   ├── comparison-table.tsx# Free vs VIP comparison
-│   │   ├── screenshots-gallery.tsx
-│   │   ├── device-search.tsx
-│   │   ├── device-list.tsx
-│   │   ├── device-detail.tsx
-│   │   ├── team-grid.tsx
+│   │   ├── gallery-gallery.tsx
+│   │   ├── product-search.tsx
+│   │   ├── product-list.tsx
+│   │   ├── product-detail.tsx
+│   │   ├── staff-grid.tsx
 │   │   └── about-content.tsx
 │   ├── lib/                    # Utilities
 │   │   ├── utils.ts            # Helper functions
@@ -77,62 +77,62 @@ project-move/
 1. **Home Page**
    - Animated hero section with gradient text
    - Statistics counter with animated numbers
-   - Introduction to Project Move
+   - Introduction to Cavo Store
    - UI preview carousel
    - Call-to-action section
 
 2. **Features Page**
-   - Screenshots gallery with lightbox
+   - Gallery gallery with lightbox
    - Feature highlights grid
    - Free vs VIP comparison table
 
-3. **Download Page**
-   - Device search with filters
-   - Device cards with brand colors
-   - Dynamic device detail pages
-   - ROM download listings
+3. **Order Page**
+   - Product search with filters
+   - Product cards with brand colors
+   - Dynamic product detail pages
+   - Collection order listings
    - Changelog and installation guides
 
-4. **Team Page**
-   - Team member cards with social links
+4. **Staff Page**
+   - Staff member cards with social links
    - Role-based color coding
    - Animated grid layout
 
 5. **About Page**
    - Mission and vision statements
    - Core values
-   - Device support policy
+   - Product support policy
    - Timeline/journey section
 
 ### Admin Dashboard
 
 - **Authentication**: Supabase Auth with protected routes
 - **Overview**: Statistics cards and quick actions
-- **Device Management**: CRUD operations for devices
-- **ROM Management**: CRUD operations for ROMs
-- **Team Management**: CRUD operations for team members
+- **Product Management**: CRUD operations for products
+- **Collection Management**: CRUD operations for Collections
+- **Staff Management**: CRUD operations for staff members
 
 ### API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/devices` | GET | List all devices |
-| `/api/devices` | POST | Create device |
-| `/api/devices/[codename]` | GET | Get device details |
-| `/api/devices/[codename]` | PUT | Update device |
-| `/api/devices/[codename]` | DELETE | Delete device |
-| `/api/roms` | GET | List all ROMs |
-| `/api/roms` | POST | Create ROM |
-| `/api/roms/[id]` | GET | Get ROM details |
-| `/api/roms/[id]` | PUT | Update ROM |
-| `/api/roms/[id]` | DELETE | Delete ROM |
-| `/api/team` | GET | List team members |
-| `/api/team` | POST | Add team member |
-| `/api/team/[id]` | GET | Get member details |
-| `/api/team/[id]` | PUT | Update member |
-| `/api/team/[id]` | DELETE | Remove member |
-| `/api/downloads` | GET | Get download stats |
-| `/api/downloads` | POST | Record download |
+| `/api/products` | GET | List all products |
+| `/api/products` | POST | Create product |
+| `/api/products/[codename]` | GET | Get product details |
+| `/api/products/[codename]` | PUT | Update product |
+| `/api/products/[codename]` | DELETE | Delete product |
+| `/api/collections` | GET | List all Collections |
+| `/api/collections` | POST | Create Collection |
+| `/api/collections/[id]` | GET | Get Collection details |
+| `/api/collections/[id]` | PUT | Update Collection |
+| `/api/collections/[id]` | DELETE | Delete Collection |
+| `/api/staff` | GET | List staff members |
+| `/api/staff` | POST | Add staff member |
+| `/api/staff/[id]` | GET | Get member details |
+| `/api/staff/[id]` | PUT | Update member |
+| `/api/staff/[id]` | DELETE | Remove member |
+| `/api/orders` | GET | Get order stats |
+| `/api/orders` | POST | Record order |
 | `/api/stats` | GET | Get overall statistics |
 
 ## Database Schema
@@ -142,17 +142,17 @@ project-move/
 1. **users**
    - id, email, name, role, createdAt, updatedAt
 
-2. **devices**
+2. **products**
    - id, name, codename, brand, chipset, status, image, description, createdAt, updatedAt
 
-3. **roms**
-   - id, deviceId, name, version, androidVersion, type, downloadUrl, fileSize, changelog, releaseDate, screenshots, installationGuide, status, isVipOnly, createdAt, updatedAt
+3. **collections**
+   - id, productId, name, version, androidVersion, type, orderUrl, fileSize, changelog, releaseDate, gallery, installationGuide, status, isVipOnly, createdAt, updatedAt
 
-4. **downloads**
+4. **orders**
    - id, romId, timestamp, ip, userAgent
 
-5. **team_members**
-   - id, name, role, image, bio, github, telegram, twitter, website, order, createdAt, updatedAt
+5. **staff_members**
+   - id, name, role, image, bio, instagram, whatsapp, twitter, website, order, createdAt, updatedAt
 
 ## Tech Stack
 
@@ -264,4 +264,4 @@ MIT License
 
 ## Credits
 
-Made with passion by the Project Move Team
+Made with passion by the Cavo Store Staff

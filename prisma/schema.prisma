@@ -1,4 +1,4 @@
-// MoveOS Prisma Schema
+// Cavo Prisma Schema
 
 generator client {
   provider = "prisma-client-js"
@@ -9,7 +9,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Device {
+model Product {
   id          String     @id @default(cuid())
   name        String
   codename    String     @unique
@@ -18,61 +18,61 @@ model Device {
   status      String     @default("ACTIVE")
   image       String?
   description String?
-  roms        Rom[]
-  downloads   Download[]
+  collections        Rom[]
+  orders   Order[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
 
 model Rom {
   id                String   @id @default(cuid())
-  deviceId          String
-  device            Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  productId          String
+  product            Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   name              String
   version           String
   androidVersion     String
   type              String   @default("FREE")
-  downloadUrl       String
+  orderUrl       String
   fileSize          String?
   changelog         String?
   releaseDate       DateTime @default(now())
-  screenshots       String[]
+  gallery       String[]
   installationGuide String?
   status            String   @default("ACTIVE")
   isVipOnly         Boolean  @default(false)
-  downloads         Download[]
+  orders         Order[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
 
-model Download {
+model Order {
   id           String   @id @default(cuid())
   romId        String
-  deviceId     String?
+  productId     String?
   ipAddress    String?
   userAgent    String?
   country      String?
   city         String?
-  downloadedAt DateTime @default(now())
+  orderedAt DateTime @default(now())
 
   rom    Rom     @relation(fields: [romId], references: [id], onDelete: Cascade)
-  device Device? @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+  product Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
 
   @@index([romId])
-  @@index([deviceId])
-  @@index([downloadedAt])
+  @@index([productId])
+  @@index([orderedAt])
   @@index([country])
 }
 
-model TeamMember {
+model StaffMember {
   id        String   @id @default(cuid())
   name      String
   role      String
   country   String?
   image     String?
   bio       String?
-  github    String?
-  telegram  String?
+  instagram    String?
+  whatsapp  String?
   twitter   String?
   website   String?
   order     Int      @default(0)
@@ -120,7 +120,7 @@ model Screenshot {
 
 model SocialLink {
   id        String   @id @default(cuid())
-  platform  String   // 'github', 'telegram', 'discord', 'twitter'
+  platform  String   // 'instagram', 'whatsapp', 'discord', 'twitter'
   url       String
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())

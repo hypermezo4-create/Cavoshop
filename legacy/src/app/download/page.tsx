@@ -1,21 +1,21 @@
 import { Metadata } from "next";
-import { DeviceSearch } from "@/sections/device-search";
-import { DeviceList } from "@/sections/device-list";
+import { ProductSearch } from "@/sections/product-search";
+import { ProductList } from "@/sections/product-list";
 import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Download | Project Move",
-  description: "Download MoveOS for your device. Find ROMs for Xiaomi, Redmi, and Poco devices.",
+  title: "Order | Cavo Store",
+  description: "Order Cavo for your product. Find Collections for streetwear, Redmi, and Poco products.",
 };
 
-async function getDevices() {
+async function getProducts() {
   try {
-    const devices = await prisma.device.findMany({
+    const products = await prisma.product.findMany({
       where: {
         status: "ACTIVE",
       },
       include: {
-        roms: {
+        collections: {
           where: {
             status: "ACTIVE",
           },
@@ -29,34 +29,34 @@ async function getDevices() {
         name: "asc",
       },
     });
-    return devices;
+    return products;
   } catch (error) {
-    console.error("Error fetching devices:", error);
+    console.error("Error fetching products:", error);
     return [];
   }
 }
 
-export default async function DownloadPage() {
-  const devices = await getDevices();
+export default async function OrderPage() {
+  const products = await getProducts();
 
   return (
     <div className="pt-24 pb-16">
       {/* Header */}
       <div className="container mx-auto px-4 mb-12">
         <div className="max-w-3xl mx-auto text-center">
-          <span className="text-blue-400 font-medium mb-4 block">Download</span>
+          <span className="text-yellow-400 font-medium mb-4 block">Order</span>
           <h1 className="text-4xl md:text-6xl font-bold font-display mb-6">
-            Find Your Device
+            Find Your Product
           </h1>
           <p className="text-lg text-muted-foreground">
-            Search for your device and download the latest version of MoveOS. 
-            We support Xiaomi, Redmi, and Poco devices with MediaTek chipsets.
+            Search for your product and order the latest version of Cavo. 
+            We support streetwear, Redmi, and Poco products with modern lifestyle chipsets.
           </p>
         </div>
       </div>
 
-      <DeviceSearch />
-      <DeviceList devices={devices} />
+      <ProductSearch />
+      <ProductList products={products} />
     </div>
   );
 }

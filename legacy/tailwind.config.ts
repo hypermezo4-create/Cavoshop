@@ -52,10 +52,10 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         move: {
-          DEFAULT: "#3B82F6",
+          DEFAULT: "#EAB308",
           dark: "#1E40AF",
           light: "#60A5FA",
-          accent: "#8B5CF6",
+          accent: "#F97316",
         },
       },
       borderRadius: {

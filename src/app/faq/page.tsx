@@ -43,7 +43,7 @@ export default function FaqPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6"
                     >
                         <HelpCircle className="w-3.5 h-3.5" /> Help Center
                     </motion.div>
@@ -53,7 +53,7 @@ export default function FaqPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-white"
                     >
-                        Frequently Asked <span className="text-blue-500">Questions</span>
+                        Frequently Asked <span className="text-yellow-500">Questions</span>
                     </motion.h1>
 
                     <motion.p
@@ -62,7 +62,7 @@ export default function FaqPage() {
                         transition={{ delay: 0.1 }}
                         className="text-zinc-400 text-lg mb-12 leading-relaxed"
                     >
-                        Find answers to common questions about MoveOS.
+                        Find answers to common questions about Cavo.
                     </motion.p>
 
                     {/* Search and Filter */}
@@ -74,7 +74,7 @@ export default function FaqPage() {
                                 placeholder="Search questions..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-14 pr-6 py-5 bg-white/5 border border-white/10 rounded-3xl text-white placeholder:text-zinc-500 focus:ring-2 focus:ring-blue-500/50 outline-none"
+                                className="w-full pl-14 pr-6 py-5 bg-white/5 border border-white/10 rounded-3xl text-white placeholder:text-zinc-500 focus:ring-2 focus:ring-yellow-500/50 outline-none"
                             />
                         </div>
 
@@ -84,7 +84,7 @@ export default function FaqPage() {
                                     key={cat}
                                     onClick={() => setSelectedCategory(cat)}
                                     className={`px-5 py-2.5 rounded-full font-semibold text-sm transition-all ${selectedCategory === cat
-                                            ? "bg-gradient-to-r from-blue-500 to-violet-600 text-white shadow-lg shadow-blue-500/20"
+                                            ? "bg-gradient-to-r from-yellow-500 to-orange-600 text-white shadow-lg shadow-yellow-500/20"
                                             : "bg-white/5 hover:bg-white/10 text-zinc-400 border border-white/10"
                                         }`}
                                 >
@@ -98,7 +98,7 @@ export default function FaqPage() {
                     <div className="space-y-4">
                         {loading ? (
                             <div className="text-center py-20">
-                                <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+                                <div className="animate-spin w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full mx-auto"></div>
                             </div>
                         ) : filteredFaqs.length === 0 ? (
                             <div className="text-center py-20">
@@ -119,7 +119,7 @@ export default function FaqPage() {
                                     >
                                         <div className="flex-1">
                                             <div className="flex items-center gap-3 mb-2">
-                                                <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase tracking-wider border border-blue-500/20">
+                                                <span className="px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 text-[10px] font-bold uppercase tracking-wider border border-yellow-500/20">
                                                     {faq.category}
                                                 </span>
                                             </div>
@@ -141,13 +141,13 @@ export default function FaqPage() {
                     </div>
 
                     {/* Still have questions? */}
-                    <div className="mt-16 bg-gradient-to-br from-blue-500/10 to-violet-500/10 border border-white/10 rounded-3xl p-8 md:p-12 text-center">
+                    <div className="mt-16 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-white/10 rounded-3xl p-8 md:p-12 text-center">
                         <h2 className="text-3xl font-bold text-white mb-4">Still have questions?</h2>
                         <p className="text-zinc-400 mb-6 max-w-2xl mx-auto">
-                            Can't find what you're looking for? Reach out to our support team or join our community.
+                            Can't find what you're looking for? Reach out to our support staff or join our community.
                         </p>
                         <div className="flex flex-wrap gap-4 justify-center">
-                            <a href="/contact" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-violet-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all">
+                            <a href="/contact" className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-yellow-500/20 transition-all">
                                 Contact Us
                             </a>
                             <a href="/community" className="px-6 py-3 bg-white/5 hover:bg-white/10 rounded-xl font-semibold border border-white/10 transition-all">

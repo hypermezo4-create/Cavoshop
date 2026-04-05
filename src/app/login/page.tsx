@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
                 className="absolute top-8 left-8 flex items-center gap-3 text-zinc-500 hover:text-white transition-all group px-4 py-2 rounded-xl hover:bg-white/5"
             >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                <span className="text-sm font-bold uppercase tracking-widest">Safe Exit</span>
+                <span className="text-sm font-bold uppercase tracking-widest">Back to Store</span>
             </Link>
 
             <motion.div
@@ -58,14 +58,14 @@ export default function AdminLoginPage() {
                 className="w-full max-w-md relative z-10"
             >
                 <div className="glass p-10 rounded-[2.5rem] border border-white/10 shadow-2xl relative overflow-hidden">
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50" />
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-50" />
 
                     <div className="text-center mb-10">
-                        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-violet-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-blue-500/20">
+                        <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-yellow-500/20">
                             <Zap className="text-white w-8 h-8" />
                         </div>
                         <h1 className="text-3xl font-bold text-white mb-2">Admin Login</h1>
-                        <p className="text-zinc-500 text-sm">Sign in to manage Project Move.</p>
+                        <p className="text-zinc-500 text-sm">Sign in to manage Cavo products, images, and store content.</p>
                     </div>
 
                     {error && (
@@ -86,8 +86,8 @@ export default function AdminLoginPage() {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="name@projectmove.com"
-                                className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                                placeholder="admin@cavostore.com"
+                                className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 transition-all font-medium"
                                 required
                             />
                         </div>
@@ -100,7 +100,7 @@ export default function AdminLoginPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
-                                    className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium pr-14"
+                                    className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 transition-all font-medium pr-14"
                                     required
                                 />
                                 <button
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white rounded-2xl font-bold transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-3 group"
+                            className="w-full py-4 bg-yellow-600 hover:bg-yellow-700 disabled:bg-yellow-800 text-white rounded-2xl font-bold transition-all shadow-xl shadow-yellow-600/20 flex items-center justify-center gap-3 group"
                         >
                             {isLoading ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -131,7 +131,7 @@ export default function AdminLoginPage() {
 
                     <div className="mt-8 pt-8 border-t border-white/5 text-center">
                         <p className="text-zinc-600 text-xs">
-                            Secure Access Only. All activities are logged.
+                            Secure access only. Staff actions are logged.
                         </p>
                     </div>
                 </div>

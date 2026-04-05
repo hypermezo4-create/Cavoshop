@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { FeaturesList } from "@/sections/features-list";
 import { ComparisonTable } from "@/sections/comparison-table";
-import { ScreenshotsGallery } from "@/sections/screenshots-gallery";
+import { GalleryGallery } from "@/sections/gallery-gallery";
 
 export const metadata: Metadata = {
   title: "Cavo Features | Premium Quality Sneakers",
@@ -25,7 +25,7 @@ export default function FeaturesPage() {
         </div>
       </div>
 
-      <ScreenshotsGallery />
+      <GalleryGallery />
       <FeaturesList />
       <ComparisonTable />
     </div>

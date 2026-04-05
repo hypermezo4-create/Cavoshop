@@ -8,18 +8,18 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     try {
-        const roms = await prisma.rom.findMany({
+        const collections = await prisma.rom.findMany({
             where: {
-                deviceId: params.id,
+                productId: params.id,
             },
             orderBy: {
                 version: "desc",
             },
         });
 
-        return NextResponse.json(roms);
+        return NextResponse.json(collections);
     } catch (error) {
-        console.error("Device ROMs fetch failed:", error);
-        return NextResponse.json({ error: "Failed to fetch ROMs" }, { status: 500 });
+        console.error("Product Collections fetch failed:", error);
+        return NextResponse.json({ error: "Failed to fetch Collections" }, { status: 500 });
     }
 }

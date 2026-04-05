@@ -5,8 +5,8 @@ import { Plus, Users, Search, Edit2, Trash2, X, Loader2, Link as LinkIcon, Globe
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
-export default function AdminTeamPage() {
-    const [team, setTeam] = useState<any[]>([]);
+export default function AdminStaffPage() {
+    const [staff, setStaff] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,26 +19,26 @@ export default function AdminTeamPage() {
         country: "",
         image: "",
         bio: "",
-        github: "",
-        telegram: "",
+        instagram: "",
+        whatsapp: "",
         twitter: "",
         website: "",
     });
 
-    const fetchTeam = async () => {
+    const fetchStaff = async () => {
         try {
             const res = await fetch("/api/admin/team");
             const data = await res.json();
-            if (Array.isArray(data)) setTeam(data);
+            if (Array.isArray(data)) setStaff(data);
         } catch (error) {
-            console.error("Fetch team failed:", error);
+            console.error("Fetch staff failed:", error);
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchTeam();
+        fetchStaff();
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -57,8 +57,8 @@ export default function AdminTeamPage() {
             if (res.ok) {
                 setIsModalOpen(false);
                 setEditingId(null);
-                setFormData({ name: "", role: "", country: "", image: "", bio: "", github: "", telegram: "", twitter: "", website: "" });
-                fetchTeam();
+                setFormData({ name: "", role: "", country: "", image: "", bio: "", instagram: "", whatsapp: "", twitter: "", website: "" });
+                fetchStaff();
             }
         } catch (error) {
             console.error(error);
@@ -71,13 +71,13 @@ export default function AdminTeamPage() {
         if (!confirm("Are you sure?")) return;
         try {
             const res = await fetch(`/api/admin/team/${id}`, { method: "DELETE" });
-            if (res.ok) fetchTeam();
+            if (res.ok) fetchStaff();
         } catch (error) {
             console.error(error);
         }
     };
 
-    const filteredTeam = team.filter(m =>
+    const filteredStaff = staff.filter(m =>
         m.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         m.role.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -87,53 +87,53 @@ export default function AdminTeamPage() {
             {/* Header */}
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <div className="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
+                    <div className="flex items-center gap-2 text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
                         <Users className="w-3 h-3" />
-                        MoveOS Contributors
+                        Cavo Staff
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">Team Roster</h1>
-                    <p className="text-zinc-500 text-sm font-medium mt-1">Manage the core developers and creators behind the ecosystem.</p>
+                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">Staff Roster</h1>
+                    <p className="text-zinc-500 text-sm font-medium mt-1">Manage the team behind the Cavo store experience.</p>
                 </div>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all shadow-2xl shadow-indigo-600/20 active:scale-95 group"
+                    className="flex items-center gap-3 px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all shadow-2xl shadow-amber-600/20 active:scale-95 group"
                 >
-                    <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" /> Recruit Contributor
+                    <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" /> Add Staff Member
                 </button>
             </header>
 
             {/* Search Bar */}
             <div className="relative group max-w-2xl">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-indigo-400 transition-colors w-4 h-4" />
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-amber-400 transition-colors w-4 h-4" />
                 <input
                     type="text"
-                    placeholder="Search contributors..."
-                    className="w-full pl-14 pr-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                    placeholder="Search staff..."
+                    className="w-full pl-14 pr-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all font-medium"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
 
-            {/* Team Grid */}
+            {/* Staff Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {loading ? (
                     Array.from({ length: 6 }).map((_, i) => (
                         <div key={i} className="h-80 glass-premium rounded-[3rem] animate-pulse" />
                     ))
-                ) : filteredTeam.length === 0 ? (
+                ) : filteredStaff.length === 0 ? (
                     <div className="col-span-full py-20 text-center glass-premium rounded-[3rem]">
                         <Users className="w-12 h-12 text-zinc-800 mx-auto mb-4" />
                         <h3 className="text-lg font-bold text-zinc-500">No personnel identified</h3>
-                        <p className="text-sm text-zinc-600">Add a member to start detailing the team infrastructure.</p>
+                        <p className="text-sm text-zinc-600">Add a member to start detailing the staff infrastructure.</p>
                     </div>
                 ) : (
-                    filteredTeam.map((member, i) => (
+                    filteredStaff.map((member, i) => (
                         <motion.div
                             key={member.id}
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: i * 0.05 }}
-                            className="glass-premium rounded-[3rem] p-8 group hover:border-indigo-500/30 transition-all relative overflow-hidden flex flex-col justify-between"
+                            className="glass-premium rounded-[3rem] p-8 group hover:border-amber-500/30 transition-all relative overflow-hidden flex flex-col justify-between"
                         >
                             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                                 <Fingerprint className="w-32 h-32 rotate-[-15deg]" />
@@ -145,11 +145,11 @@ export default function AdminTeamPage() {
                                         {member.image ? (
                                             <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-zinc-700 bg-indigo-600/5">
+                                            <div className="w-full h-full flex items-center justify-center text-zinc-700 bg-amber-600/5">
                                                 <Users className="w-8 h-8" />
                                             </div>
                                         )}
-                                        <div className="absolute inset-0 bg-indigo-600/10 mix-blend-overlay" />
+                                        <div className="absolute inset-0 bg-amber-600/10 mix-blend-overlay" />
                                     </div>
                                     <div className="flex gap-2">
                                         <button
@@ -172,9 +172,9 @@ export default function AdminTeamPage() {
                                 </div>
 
                                 <div>
-                                    <h3 className="text-2xl font-black text-white tracking-tight group-hover:text-indigo-400 transition-colors">{member.name}</h3>
+                                    <h3 className="text-2xl font-black text-white tracking-tight group-hover:text-amber-400 transition-colors">{member.name}</h3>
                                     <div className="flex items-center gap-2 mt-1">
-                                        <span className="text-[10px] font-black text-indigo-500 uppercase tracking-widest">{member.role}</span>
+                                        <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">{member.role}</span>
                                         <div className="w-1 h-1 bg-zinc-800 rounded-full" />
                                         <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-1.5">
                                             <Globe className="w-3 h-3" /> {member.country || "GLOBAL"}
@@ -188,8 +188,8 @@ export default function AdminTeamPage() {
                             </div>
 
                             <div className="relative z-10 flex items-center gap-3 pt-6 mt-6 border-t border-white/[0.03]">
-                                {member.github && (
-                                    <a href={member.github} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-white transition-colors">
+                                {member.instagram && (
+                                    <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-white transition-colors">
                                         <Github className="w-4 h-4" />
                                     </a>
                                 )}
@@ -198,8 +198,8 @@ export default function AdminTeamPage() {
                                         <Twitter className="w-4 h-4" />
                                     </a>
                                 )}
-                                {member.telegram && (
-                                    <a href={member.telegram} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-white transition-colors">
+                                {member.whatsapp && (
+                                    <a href={member.whatsapp} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-white transition-colors">
                                         <Send className="w-4 h-4" />
                                     </a>
                                 )}
@@ -233,7 +233,7 @@ export default function AdminTeamPage() {
                         >
                             <div className="flex justify-between items-start mb-10">
                                 <div>
-                                    <div className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.4em] mb-2 flex items-center gap-2">
+                                    <div className="text-[10px] font-black text-amber-500 uppercase tracking-[0.4em] mb-2 flex items-center gap-2">
                                         <Shield className="w-3 h-3" /> Identity Protocol v2.1
                                     </div>
                                     <h2 className="text-3xl font-black text-white tracking-tighter">{editingId ? "Modify Profile" : "Recruit Member"}</h2>
@@ -249,97 +249,97 @@ export default function AdminTeamPage() {
                             <form onSubmit={handleSubmit} className="space-y-8">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Identity Designation</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Identity Designation</label>
                                         <input
                                             required
                                             value={formData.name}
                                             onChange={e => setFormData({ ...formData, name: e.target.value })}
                                             placeholder="John Doe"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold placeholder:text-zinc-800"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold placeholder:text-zinc-800"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Operational Role</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Operational Role</label>
                                         <input
                                             required
                                             value={formData.role}
                                             onChange={e => setFormData({ ...formData, role: e.target.value })}
                                             placeholder="Lead Architect"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold placeholder:text-zinc-800"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold placeholder:text-zinc-800"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Physical Origin</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Physical Origin</label>
                                         <input
                                             value={formData.country}
                                             onChange={e => setFormData({ ...formData, country: e.target.value })}
                                             placeholder="e.g. Indonesia"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold placeholder:text-zinc-800"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold placeholder:text-zinc-800"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Avatar Asset Link</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Avatar Asset Link</label>
                                         <input
                                             value={formData.image}
                                             onChange={e => setFormData({ ...formData, image: e.target.value })}
                                             placeholder="https://..."
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium placeholder:text-zinc-800"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium placeholder:text-zinc-800"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Identity Documentation (Bio)</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Identity Documentation (Bio)</label>
                                     <textarea
                                         rows={4}
                                         value={formData.bio}
                                         onChange={e => setFormData({ ...formData, bio: e.target.value })}
                                         placeholder="Outline technical background and project focus..."
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] px-6 py-5 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium resize-none placeholder:text-zinc-800"
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] px-6 py-5 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium resize-none placeholder:text-zinc-800"
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">GitHub Node</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Instagram Handle</label>
                                         <input
-                                            value={formData.github}
-                                            onChange={e => setFormData({ ...formData, github: e.target.value })}
-                                            placeholder="https://github.com/..."
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium placeholder:text-zinc-800"
+                                            value={formData.instagram}
+                                            onChange={e => setFormData({ ...formData, instagram: e.target.value })}
+                                            placeholder="https://instagram.com/..."
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium placeholder:text-zinc-800"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Telegram Vector</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">TikTok Handle</label>
                                         <input
-                                            value={formData.telegram}
-                                            onChange={e => setFormData({ ...formData, telegram: e.target.value })}
+                                            value={formData.whatsapp}
+                                            onChange={e => setFormData({ ...formData, whatsapp: e.target.value })}
                                             placeholder="https://t.me/..."
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium placeholder:text-zinc-800"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium placeholder:text-zinc-800"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Twitter Signal</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Twitter Signal</label>
                                         <input
                                             value={formData.twitter}
                                             onChange={e => setFormData({ ...formData, twitter: e.target.value })}
                                             placeholder="https://twitter.com/..."
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium placeholder:text-zinc-800"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium placeholder:text-zinc-800"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Personal Website</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Personal Website</label>
                                         <input
                                             value={formData.website}
                                             onChange={e => setFormData({ ...formData, website: e.target.value })}
                                             placeholder="https://..."
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium placeholder:text-zinc-800"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium placeholder:text-zinc-800"
                                         />
                                     </div>
                                 </div>
@@ -347,7 +347,7 @@ export default function AdminTeamPage() {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full py-6 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 disabled:from-zinc-800 disabled:to-zinc-900 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] transition-all shadow-xl shadow-indigo-600/20 active:scale-95 flex items-center justify-center gap-4"
+                                    className="w-full py-6 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 disabled:from-zinc-800 disabled:to-zinc-900 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] transition-all shadow-xl shadow-amber-600/20 active:scale-95 flex items-center justify-center gap-4"
                                 >
                                     {isSubmitting ? (
                                         <Loader2 className="w-5 h-5 animate-spin" />

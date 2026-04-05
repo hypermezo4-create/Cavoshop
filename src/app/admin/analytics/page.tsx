@@ -10,7 +10,7 @@ import {
     Calendar,
     ArrowUpRight,
     Search,
-    Download
+    ShoppingBag
 } from "lucide-react";
 import {
     AreaChart,
@@ -65,7 +65,7 @@ export default function AnalyticsPage() {
         <div className="p-6 lg:p-10 space-y-10">
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 font-display">
                 <div className="space-y-1">
-                    <h2 className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.3em]">Protocol Analytics</h2>
+                    <h2 className="text-[10px] font-black text-amber-500 uppercase tracking-[0.3em]">Store Analytics</h2>
                     <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">Traffic Monitoring</h1>
                 </div>
                 <div className="flex items-center gap-3">
@@ -90,9 +90,9 @@ export default function AnalyticsPage() {
                         <div className="relative z-10">
                             <div className={cn(
                                 "w-12 h-12 rounded-2xl flex items-center justify-center mb-6",
-                                card.color === "indigo" && "bg-indigo-600/20 text-indigo-400",
+                                card.color === "indigo" && "bg-amber-600/20 text-amber-400",
                                 card.color === "emerald" && "bg-emerald-600/20 text-emerald-400",
-                                card.color === "violet" && "bg-violet-600/20 text-violet-400"
+                                card.color === "violet" && "bg-orange-600/20 text-orange-400"
                             )}>
                                 <card.icon className="w-5 h-5" />
                             </div>
@@ -104,7 +104,7 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="glass-premium rounded-[3rem] p-8 md:p-12 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/5 blur-[120px] -z-10" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-amber-600/5 blur-[120px] -z-10" />
 
                 <div className="flex items-center justify-between mb-12">
                     <div>
@@ -117,7 +117,7 @@ export default function AnalyticsPage() {
                     {loading || analyticsData.length === 0 ? (
                         <div className="h-full w-full flex items-center justify-center bg-white/[0.01] rounded-[2rem] border border-white/[0.05]">
                             <div className="text-center space-y-4">
-                                <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mx-auto" />
+                                <div className="w-12 h-12 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin mx-auto" />
                                 <p className="text-zinc-600 text-xs font-black uppercase tracking-widest">Hydrating data stream...</p>
                             </div>
                         </div>
@@ -126,8 +126,8 @@ export default function AnalyticsPage() {
                             <AreaChart data={analyticsData}>
                                 <defs>
                                     <linearGradient id="colorPulse" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                                        <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" />
@@ -160,7 +160,7 @@ export default function AnalyticsPage() {
                                 <Area
                                     type="monotone"
                                     dataKey="count"
-                                    stroke="#6366f1"
+                                    stroke="#f59e0b"
                                     strokeWidth={4}
                                     fillOpacity={1}
                                     fill="url(#colorPulse)"
@@ -175,13 +175,13 @@ export default function AnalyticsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="glass-premium p-8 rounded-[2.5rem]">
                     <h4 className="text-sm font-black text-white uppercase tracking-widest mb-6 flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-indigo-400" /> Timeframe Control
+                        <Calendar className="w-4 h-4 text-amber-400" /> Timeframe Control
                     </h4>
                     <p className="text-zinc-500 text-sm leading-relaxed mb-6">
                         System is currently monitoring traffic on a rolling 14-day protocol. Deep history is stored in the cloud core.
                     </p>
                     <div className="flex gap-2">
-                        <span className="px-4 py-2 bg-indigo-600/20 text-indigo-400 rounded-xl text-[10px] font-black uppercase">14 Days Activity</span>
+                        <span className="px-4 py-2 bg-amber-600/20 text-amber-400 rounded-xl text-[10px] font-black uppercase">14 Days Activity</span>
                     </div>
                 </div>
                 <div className="glass-premium p-8 rounded-[2.5rem] flex flex-col justify-center">
@@ -194,7 +194,7 @@ export default function AnalyticsPage() {
                                 initial={{ width: 0 }}
                                 animate={{ width: "84%" }}
                                 transition={{ duration: 2, ease: "easeOut" }}
-                                className="h-full bg-gradient-to-r from-indigo-600 to-emerald-500"
+                                className="h-full bg-gradient-to-r from-amber-600 to-emerald-500"
                             />
                         </div>
                         <span className="text-xl font-black text-white italic">84%</span>

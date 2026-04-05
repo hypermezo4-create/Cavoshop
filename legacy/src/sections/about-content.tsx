@@ -66,7 +66,7 @@ export function AboutContent() {
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-600/20 flex items-center justify-center mb-6 border border-amber-500/20">
                 <Target className="w-7 h-7 text-amber-400" />
               </div>
-              <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-4">Our Mission</h2>
+              <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-4">Our Story</h2>
               <p className="text-zinc-400 leading-relaxed font-medium">
                 To bridge the gap between luxury and accessibility by providing the highest 
                 available quality of mirror sneakers. We aim to empower sneaker lovers 

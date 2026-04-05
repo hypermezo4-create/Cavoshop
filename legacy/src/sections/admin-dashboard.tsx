@@ -34,8 +34,8 @@ interface AdminDashboardProps {
 const statCards = [
   { key: "totalProducts", label: "Total Shoes", icon: Package, color: "from-amber-500/20 to-amber-600/20" },
   { key: "totalOrders", label: "Total Orders", icon: ShoppingBag, color: "from-green-500/20 to-green-600/20" },
-  { key: "totalRevenue", label: "Revenue", icon: DollarSign, color: "from-blue-500/20 to-blue-600/20" },
-  { key: "totalCustomers", label: "Customers", icon: Users, color: "from-purple-500/20 to-purple-600/20" },
+  { key: "totalRevenue", label: "Revenue", icon: DollarSign, color: "from-yellow-500/20 to-yellow-600/20" },
+  { key: "totalCustomers", label: "Customers", icon: Users, color: "from-orange-500/20 to-orange-600/20" },
 ];
 
 export function AdminDashboard({ stats }: AdminDashboardProps) {

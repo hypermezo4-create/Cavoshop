@@ -5,39 +5,39 @@ import prisma from "@/lib/prisma";
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
-        const deviceId = searchParams.get("deviceId");
+        const productId = searchParams.get("productId");
 
-        const where = deviceId ? { deviceId } : {};
+        const where = productId ? { productId } : {};
 
-        const roms = await prisma.rom.findMany({
+        const collections = await prisma.rom.findMany({
             where,
             include: {
-                device: true,
+                product: true,
                 _count: {
-                    select: { downloads: true }
+                    select: { orders: true }
                 }
             },
             orderBy: { releaseDate: 'desc' }
         });
-        return NextResponse.json(roms);
+        return NextResponse.json(collections);
     } catch (error) {
-        return NextResponse.json({ error: "Failed to fetch ROMs" }, { status: 500 });
+        return NextResponse.json({ error: "Failed to fetch Collections" }, { status: 500 });
     }
 }
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { deviceId, name, version, androidVersion, type, downloadUrl, fileSize, changelog, installationGuide, isVipOnly } = body;
+        const { productId, name, version, androidVersion, type, orderUrl, fileSize, changelog, installationGuide, isVipOnly } = body;
 
         const rom = await prisma.rom.create({
             data: {
-                deviceId,
+                productId,
                 name,
                 version,
                 androidVersion,
                 type: type || "FREE",
-                downloadUrl,
+                orderUrl,
                 fileSize,
                 changelog,
                 installationGuide,
@@ -47,6 +47,6 @@ export async function POST(req: Request) {
 
         return NextResponse.json(rom);
     } catch (error) {
-        return NextResponse.json({ error: "Failed to create ROM" }, { status: 500 });
+        return NextResponse.json({ error: "Failed to create Collection" }, { status: 500 });
     }
 }

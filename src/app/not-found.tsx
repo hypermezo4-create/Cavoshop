@@ -21,7 +21,7 @@ export default function NotFound() {
                         transition={{ duration: 0.5 }}
                         className="mb-8"
                     >
-                        <FileQuestion className="w-32 h-32 text-blue-500/50 mx-auto" />
+                        <FileQuestion className="w-32 h-32 text-yellow-500/50 mx-auto" />
                     </motion.div>
 
                     <motion.h1
@@ -31,7 +31,7 @@ export default function NotFound() {
                         className="text-8xl md:text-9xl font-black mb-6 tracking-tighter"
                     >
                         <span className="text-white">4</span>
-                        <span className="text-blue-500">0</span>
+                        <span className="text-yellow-500">0</span>
                         <span className="text-white">4</span>
                     </motion.h1>
 
@@ -61,7 +61,7 @@ export default function NotFound() {
                     >
                         <Link
                             href="/"
-                            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-violet-600 rounded-2xl font-bold hover:shadow-lg hover:shadow-blue-500/20 transition-all"
+                            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-2xl font-bold hover:shadow-lg hover:shadow-yellow-500/20 transition-all"
                         >
                             <Home className="w-5 h-5" />
                             Go Home
@@ -84,8 +84,8 @@ export default function NotFound() {
                         <p className="text-zinc-500 text-sm mb-4">Helpful Links:</p>
                         <div className="flex flex-wrap gap-3 justify-center text-sm">
                             {[
-                                { href: "/download", label: "Download" },
-                                { href: "/installation", label: "Installation Guide" },
+                                { href: "/order", label: "Order" },
+                                { href: "/installation", label: "Size Guide" },
                                 { href: "/faq", label: "FAQ" },
                                 { href: "/contact", label: "Contact" },
                                 { href: "/community", label: "Community" }

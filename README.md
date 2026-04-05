@@ -1,30 +1,30 @@
-# Project Move | MoveOS
+# Cavo Store | Premium Footwear
 
-A modern, high-performance fullstack website for the Project Move custom Android ROM project, built with Next.js 14, TypeScript, and PostgreSQL.
+A modern, high-performance fullstack website for the Cavo Store premium footwear destination, built with Next.js 14, TypeScript, and PostgreSQL.
 
 ## 🌟 Features
 
 ### Public Features
 - **Homepage** - Premium hero with dynamic broadcast alerts
-- **Features Page** - High-impact MoveOS feature showcase
-- **Dynamic Stats** - Live Active Users and Device Count with count-up animations
-- **Download Center** - Optimized device and ROM selection
-- **Screenshots Gallery** - Premium glassmorphism lightbox
-- **Team Page** - Developer profiles with role badges
+- **Features Page** - High-impact Cavo feature showcase
+- **Dynamic Stats** - Live Active Users and Product Count with count-up animations
+- **Order Center** - Optimized product and Collection selection
+- **Gallery Gallery** - Premium glassmorphism lightbox
+- **Staff Page** - Developer profiles with role badges
 
 ### Admin Dashboard
-- **Device Management** - CRUD operations for devices
-- **ROM Management** - Version control and changelog
-- **Team Management** - Member profiles and roles
-- **Analytics Dashboard** - Download statistics and insights
+- **Product Management** - CRUD operations for products
+- **Collection Management** - Version control and changelog
+- **Staff Management** - Member profiles and roles
+- **Analytics Dashboard** - Order statistics and insights
 - **Native Mobile Experience** - Bottom Dock & blurred overlays
 - **Real Activity Logs** - Live system monitoring from database
 - **Revalidation Engine** - Instant data sync between Admin & Public
 - **FAQ Management** - Dynamic content management
 - **Contact Forms** - View and manage submissions
-- **Screenshots** - Gallery content management
-- **Social Links** - Dynamic social media links
-- **System Settings** - Site configuration
+- **Gallery** - Gallery content management
+- **Social Media** - Dynamic social media links
+- **Store Settings** - Site configuration
 
 📖 **[Full Feature Documentation](FEATURES_EN.md)** | **[Dokumentasi Fitur](FEATURES_ID.md)** | **[الميزات الكاملة](FEATURES_AR.md)**
 
@@ -56,8 +56,8 @@ A modern, high-performance fullstack website for the Project Move custom Android
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/sleep-bugy/ProjectMove-website.git
-cd ProjectMove-website
+git clone https://instagram.com/sleep-bugy/Cavo Store-website.git
+cd Cavo Store-website
 ```
 
 2. **Install dependencies:**
@@ -91,7 +91,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 ## 📁 Project Structure
 
 ```
-ProjectMove/
+Cavo Store/
 ├── src/
 │   ├── app/              # Next.js app router pages
 │   │   ├── admin/        # Admin dashboard
@@ -118,10 +118,10 @@ ProjectMove/
 ## 🗄️ Database Schema
 
 ### Core Tables
-- **Device** - Supported devices
-- **Rom** - ROM versions and clusters
-- **Download** - Download tracking
-- **TeamMember** - Team profiles
+- **Product** - Supported products
+- **Rom** - Collection versions and clusters
+- **Order** - Order tracking
+- **StaffMember** - Staff profiles
 - **Faq** - Frequently asked questions
 - **ContactForm** - User submissions
 - **Screenshot** - Gallery images
@@ -132,19 +132,19 @@ ProjectMove/
 
 ### Public APIs
 - `GET /api/faq` - Get all FAQs
-- `GET /api/screenshots` - Get gallery screenshots
+- `GET /api/gallery` - Get gallery gallery
 - `GET /api/social` - Get active social links
-- `GET /api/downloads` - Get ROM downloads
+- `GET /api/orders` - Get Collection orders
 - `POST /api/contact` - Submit contact form
 
 ### Admin APIs
 All admin APIs require authentication:
-- `/api/admin/devices` - Device CRUD
-- `/api/admin/roms` - ROM management
-- `/api/admin/team` - Team management
+- `/api/admin/products` - Product CRUD
+- `/api/admin/collections` - Collection management
+- `/api/admin/staff` - Staff management
 - `/api/admin/faq` - FAQ management
 - `/api/admin/contact` - View submissions
-- `/api/admin/screenshots` - Gallery management
+- `/api/admin/gallery` - Gallery management
 - `/api/admin/social` - Social links management
 
 ## 🎨 Design System
@@ -157,24 +157,24 @@ All admin APIs require authentication:
 ## 🔒 Admin Access
 
 Access the admin dashboard at `/admin`:
-- Device & ROM management
+- Product & Collection management
 - Content management (FAQ, Gallery, Social)
-- Team member profiles
+- Staff member profiles
 - Contact form submissions
 - System settings
 
 ## 📱 Community
 
 Join our community channels:
-- **Telegram Updates:** [https://t.me/xMoveOS](https://t.me/xMoveOS)
-- **Group Discussion:** [https://t.me/MoveOSDiscussion](https://t.me/MoveOSDiscussion)
-- **Cloud Storage:** [https://t.me/MoveOSCloud](https://t.me/MoveOSCloud)
+- **WhatsApp Updates:** [https://t.me/xCavo](https://t.me/xCavo)
+- **Group Discussion:** [https://t.me/CavoDiscussion](https://t.me/CavoDiscussion)
+- **Cloud Storage:** [https://t.me/CavoCloud](https://t.me/CavoCloud)
 
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
 
-1. Push code to GitHub
+1. Push code to Instagram
 2. Import project in Vercel
 3. Add environment variables
 4. Deploy!
@@ -200,20 +200,20 @@ This project is licensed under the MIT License.
 ## 👨‍💻 Credits
 
 **Website Development:**
-- **Mohammad Adi** - [@sleep-bugy](https://github.com/sleep-bugy)
+- **Mohammad Adi** - [@sleep-bugy](https://instagram.com/sleep-bugy)
   - Full-stack development
   - UI/UX design implementation
   - Database architecture
   - Admin dashboard
 
-**MoveOS Project:**
-- Project Move Team
+**Cavo Project:**
+- Cavo Store Staff
 
 ## 💖 Support
 
 If you find this project helpful, consider:
 - ⭐ Starring the repository
-- 🐛 Reporting bugs via GitHub Issues
+- 🐛 Reporting bugs via Instagram Issues
 - 💡 Suggesting features
 - 🤝 Contributing to the code
 
@@ -227,4 +227,4 @@ If you find this project helpful, consider:
 
 ---
 
-Made with ❤️ by [Mohammad Adi](https://github.com/sleep-bugy) | Project Move Team
+Made with ❤️ by [Mohammad Adi](https://instagram.com/sleep-bugy) | Cavo Store Staff

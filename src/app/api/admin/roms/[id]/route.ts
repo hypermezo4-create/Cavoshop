@@ -13,7 +13,7 @@ export async function PUT(
         });
         return NextResponse.json(rom);
     } catch (error) {
-        return NextResponse.json({ error: "Failed to update ROM" }, { status: 500 });
+        return NextResponse.json({ error: "Failed to update Collection" }, { status: 500 });
     }
 }
 
@@ -27,6 +27,6 @@ export async function DELETE(
         });
         return NextResponse.json({ success: true });
     } catch (error) {
-        return NextResponse.json({ error: "Failed to delete ROM" }, { status: 500 });
+        return NextResponse.json({ error: "Failed to delete Collection" }, { status: 500 });
     }
 }

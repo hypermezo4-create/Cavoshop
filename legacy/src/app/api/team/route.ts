@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// GET /api/team - List all team members
+// GET /api/staff - List all staff members
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -13,26 +13,26 @@ export async function GET(request: NextRequest) {
       where.role = role.toUpperCase();
     }
 
-    const members = await prisma.teamMember.findMany({
+    const members = await prisma.staffMember.findMany({
       where,
       orderBy: [{ role: "asc" }, { order: "asc" }],
     });
 
     return NextResponse.json({ success: true, data: members });
   } catch (error) {
-    console.error("Error fetching team members:", error);
+    console.error("Error fetching staff members:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch team members" },
+      { success: false, error: "Failed to fetch staff members" },
       { status: 500 }
     );
   }
 }
 
-// POST /api/team - Create a new team member
+// POST /api/staff - Create a new staff member
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, role, image, bio, github, telegram, twitter, website, order } = body;
+    const { name, role, image, bio, instagram, whatsapp, twitter, website, order } = body;
 
     // Validate required fields
     if (!name || !role) {
@@ -42,14 +42,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const member = await prisma.teamMember.create({
+    const member = await prisma.staffMember.create({
       data: {
         name,
         role: role.toUpperCase(),
         image,
         bio,
-        github,
-        telegram,
+        instagram,
+        whatsapp,
         twitter,
         website,
         order: order || 0,
@@ -61,9 +61,9 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating team member:", error);
+    console.error("Error creating staff member:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to create team member" },
+      { success: false, error: "Failed to create staff member" },
       { status: 500 }
     );
   }

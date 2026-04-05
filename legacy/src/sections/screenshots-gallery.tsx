@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 // هنا هتقدر تغير العناوين والصور بعدين
 const galleryItems = [
-  { id: 1, title: "LV Trainer Blue", brand: "Louis Vuitton", color: "from-blue-600/20 to-zinc-900" },
+  { id: 1, title: "LV Trainer Blue", brand: "Louis Vuitton", color: "from-yellow-600/20 to-zinc-900" },
   { id: 2, title: "NB 9060 Rain Cloud", brand: "New Balance", color: "from-zinc-500/20 to-zinc-900" },
   { id: 3, title: "AJ1 Retro High", brand: "Jordan", color: "from-red-600/20 to-zinc-900" },
   { id: 4, title: "Adidas Campus 00s", brand: "Adidas", color: "from-green-600/20 to-zinc-900" },
@@ -15,7 +15,7 @@ const galleryItems = [
   { id: 6, title: "Travis Scott Canary", brand: "Jordan", color: "from-yellow-500/20 to-zinc-900" },
 ];
 
-export function ScreenshotsGallery() {
+export function GalleryGallery() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 

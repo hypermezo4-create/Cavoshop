@@ -14,20 +14,20 @@ interface ProductListProps {
 
 // ألوان البراندات العالمية للأحذية
 const brandColors: Record<string, string> = {
-  NIKE: "from-blue-600/10 to-zinc-900/40",
+  NIKE: "from-yellow-600/10 to-zinc-900/40",
   ADIDAS: "from-zinc-100/10 to-zinc-900/40",
   JORDAN: "from-red-600/10 to-zinc-900/40",
   LV: "from-amber-500/10 to-amber-900/40",
 };
 
 const brandBadgeColors: Record<string, string> = {
-  NIKE: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  NIKE: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
   ADIDAS: "bg-zinc-100/10 text-zinc-400 border-white/10",
   JORDAN: "bg-red-500/20 text-red-400 border-red-500/30",
   LV: "bg-amber-500/20 text-amber-400 border-amber-500/30",
 };
 
-export function DeviceList({ products }: any) {
+export function ProductList({ products }: any) {
   if (!products || products.length === 0) {
     return (
       <section className="py-24">

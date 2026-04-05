@@ -41,7 +41,7 @@ export default function Error({
               Try Again
             </Button>
             <Link href="/">
-              <Button className="bg-gradient-to-r from-blue-500 to-purple-600">
+              <Button className="bg-gradient-to-r from-yellow-500 to-orange-600">
                 <Home className="w-4 h-4 mr-2" />
                 Back to Home
               </Button>

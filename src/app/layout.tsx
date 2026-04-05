@@ -9,18 +9,14 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 
 export const metadata: Metadata = {
-    title: "Project Move | MoveOS",
-    description: "Experience ultimate performance with MoveOS, the most advanced Android ROM for MediaTek devices.",
+    title: "Cavo Store | Premium Footwear",
+    description: "Shop premium sneakers and everyday footwear at Cavo Store. Bold design, fast delivery, and a polished shopping experience.",
 };
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased selection:bg-blue-500/30`}>
+            <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased selection:bg-yellow-500/30`}>
                 <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
                     <SplashLoader>
                         <VisitorTracker />

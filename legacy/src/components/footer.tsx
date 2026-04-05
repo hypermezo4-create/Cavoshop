@@ -13,7 +13,7 @@ const footerLinks = {
   ],
   brand: [
     { label: "Our Story", href: "/about" },
-    { label: "Our Team", href: "/about" },
+    { label: "Our Staff", href: "/about" },
     { label: "Wholesale", href: "#" },
   ],
   support: [

@@ -5,12 +5,13 @@ import { Plus, Image as ImageIcon, Edit2, Trash2, X, Loader2, Shield, Camera, La
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
-export default function AdminScreenshotsPage() {
-    const [screenshots, setScreenshots] = useState<any[]>([]);
+export default function AdminGalleryPage() {
+    const [gallery, setGallery] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
+    const [uploading, setUploading] = useState(false);
 
     const [formData, setFormData] = useState({
         title: "",
@@ -20,11 +21,11 @@ export default function AdminScreenshotsPage() {
         order: 0,
     });
 
-    const fetchScreenshots = async () => {
+    const fetchGallery = async () => {
         try {
             const res = await fetch("/api/admin/screenshots");
             const data = await res.json();
-            if (Array.isArray(data)) setScreenshots(data);
+            if (Array.isArray(data)) setGallery(data);
         } catch (error) {
             console.error(error);
         } finally {
@@ -33,7 +34,7 @@ export default function AdminScreenshotsPage() {
     };
 
     useEffect(() => {
-        fetchScreenshots();
+        fetchGallery();
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +54,7 @@ export default function AdminScreenshotsPage() {
                 setIsModalOpen(false);
                 setEditingId(null);
                 setFormData({ title: "", imageUrl: "", description: "", category: "", order: 0 });
-                fetchScreenshots();
+                fetchGallery();
             }
         } catch (error) {
             console.error(error);
@@ -62,11 +63,28 @@ export default function AdminScreenshotsPage() {
         }
     };
 
+
+    const handleImageUpload = async (file: File) => {
+        const form = new FormData();
+        form.append("file", file);
+        setUploading(true);
+        try {
+            const res = await fetch("/api/admin/upload", { method: "POST", body: form });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Upload failed");
+            setFormData((prev) => ({ ...prev, imageUrl: data.url }));
+        } catch (error) {
+            alert("Failed to upload image");
+        } finally {
+            setUploading(false);
+        }
+    };
+
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure?")) return;
         try {
             const res = await fetch(`/api/admin/screenshots/${id}`, { method: "DELETE" });
-            if (res.ok) fetchScreenshots();
+            if (res.ok) fetchGallery();
         } catch (error) {
             console.error(error);
         }
@@ -77,47 +95,47 @@ export default function AdminScreenshotsPage() {
             {/* Header */}
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <div className="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
+                    <div className="flex items-center gap-2 text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
                         <Camera className="w-3 h-3" />
-                        Visual Assets
+                        Store Assets
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">Gallery Records</h1>
-                    <p className="text-zinc-500 text-sm font-medium mt-1">Curate the high-fidelity visual documentation for MoveOS.</p>
+                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">Image Library</h1>
+                    <p className="text-zinc-500 text-sm font-medium mt-1">Upload and manage product photos, campaign visuals, and lookbook images for Cavo.</p>
                 </div>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all shadow-2xl shadow-indigo-600/20 active:scale-95 group"
+                    className="flex items-center gap-3 px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all shadow-2xl shadow-amber-600/20 active:scale-95 group"
                 >
-                    <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" /> Register Snapshot
+                    <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" /> Add Image
                 </button>
             </header>
 
             {/* Signal Stats */}
             <div className="flex items-center gap-4 px-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] w-fit">
-                <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Active nodes:</span>
-                <span className="text-sm font-black text-indigo-400">{screenshots.length}</span>
+                <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Total images:</span>
+                <span className="text-sm font-black text-amber-400">{gallery.length}</span>
             </div>
 
-            {/* Screenshots Grid */}
+            {/* Gallery Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {loading ? (
                     Array.from({ length: 8 }).map((_, i) => (
                         <div key={i} className="aspect-[9/16] glass-premium rounded-[2.5rem] animate-pulse" />
                     ))
-                ) : screenshots.length === 0 ? (
+                ) : gallery.length === 0 ? (
                     <div className="col-span-full py-32 text-center glass-premium rounded-[3rem]">
                         <ImageIcon className="w-16 h-16 text-zinc-800 mx-auto mb-6" />
-                        <h3 className="text-xl font-bold text-zinc-500 tracking-tight">Gallery Empty</h3>
-                        <p className="text-zinc-600 text-sm font-medium mt-1">Initialize visual documentation to populate this sector.</p>
+                        <h3 className="text-xl font-bold text-zinc-500 tracking-tight">No Images Yet</h3>
+                        <p className="text-zinc-600 text-sm font-medium mt-1">Start adding product and campaign photos to build your gallery.</p>
                     </div>
                 ) : (
-                    screenshots.map((screenshot, i) => (
+                    gallery.map((screenshot, i) => (
                         <motion.div
                             key={screenshot.id}
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: i * 0.05 }}
-                            className="group relative glass-premium overflow-hidden rounded-[2.5rem] border-white/5 hover:border-indigo-500/30 transition-all duration-700"
+                            className="group relative glass-premium overflow-hidden rounded-[2.5rem] border-white/5 hover:border-amber-500/30 transition-all duration-700"
                         >
                             <div className="aspect-[9/19] relative overflow-hidden">
                                 <img
@@ -135,7 +153,7 @@ export default function AdminScreenshotsPage() {
                                                 setFormData({ ...screenshot });
                                                 setIsModalOpen(true);
                                             }}
-                                            className="p-3 bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl text-white hover:bg-indigo-600 transition-colors shadow-2xl"
+                                            className="p-3 bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl text-white hover:bg-amber-600 transition-colors shadow-2xl"
                                         >
                                             <Edit2 className="w-4 h-4" />
                                         </button>
@@ -147,7 +165,7 @@ export default function AdminScreenshotsPage() {
                                         </button>
                                     </div>
                                     {screenshot.category && (
-                                        <span className="px-3 py-1 bg-indigo-500/20 backdrop-blur-xl border border-indigo-500/20 rounded-full text-[8px] font-black uppercase tracking-widest text-indigo-400">
+                                        <span className="px-3 py-1 bg-amber-500/20 backdrop-blur-xl border border-amber-500/20 rounded-full text-[8px] font-black uppercase tracking-widest text-amber-400">
                                             {screenshot.category}
                                         </span>
                                     )}
@@ -155,8 +173,8 @@ export default function AdminScreenshotsPage() {
 
                                 <div className="absolute bottom-0 left-0 right-0 p-8 space-y-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                                     <h3 className="text-xl font-black text-white tracking-tight leading-tight">{screenshot.title}</h3>
-                                    <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest flex items-center gap-2">
-                                        <Terminal className="w-3 h-3" /> Vector: {screenshot.order}
+                                    <p className="text-[10px] font-black text-amber-400 uppercase tracking-widest flex items-center gap-2">
+                                        <Terminal className="w-3 h-3" /> Order: {screenshot.order}
                                     </p>
                                 </div>
                             </div>
@@ -184,10 +202,10 @@ export default function AdminScreenshotsPage() {
                         >
                             <div className="flex justify-between items-start mb-10">
                                 <div>
-                                    <div className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.4em] mb-2 flex items-center gap-2">
-                                        <Shield className="w-3 h-3" /> Visual Protocol v2.0
+                                    <div className="text-[10px] font-black text-amber-500 uppercase tracking-[0.4em] mb-2 flex items-center gap-2">
+                                        <Shield className="w-3 h-3" /> Image Asset Manager
                                     </div>
-                                    <h2 className="text-3xl font-black text-white tracking-tighter">{editingId ? "Modify Snapshot" : "Register Snapshot"}</h2>
+                                    <h2 className="text-3xl font-black text-white tracking-tighter">{editingId ? "Edit Image" : "Add Image"}</h2>
                                 </div>
                                 <button
                                     onClick={() => { setIsModalOpen(false); setEditingId(null); }}
@@ -199,55 +217,62 @@ export default function AdminScreenshotsPage() {
 
                             <form onSubmit={handleSubmit} className="space-y-8">
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Snapshot Designation</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Image Title</label>
                                     <input
                                         required
                                         value={formData.title}
                                         onChange={e => setFormData({ ...formData, title: e.target.value })}
-                                        placeholder="Dynamic Island Preview"
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold placeholder:text-zinc-800"
+                                        placeholder="Cavo Campaign Shot"
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold placeholder:text-zinc-800"
                                     />
                                 </div>
 
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Asset Source URL</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Image URL</label>
                                     <input
                                         required
                                         value={formData.imageUrl}
                                         onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
-                                        placeholder="https://cdn.projectmove.com/sh_01.jpg"
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium placeholder:text-zinc-800"
+                                        placeholder="https://cdn.cavostore.com/product-image.jpg"
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium placeholder:text-zinc-800"
                                     />
+                                    <div className="flex items-center gap-3">
+                                        <label className="cursor-pointer rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-zinc-300">
+                                            {uploading ? "Uploading..." : "Upload file"}
+                                            <input type="file" accept="image/*" className="hidden" onChange={e => { const file = e.target.files?.[0]; if (file) handleImageUpload(file); }} />
+                                        </label>
+                                        {formData.imageUrl && <span className="text-xs text-amber-400 truncate">{formData.imageUrl}</span>}
+                                    </div>
                                 </div>
 
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Context Documentation</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Image Description</label>
                                     <textarea
                                         rows={3}
                                         value={formData.description}
                                         onChange={e => setFormData({ ...formData, description: e.target.value })}
                                         placeholder="Detail the features showcased in this capture..."
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] px-6 py-5 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium resize-none placeholder:text-zinc-800"
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] px-6 py-5 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium resize-none placeholder:text-zinc-800"
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Category Sector</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Category</label>
                                         <input
                                             value={formData.category}
                                             onChange={e => setFormData({ ...formData, category: e.target.value })}
-                                            placeholder="e.g. SYSTEM UI"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-black uppercase tracking-widest"
+                                            placeholder="e.g. Product Drop"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-black uppercase tracking-widest"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Order Vector</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Display Order</label>
                                         <input
                                             type="number"
                                             value={formData.order}
                                             onChange={e => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-mono font-bold"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-mono font-bold"
                                         />
                                     </div>
                                 </div>
@@ -255,7 +280,7 @@ export default function AdminScreenshotsPage() {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full py-6 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 disabled:from-zinc-800 disabled:to-zinc-900 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] transition-all shadow-xl shadow-indigo-600/20 active:scale-95 flex items-center justify-center gap-4"
+                                    className="w-full py-6 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 disabled:from-zinc-800 disabled:to-zinc-900 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] transition-all shadow-xl shadow-amber-600/20 active:scale-95 flex items-center justify-center gap-4"
                                 >
                                     {isSubmitting ? (
                                         <Loader2 className="w-5 h-5 animate-spin" />

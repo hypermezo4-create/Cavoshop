@@ -2,25 +2,25 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Search, Cpu, Download, Box, Calendar, X, Loader2, Edit2, Trash2, Shield, Activity, HardDrive, Terminal } from "lucide-react";
+import { Plus, Search, Cpu, ShoppingBag, Box, Calendar, X, Loader2, Edit2, Trash2, Shield, Activity, HardDrive, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function RomsPage() {
-    const [roms, setRoms] = useState<any[]>([]);
+    const [collections, setRoms] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
 
     // Modal & Form State
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [devices, setDevices] = useState<any[]>([]);
+    const [products, setProducts] = useState<any[]>([]);
     const [formData, setFormData] = useState({
-        deviceId: "",
+        productId: "",
         name: "",
         version: "",
         androidVersion: "",
         type: "OFFICIAL_STABLE",
-        downloadUrl: "",
+        orderUrl: "",
         fileSize: "",
         changelog: "",
         installationGuide: "",
@@ -37,18 +37,18 @@ export default function RomsPage() {
                 setRoms([]);
             }
         } catch (error) {
-            console.error("Failed to fetch ROMs:", error);
+            console.error("Failed to fetch Collections:", error);
             setRoms([]);
         } finally {
             setLoading(false);
         }
     };
 
-    const fetchDevices = async () => {
+    const fetchProducts = async () => {
         try {
             const res = await fetch("/api/admin/devices");
             const data = await res.json();
-            if (Array.isArray(data)) setDevices(data);
+            if (Array.isArray(data)) setProducts(data);
         } catch (err) {
             console.error(err);
         }
@@ -56,7 +56,7 @@ export default function RomsPage() {
 
     useEffect(() => {
         fetchRoms();
-        fetchDevices();
+        fetchProducts();
     }, []);
 
     const handleDeploy = async (e: React.FormEvent) => {
@@ -75,8 +75,8 @@ export default function RomsPage() {
                 setIsModalOpen(false);
                 setEditingId(null);
                 setFormData({
-                    deviceId: "", name: "", version: "", androidVersion: "",
-                    type: "OFFICIAL_STABLE", downloadUrl: "", fileSize: "", changelog: "",
+                    productId: "", name: "", version: "", androidVersion: "",
+                    type: "OFFICIAL_STABLE", orderUrl: "", fileSize: "", changelog: "",
                     installationGuide: ""
                 });
                 fetchRoms();
@@ -93,7 +93,7 @@ export default function RomsPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this ROM version?")) return;
+        if (!confirm("Are you sure you want to delete this Collection version?")) return;
         try {
             const res = await fetch(`/api/admin/roms/${id}`, { method: "DELETE" });
             if (res.ok) {
@@ -104,9 +104,9 @@ export default function RomsPage() {
         }
     };
 
-    const filteredRoms = roms.filter(r =>
+    const filteredRoms = collections.filter(r =>
         r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        r.device?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        r.product?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         r.version.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -115,16 +115,16 @@ export default function RomsPage() {
             {/* Header */}
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <div className="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
+                    <div className="flex items-center gap-2 text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
                         <Terminal className="w-3 h-3" />
                         Build Infrastructure
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">ROM Repository</h1>
-                    <p className="text-zinc-500 text-sm font-medium mt-1">Manage firmware distributions and release cycles.</p>
+                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">Collection Repository</h1>
+                    <p className="text-zinc-500 text-sm font-medium mt-1">Manage product collections, release highlights, and featured drops.</p>
                 </div>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all shadow-2xl shadow-indigo-600/20 active:scale-95 group"
+                    className="flex items-center gap-3 px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all shadow-2xl shadow-amber-600/20 active:scale-95 group"
                 >
                     <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" /> Authorize Build
                 </button>
@@ -133,22 +133,22 @@ export default function RomsPage() {
             {/* Search & Filter Bar */}
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1 group">
-                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-indigo-400 transition-colors w-4 h-4" />
+                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-amber-400 transition-colors w-4 h-4" />
                     <input
                         type="text"
-                        placeholder="Search builds or devices..."
-                        className="w-full pl-14 pr-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                        placeholder="Search collections or products..."
+                        className="w-full pl-14 pr-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all font-medium"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
                 <div className="flex items-center gap-4 px-6 py-4 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem]">
-                    <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Active builds:</span>
-                    <span className="text-sm font-black text-indigo-400">{filteredRoms.length}</span>
+                    <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Active collections:</span>
+                    <span className="text-sm font-black text-amber-400">{filteredRoms.length}</span>
                 </div>
             </div>
 
-            {/* ROM Grid */}
+            {/* Collection Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                 {loading ? (
                     Array.from({ length: 8 }).map((_, i) => (
@@ -157,7 +157,7 @@ export default function RomsPage() {
                 ) : filteredRoms.length === 0 ? (
                     <div className="col-span-full py-20 text-center glass-premium rounded-[2.5rem]">
                         <Box className="w-12 h-12 text-zinc-800 mx-auto mb-4" />
-                        <h3 className="text-lg font-bold text-zinc-500">No builds detected</h3>
+                        <h3 className="text-lg font-bold text-zinc-500">No collections detected</h3>
                         <p className="text-sm text-zinc-600">Authorize a new build to populate the repository.</p>
                     </div>
                 ) : (
@@ -167,7 +167,7 @@ export default function RomsPage() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: i * 0.05 }}
-                            className="glass-premium rounded-[2.5rem] p-6 group hover:border-indigo-500/30 transition-all relative overflow-hidden flex flex-col justify-between"
+                            className="glass-premium rounded-[2.5rem] p-6 group hover:border-amber-500/30 transition-all relative overflow-hidden flex flex-col justify-between"
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
                                 <Box className="w-32 h-32 rotate-[-15deg]" />
@@ -175,7 +175,7 @@ export default function RomsPage() {
 
                             <div className="relative z-10 space-y-5">
                                 <div className="flex justify-between items-start">
-                                    <div className="w-12 h-12 rounded-2xl bg-indigo-600/10 border border-indigo-600/20 flex items-center justify-center text-indigo-400 shadow-xl shadow-black/50">
+                                    <div className="w-12 h-12 rounded-2xl bg-amber-600/10 border border-amber-600/20 flex items-center justify-center text-amber-400 shadow-xl shadow-black/50">
                                         <Box className="w-6 h-6" />
                                     </div>
                                     <div className="flex gap-2">
@@ -183,12 +183,12 @@ export default function RomsPage() {
                                             onClick={() => {
                                                 setEditingId(rom.id);
                                                 setFormData({
-                                                    deviceId: rom.deviceId,
+                                                    productId: rom.productId,
                                                     name: rom.name,
                                                     version: rom.version,
                                                     androidVersion: rom.androidVersion,
                                                     type: rom.type,
-                                                    downloadUrl: rom.downloadUrl,
+                                                    orderUrl: rom.orderUrl,
                                                     fileSize: rom.fileSize || "",
                                                     changelog: rom.changelog || "",
                                                     installationGuide: rom.installationGuide || "",
@@ -210,21 +210,21 @@ export default function RomsPage() {
 
                                 <div>
                                     <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-[10px] font-black text-indigo-500 uppercase tracking-widest">{rom.type.replace('_', ' ')}</span>
+                                        <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">{rom.type.replace('_', ' ')}</span>
                                         <div className="w-1 h-1 bg-zinc-800 rounded-full" />
                                         <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">v{rom.version}</span>
                                     </div>
-                                    <h3 className="text-xl font-black text-white tracking-tight group-hover:text-indigo-400 transition-colors">{rom.name}</h3>
+                                    <h3 className="text-xl font-black text-white tracking-tight group-hover:text-amber-400 transition-colors">{rom.name}</h3>
                                     <div className="flex items-center gap-2 mt-1">
                                         <Cpu className="w-3.5 h-3.5 text-zinc-600" />
-                                        <span className="text-[11px] font-bold text-zinc-400 truncate">{rom.device?.name || "Unknown"}</span>
+                                        <span className="text-[11px] font-bold text-zinc-400 truncate">{rom.product?.name || "Unknown"}</span>
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-3">
                                     <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.03]">
                                         <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest mb-1 flex items-center gap-1.5">
-                                            <Download className="w-3 h-3" /> Binary
+                                            <ShoppingBag className="w-3 h-3" /> Binary
                                         </div>
                                         <div className="text-[11px] font-bold text-zinc-300 truncate">{rom.fileSize || "N/A"}</div>
                                     </div>
@@ -232,7 +232,7 @@ export default function RomsPage() {
                                         <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest mb-1 flex items-center gap-1.5">
                                             <Activity className="w-3 h-3" /> Hits
                                         </div>
-                                        <div className="text-[13px] font-black text-white">{rom._count?.downloads || 0}</div>
+                                        <div className="text-[13px] font-black text-white">{rom._count?.orders || 0}</div>
                                     </div>
                                 </div>
                             </div>
@@ -266,8 +266,8 @@ export default function RomsPage() {
                                 setIsModalOpen(false);
                                 setEditingId(null);
                                 setFormData({
-                                    deviceId: "", name: "", version: "", androidVersion: "",
-                                    type: "OFFICIAL_STABLE", downloadUrl: "", fileSize: "", changelog: "",
+                                    productId: "", name: "", version: "", androidVersion: "",
+                                    type: "OFFICIAL_STABLE", orderUrl: "", fileSize: "", changelog: "",
                                     installationGuide: ""
                                 });
                             }}
@@ -281,7 +281,7 @@ export default function RomsPage() {
                         >
                             <div className="flex justify-between items-start mb-10">
                                 <div>
-                                    <div className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.4em] mb-2 flex items-center gap-2">
+                                    <div className="text-[10px] font-black text-amber-500 uppercase tracking-[0.4em] mb-2 flex items-center gap-2">
                                         <Shield className="w-3 h-3" /> Build Protocol v3.0
                                     </div>
                                     <h2 className="text-3xl font-black text-white tracking-tighter">{editingId ? "Modify Build" : "Authorize Build"}</h2>
@@ -296,15 +296,15 @@ export default function RomsPage() {
 
                             <form onSubmit={handleDeploy} className="space-y-8">
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Target Hardware</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Target Hardware</label>
                                     <select
                                         required
-                                        value={formData.deviceId}
-                                        onChange={e => setFormData({ ...formData, deviceId: e.target.value })}
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold appearance-none custom-scrollbar"
+                                        value={formData.productId}
+                                        onChange={e => setFormData({ ...formData, productId: e.target.value })}
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold appearance-none custom-scrollbar"
                                     >
-                                        <option value="" className="bg-[#030406] text-zinc-600">Identify node...</option>
-                                        {devices.map(d => (
+                                        <option value="" className="bg-[#030406] text-zinc-600">Choose product...</option>
+                                        {products.map(d => (
                                             <option key={d.id} value={d.id} className="bg-[#030406] text-white">
                                                 {d.name.toUpperCase()} ({d.codename})
                                             </option>
@@ -314,45 +314,45 @@ export default function RomsPage() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Build Designation</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Build Designation</label>
                                         <input
                                             required
                                             value={formData.name}
                                             onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                            placeholder="e.g. MoveOS v2 Stable"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold"
+                                            placeholder="e.g. Cavo v2 Stable"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Version Vector</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Version Vector</label>
                                         <input
                                             required
                                             value={formData.version}
                                             onChange={e => setFormData({ ...formData, version: e.target.value })}
                                             placeholder="e.g. 2.0.1"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-mono font-bold tracking-tighter"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-mono font-bold tracking-tighter"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Android Core</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">fashion Core</label>
                                         <input
                                             required
                                             value={formData.androidVersion}
                                             onChange={e => setFormData({ ...formData, androidVersion: e.target.value })}
                                             placeholder="e.g. 14"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Deployment Track</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Deployment Track</label>
                                         <select
                                             required
                                             value={formData.type}
                                             onChange={e => setFormData({ ...formData, type: e.target.value })}
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold appearance-none"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold appearance-none"
                                         >
                                             <option value="OFFICIAL_STABLE" className="bg-[#030406] text-white">OFFICIAL STABLE</option>
                                             <option value="COMMUNITY" className="bg-[#030406] text-white">COMMUNITY BUILD</option>
@@ -362,53 +362,53 @@ export default function RomsPage() {
                                 </div>
 
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Payload Distribution Link</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Payload Distribution Link</label>
                                     <input
                                         required
                                         type="url"
-                                        value={formData.downloadUrl}
-                                        onChange={e => setFormData({ ...formData, downloadUrl: e.target.value })}
-                                        placeholder="https://ota.projectmove.com/..."
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium"
+                                        value={formData.orderUrl}
+                                        onChange={e => setFormData({ ...formData, orderUrl: e.target.value })}
+                                        placeholder="https://cdn.cavostore.com/product-image.jpg"
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium"
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Binary Magnitude</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Binary Magnitude</label>
                                         <input
                                             value={formData.fileSize}
                                             onChange={e => setFormData({ ...formData, fileSize: e.target.value })}
                                             placeholder="e.g. 2.4 GB"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-mono font-bold"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-mono font-bold"
                                         />
                                     </div>
                                     <div className="space-y-3 group">
-                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Deployment Vector (Guide)</label>
+                                        <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Deployment Vector (Guide)</label>
                                         <input
                                             value={formData.installationGuide}
                                             onChange={e => setFormData({ ...formData, installationGuide: e.target.value })}
                                             placeholder="e.g. Fastboot Mode"
-                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold"
+                                            className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.25rem] px-5 py-4 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="space-y-3 group">
-                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-indigo-400 group-focus-within:opacity-100 transition-all">Revision Changelog</label>
+                                    <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest opacity-80 group-focus-within:text-amber-400 group-focus-within:opacity-100 transition-all">Revision Changelog</label>
                                     <textarea
                                         rows={4}
                                         value={formData.changelog}
                                         onChange={e => setFormData({ ...formData, changelog: e.target.value })}
                                         placeholder="Outline technical modifications..."
-                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] px-6 py-5 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-medium resize-none placeholder:text-zinc-800"
+                                        className="w-full bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] px-6 py-5 text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-medium resize-none placeholder:text-zinc-800"
                                     />
                                 </div>
 
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full py-6 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 disabled:from-zinc-800 disabled:to-zinc-900 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] transition-all shadow-xl shadow-indigo-600/20 active:scale-95 flex items-center justify-center gap-4"
+                                    className="w-full py-6 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 disabled:from-zinc-800 disabled:to-zinc-900 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] transition-all shadow-xl shadow-amber-600/20 active:scale-95 flex items-center justify-center gap-4"
                                 >
                                     {isSubmitting ? (
                                         <Loader2 className="w-5 h-5 animate-spin" />

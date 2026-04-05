@@ -6,16 +6,16 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
     try {
-        const screenshots = await prisma.screenshot.findMany({
+        const gallery = await prisma.screenshot.findMany({
             orderBy: [
                 { order: 'asc' },
                 { createdAt: 'asc' }
             ]
         });
-        return NextResponse.json(screenshots);
+        return NextResponse.json(gallery);
     } catch (error) {
-        console.error("Error fetching screenshots:", error);
-        return NextResponse.json({ error: "Failed to fetch screenshots" }, { status: 500 });
+        console.error("Error fetching gallery:", error);
+        return NextResponse.json({ error: "Failed to fetch gallery" }, { status: 500 });
     }
 }
 

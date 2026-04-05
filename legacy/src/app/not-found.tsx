@@ -15,8 +15,8 @@ export default function NotFound() {
           transition={{ duration: 0.5 }}
           className="max-w-md mx-auto text-center"
         >
-          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mx-auto mb-6">
-            <AlertCircle className="w-12 h-12 text-blue-400" />
+          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center mx-auto mb-6">
+            <AlertCircle className="w-12 h-12 text-yellow-400" />
           </div>
           
           <h1 className="text-6xl font-bold font-display mb-4">404</h1>
@@ -26,7 +26,7 @@ export default function NotFound() {
           </p>
           
           <Link href="/">
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600">
+            <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-600">
               <Home className="w-4 h-4 mr-2" />
               Back to Home
             </Button>

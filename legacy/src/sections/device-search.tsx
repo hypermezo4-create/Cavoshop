@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function DeviceSearch() {
+export function ProductSearch() {
   return (
     <section className="py-12 bg-zinc-950">
       <div className="container mx-auto px-4">

@@ -7,22 +7,22 @@ import { Github, Twitter, MessageCircle, Globe, Crown, ShoppingBag, Truck, Palet
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import type { TeamMember } from "@/types";
+import type { StaffMember } from "@/types";
 
-interface TeamGridProps {
-  members: TeamMember[];
+interface StaffGridProps {
+  members: StaffMember[];
 }
 
 // تغيير الأدوار لتناسب متجر كافو
 const roleConfig: Record<string, { icon: any; color: string; label: string }> = {
   OWNER: { icon: Crown, color: "from-amber-500/20 to-amber-600/20 text-amber-400", label: "Founder & CEO" },
   MANAGER: { icon: ShoppingBag, color: "from-zinc-500/20 to-zinc-600/20 text-zinc-300", label: "Store Manager" },
-  SALES: { icon: User, color: "from-blue-500/20 to-blue-600/20 text-blue-400", label: "Sales Expert" },
+  SALES: { icon: User, color: "from-yellow-500/20 to-yellow-600/20 text-yellow-400", label: "Sales Expert" },
   DESIGNER: { icon: Palette, color: "from-pink-500/20 to-pink-600/20 text-pink-400", label: "Creative Director" },
   MARKETING: { icon: Globe, color: "from-green-500/20 to-green-600/20 text-green-400", label: "Marketing" },
 };
 
-function TeamCard({ member, index }: { member: any; index: number }) {
+function StaffCard({ member, index }: { member: any; index: number }) {
   const role = roleConfig[member.role as keyof typeof roleConfig] || roleConfig.OWNER;
   const RoleIcon = role.icon;
 
@@ -78,7 +78,7 @@ function TeamCard({ member, index }: { member: any; index: number }) {
               </p>
             )}
 
-            {/* Social Links */}
+            {/* Social Media */}
             <div className="flex gap-3">
               {/* استبدلنا الروابط التقنية بروابط تواصل تجارية */}
               <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl bg-white/5 hover:bg-amber-500 hover:text-black transition-all" asChild>
@@ -99,7 +99,7 @@ function TeamCard({ member, index }: { member: any; index: number }) {
   );
 }
 
-export function TeamGrid({ members }: TeamGridProps) {
+export function StaffGrid({ members }: StaffGridProps) {
   if (members.length === 0) {
     return (
       <section className="py-24">
@@ -108,7 +108,7 @@ export function TeamGrid({ members }: TeamGridProps) {
             <div className="w-20 h-20 rounded-3xl bg-amber-500/10 flex items-center justify-center mx-auto mb-6">
               <User className="w-10 h-10 text-amber-500" />
             </div>
-            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">Meet Our Elite Team</h3>
+            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">Meet Our Elite Staff</h3>
             <p className="text-zinc-500 font-medium">
               We are currently finalizing our staff profiles for Cavo Store.
             </p>
@@ -123,7 +123,7 @@ export function TeamGrid({ members }: TeamGridProps) {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {members.map((member, index) => (
-            <TeamCard key={member.id} member={member} index={index} />
+            <StaffCard key={member.id} member={member} index={index} />
           ))}
         </div>
       </div>

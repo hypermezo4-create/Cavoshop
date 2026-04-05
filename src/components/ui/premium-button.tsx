@@ -56,8 +56,8 @@ export function PremiumButton({ children, onClick, className, icon, loading }: P
                 disabled={loading}
                 className={cn(
                     "relative overflow-hidden px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-tight transition-all duration-300",
-                    "bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-600 text-white shadow-xl shadow-indigo-600/20",
-                    "hover:shadow-indigo-500/40 hover:brightness-110 active:brightness-90",
+                    "bg-gradient-to-r from-amber-600 via-amber-500 to-orange-600 text-white shadow-xl shadow-amber-600/20",
+                    "hover:shadow-amber-500/40 hover:brightness-110 active:brightness-90",
                     className
                 )}
             >

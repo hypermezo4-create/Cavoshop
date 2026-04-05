@@ -50,7 +50,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600;
   }
   
   .glass {

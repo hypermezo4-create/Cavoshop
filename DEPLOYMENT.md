@@ -1,16 +1,16 @@
-# 🚀 Deployment Guide - ProjectMove Website
+# 🚀 Deployment Guide - Cavo Store Website
 
-This document provides a **complete, step-by-step walkthrough** for deploying the ProjectMove website. Follow these instructions carefully to ensure a successful launch.
+This document provides a **complete, step-by-step walkthrough** for deploying the Cavo Store website. Follow these instructions carefully to ensure a successful launch.
 
 ---
 
 ## 📋 Prerequisites
 
 Before deployment, ensure you have:
-- ✅ GitHub account with repository access
+- ✅ Instagram account with repository access
 - ✅ Vercel account (free tier works)
 - ✅ Neon Database account (free tier works)
-- ✅ All code committed and pushed to GitHub
+- ✅ All code committed and pushed to Instagram
 
 ---
 
@@ -62,10 +62,10 @@ npx prisma generate
 ### Step 4: Verify Database Tables
 
 Check that all tables exist:
-- ✅ Device
+- ✅ Product
 - ✅ Rom
-- ✅ Download (with analytics fields: ipAddress, userAgent, country, city)
-- ✅ TeamMember
+- ✅ Order (with analytics fields: ipAddress, userAgent, country, city)
+- ✅ StaffMember
 - ✅ SiteConfig
 - ✅ Faq
 - ✅ ContactForm
@@ -80,7 +80,7 @@ Check that all tables exist:
 
 1. Go to [vercel.com/new](https://vercel.com/new)
 2. Click **"Import Git Repository"**
-3. Select your GitHub repository: `sleep-bugy/ProjectMove-website`
+3. Select your Instagram repository: `sleep-bugy/Cavo Store-website`
 4. Click **"Import"**
 
 ### Step 2: Configure Project Settings
@@ -172,27 +172,27 @@ Vercel automatically runs `npx prisma generate` during build, but verify:
 3. Verify all admin pages work:
    - Dashboard ✅
    - Analytics ✅
-   - Devices ✅
-   - ROMs ✅
-   - Team ✅
+   - Products ✅
+   - Collections ✅
+   - Staff ✅
    - FAQ ✅
    - Contact ✅
-   - Screenshots ✅
-   - Social Links ✅
+   - Gallery ✅
+   - Social Media ✅
 
 ### Step 4: Add Initial Data
 
 Via admin panel, add:
-1. **Devices** - At least 1 device (e.g., Poco F5)
-2. **ROMs** - At least 1 ROM for the device
-3. **Team Members** - Add team profiles
+1. **Products** - At least 1 product (e.g., Poco F5)
+2. **Collections** - At least 1 Collection for the product
+3. **Staff** - Add staff profiles
 4. **FAQs** - Add common questions
-5. **Screenshots** - Upload gallery images
+5. **Gallery** - Upload gallery images
 ### Step 5: Seed Dynamic Stats (New!)
 
 To initialize the homepage counters:
-1. Go to **Admin → System Settings**.
-2. Ensure you have at least one device added to start the **Devices** counter.
+1. Go to **Admin → Store Settings**.
+2. Ensure you have at least one product added to start the **Products** counter.
 3. The **Active Users** counter starts automatically from a base seed (50,000+) and increments as people visit the site.
 4. If you want to manually adjust the visitor count, you can update the `visitor_count` key in the `SiteConfig` table.
 
@@ -252,7 +252,7 @@ Analytics are enabled by default. Features:
 - ✅ IP tracking with geolocation
 - ✅ User agent detection
 - ✅ Country/city tracking
-- ✅ Download trends
+- ✅ Order trends
 
 **Privacy Note:** Update Privacy Policy to mention analytics tracking.
 
@@ -260,7 +260,7 @@ Analytics are enabled by default. Features:
 
 Add rate limiting for:
 - Contact form submissions
-- Download tracking
+- Order tracking
 - Admin login attempts
 
 Use Vercel Edge Config or Upstash Redis.
@@ -281,13 +281,13 @@ Enable in project settings:
 Neon provides:
 - **Usage Dashboard** - CPU, Storage, Connections
 - **Query Stats** - Slow queries
-- **Branching** - Database snapshots
+- **Branching** - Database images
 
 ### Backup Strategy
 
 **Neon Automated Backups:**
 - Point-in-time recovery (7 days on free tier)
-- Manual snapshots via **Branches**
+- Manual images via **Branches**
 
 **Export Database:**
 ```bash
@@ -340,22 +340,22 @@ psql $DATABASE_URL < backup.sql
 
 ### Analytics Not Working
 
-**Error:** No download data in analytics dashboard
+**Error:** No order data in analytics dashboard
 
 **Solutions:**
-1. Verify database has `Download` table with new fields:
+1. Verify database has `Order` table with new fields:
    - `ipAddress`
    - `userAgent`
    - `country`
    - `city`
-   - `deviceId`
+   - `productId`
 2. Check API routes are accessible:
    - `/api/admin/analytics/overview`
-   - `/api/admin/analytics/downloads`
-   - `/api/admin/analytics/devices`
+   - `/api/admin/analytics/orders`
+   - `/api/admin/analytics/products`
    - `/api/admin/analytics/geographic`
-3. Test download tracking:
-   - Click download button
+3. Test order tracking:
+   - Click order button
    - Check database for new record
    - Verify geolocation API (ip-api.com) is reachable
 
@@ -374,7 +374,7 @@ psql $DATABASE_URL < backup.sql
 ### Deploy New Changes
 
 **Automatic (Recommended):**
-1. Push to GitHub `main` branch
+1. Push to Instagram `main` branch
 2. Vercel auto-deploys
 
 **Manual:**
@@ -393,7 +393,7 @@ npx prisma migrate dev --name add_new_field
 # 3. Push to production
 npx prisma db push
 
-# 4. Commit and push to GitHub
+# 4. Commit and push to Instagram
 git add .
 git commit -m "feat: add new database field"
 git push
@@ -407,14 +407,14 @@ Vercel will auto-deploy with new schema.
 
 Use this checklist for each deployment:
 
-- [ ] Code committed and pushed to GitHub
+- [ ] Code committed and pushed to Instagram
 - [ ] Neon database created and schema applied
-- [ ] Vercel project imported from GitHub
+- [ ] Vercel project imported from Instagram
 - [ ] Environment variables configured
 - [ ] First deployment successful
 - [ ] `NEXT_PUBLIC_APP_URL` updated and redeployed
 - [ ] Admin login tested
-- [ ] Sample data added (devices, ROMs, team, etc.)
+- [ ] Sample data added (products, Collections, staff, etc.)
 - [ ] All public pages accessible
 - [ ] All admin pages functional
 - [ ] Analytics dashboard working
@@ -437,12 +437,12 @@ Use this checklist for each deployment:
 
 ## 🎉 Deployment Complete!
 
-Your ProjectMove website is now live! 🚀
+Your Cavo Store website is now live! 🚀
 
 **Production URL:** `https://your-domain.vercel.app`
 
 **Next Steps:**
-1. Share URL with team
+1. Share URL with staff
 2. Monitor analytics dashboard
 3. Add more content via admin panel
 4. Configure custom domain
@@ -450,4 +450,4 @@ Your ProjectMove website is now live! 🚀
 
 ---
 
-**Credits:** Built with ❤️ by [Mohammad Adi](https://github.com/sleep-bugy) and the Project Move Team
+**Credits:** Built with ❤️ by [Mohammad Adi](https://instagram.com/sleep-bugy) and the Cavo Store Staff

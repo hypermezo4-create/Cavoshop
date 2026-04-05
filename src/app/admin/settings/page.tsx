@@ -6,7 +6,7 @@ import { Settings, Database, Server, Bell, Shield, Info, Layout, Check, Loader2,
 import { cn } from "@/lib/utils";
 
 export default function SettingsPage() {
-    const [heroText, setHeroText] = useState("MoveOS v2.0 Now Available");
+    const [heroText, setHeroText] = useState("Cavo v2.0 Now Available");
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [saveSuccess, setSaveSuccess] = useState(false);
@@ -51,12 +51,12 @@ export default function SettingsPage() {
             {/* Header */}
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <div className="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
+                    <div className="flex items-center gap-2 text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
                         <Terminal className="w-3 h-3" />
                         Infrastructure Parameters
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">System Core</h1>
-                    <p className="text-zinc-500 text-sm font-medium mt-1">Configure global variables and monitor cluster health.</p>
+                    <p className="text-zinc-500 text-sm font-medium mt-1">Configure store-wide content, banners, and key storefront settings.</p>
                 </div>
                 <div className="flex items-center gap-3 px-6 py-3 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem]">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
@@ -73,7 +73,7 @@ export default function SettingsPage() {
                         </div>
 
                         <div className="relative z-10 flex items-center gap-3 mb-10">
-                            <div className="w-10 h-10 rounded-xl bg-indigo-600/10 border border-indigo-600/20 flex items-center justify-center text-indigo-400">
+                            <div className="w-10 h-10 rounded-xl bg-amber-600/10 border border-amber-600/20 flex items-center justify-center text-amber-400">
                                 <Globe className="w-5 h-5" />
                             </div>
                             <h3 className="text-xl font-black text-white tracking-tight">Mainframe Display</h3>
@@ -81,20 +81,20 @@ export default function SettingsPage() {
 
                         <div className="relative z-10 space-y-10">
                             <div className="space-y-4 group">
-                                <label className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] ml-1 group-focus-within:text-indigo-400 transition-colors">
+                                <label className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] ml-1 group-focus-within:text-amber-400 transition-colors">
                                     Broadcast Signal (Hero Alert)
                                 </label>
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <input
                                         value={heroText}
                                         onChange={e => setHeroText(e.target.value)}
-                                        placeholder="e.g. MoveOS v2.0 Now Available"
-                                        className="flex-1 px-6 py-5 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/30 transition-all font-bold placeholder:text-zinc-800"
+                                        placeholder="e.g. Cavo v2.0 Now Available"
+                                        className="flex-1 px-6 py-5 bg-white/[0.03] border border-white/[0.05] rounded-[1.5rem] text-white focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500/30 transition-all font-bold placeholder:text-zinc-800"
                                     />
                                     <button
                                         onClick={handleSaveHero}
                                         disabled={isSaving || isLoading}
-                                        className="px-10 py-5 bg-indigo-600 hover:bg-indigo-500 disabled:bg-zinc-800 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl shadow-indigo-600/20 active:scale-95"
+                                        className="px-10 py-5 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-800 text-white rounded-[1.5rem] font-black uppercase text-xs tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl shadow-amber-600/20 active:scale-95"
                                     >
                                         {isSaving ? (
                                             <Loader2 className="w-5 h-5 animate-spin" />
@@ -106,7 +106,7 @@ export default function SettingsPage() {
                                     </button>
                                 </div>
                                 <p className="text-[10px] text-zinc-600 font-medium italic ml-1 leading-relaxed max-w-lg">
-                                    This signal will be broadcasted to the homepage pulse node, notifying all active clients of high-priority system updates.
+                                    This banner appears on the homepage to highlight key promotions, launches, or urgent store notices.
                                 </p>
                             </div>
                         </div>
@@ -125,16 +125,16 @@ export default function SettingsPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1 }}
-                                className="glass-premium p-8 rounded-[2.5rem] group hover:border-indigo-500/30 transition-all cursor-default"
+                                className="glass-premium p-8 rounded-[2.5rem] group hover:border-amber-500/30 transition-all cursor-default"
                             >
                                 <div className="flex flex-col gap-6">
                                     <div className="flex items-center justify-between">
-                                        <div className="w-14 h-14 bg-white/[0.03] border border-white/[0.05] rounded-2xl flex items-center justify-center text-zinc-500 group-hover:text-indigo-400 transition-colors shadow-black/50 shadow-xl">
+                                        <div className="w-14 h-14 bg-white/[0.03] border border-white/[0.05] rounded-2xl flex items-center justify-center text-zinc-500 group-hover:text-amber-400 transition-colors shadow-black/50 shadow-xl">
                                             <item.icon className="w-7 h-7" />
                                         </div>
                                         <div className={cn(
                                             "px-3 py-1.5 rounded-xl border text-[9px] font-black tracking-widest uppercase",
-                                            item.color === 'indigo' ? "bg-indigo-500/10 text-indigo-400 border-indigo-500/20" :
+                                            item.color === 'indigo' ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
                                                 item.color === 'emerald' ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
                                                     "bg-zinc-800 text-zinc-500 border-white/5"
                                         )}>
@@ -153,17 +153,17 @@ export default function SettingsPage() {
 
                 {/* Info Sidebar */}
                 <div className="xl:col-span-4 space-y-8">
-                    <div className="p-10 glass-premium rounded-[3.5rem] relative overflow-hidden border-indigo-500/20 bg-indigo-500/[0.02]">
-                        <div className="absolute -top-20 -right-20 w-64 h-64 bg-indigo-600/10 blur-[100px] rounded-full" />
+                    <div className="p-10 glass-premium rounded-[3.5rem] relative overflow-hidden border-amber-500/20 bg-amber-500/[0.02]">
+                        <div className="absolute -top-20 -right-20 w-64 h-64 bg-amber-600/10 blur-[100px] rounded-full" />
 
                         <div className="relative z-10">
-                            <div className="w-16 h-16 bg-indigo-600/10 border border-indigo-600/20 rounded-[1.5rem] flex items-center justify-center text-indigo-400 mb-8 shadow-2xl">
+                            <div className="w-16 h-16 bg-amber-600/10 border border-amber-600/20 rounded-[1.5rem] flex items-center justify-center text-amber-400 mb-8 shadow-2xl">
                                 <Cpu className="w-8 h-8" />
                             </div>
                             <h4 className="text-2xl font-black text-white tracking-tighter mb-4">Core v2.1.0</h4>
                             <div className="space-y-6">
                                 <p className="text-zinc-500 text-sm font-medium leading-relaxed">
-                                    All system-level configurations are currently synchronized with the <span className="text-indigo-400 font-bold">`project-move-config`</span> private cluster during the migration to Neon DB.
+                                    All storefront configuration values are synced with your live database so updates appear quickly across the site.
                                 </p>
 
                                 <div className="space-y-4">
@@ -194,7 +194,7 @@ export default function SettingsPage() {
                             <Database className="w-6 h-6" />
                         </div>
                         <h5 className="text-sm font-black text-zinc-600 tracking-widest uppercase">Encryption Node</h5>
-                        <p className="text-[10px] text-zinc-700 font-bold mt-1">AES-256 GCM cluster active</p>
+                        <p className="text-[10px] text-zinc-700 font-bold mt-1">Secure configuration active</p>
                     </div>
                 </div>
             </div>

@@ -1,75 +1,75 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
-import { DeviceDetail } from "@/sections/device-detail";
+import { ProductDetail } from "@/sections/product-detail";
 
-interface DevicePageProps {
+interface ProductPageProps {
   params: {
     codename: string;
   };
 }
 
-async function getDevice(codename: string) {
+async function getProduct(codename: string) {
   try {
-    const device = await prisma.device.findUnique({
+    const product = await prisma.product.findUnique({
       where: {
         codename,
       },
       include: {
-        roms: {
+        collections: {
           orderBy: {
             releaseDate: "desc",
           },
         },
       },
     });
-    return device;
+    return product;
   } catch (error) {
-    console.error("Error fetching device:", error);
+    console.error("Error fetching product:", error);
     return null;
   }
 }
 
-export async function generateMetadata({ params }: DevicePageProps): Promise<Metadata> {
-  const device = await getDevice(params.codename);
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+  const product = await getProduct(params.codename);
   
-  if (!device) {
+  if (!product) {
     return {
-      title: "Device Not Found | Project Move",
+      title: "Product Not Found | Cavo Store",
     };
   }
 
   return {
-    title: `${device.name} | Download | Project Move`,
-    description: `Download MoveOS for ${device.name} (${device.codename}). Latest ROM versions and installation guides.`,
+    title: `${product.name} | Order | Cavo Store`,
+    description: `Order Cavo for ${product.name} (${product.codename}). Latest Collection versions and installation guides.`,
   };
 }
 
 export async function generateStaticParams() {
   try {
-    const devices = await prisma.device.findMany({
+    const products = await prisma.product.findMany({
       select: {
         codename: true,
       },
     });
-    return devices.map((device) => ({
-      codename: device.codename,
+    return products.map((product) => ({
+      codename: product.codename,
     }));
   } catch (error) {
     return [];
   }
 }
 
-export default async function DevicePage({ params }: DevicePageProps) {
-  const device = await getDevice(params.codename);
+export default async function ProductPage({ params }: ProductPageProps) {
+  const product = await getProduct(params.codename);
 
-  if (!device) {
+  if (!product) {
     notFound();
   }
 
   return (
     <div className="pt-24 pb-16">
-      <DeviceDetail device={device} />
+      <ProductDetail product={product} />
     </div>
   );
 }

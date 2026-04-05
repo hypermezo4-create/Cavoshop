@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "CAVO STORE | Premium 1:1 Mirror Sneakers",
   description: "Discover the ultimate collection of exact 1:1 mirror sneakers at Cavo Store. Premium quality, imported materials, and worldwide shipping.",
   keywords: ["Cavo Store", "Mirror Sneakers", "Premium Footwear", "1:1 Sneakers", "Jordan Mirror", "Nike Mirror", "Luxury Shoes Egypt"],
-  authors: [{ name: "Cavo Store Team" }],
+  authors: [{ name: "Cavo Store Staff" }],
   openGraph: {
     title: "CAVO STORE | Step Into Premium",
     description: "The best 1:1 mirror quality sneakers imported directly for you.",

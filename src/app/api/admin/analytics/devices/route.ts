@@ -3,44 +3,50 @@ import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+type ProductStats = {
+  id: string;
+  name: string;
+  brand: string;
+  orders: { id: string }[];
+};
+
+type ChartItem = {
+  productId: string;
+  productName: string;
+  orders: number;
+};
+
 export async function GET() {
-    try {
-        // Get download count per device
-        const deviceStats = await prisma.device.findMany({
-            select: {
-                id: true,
-                name: true,
-                brand: true,
-                downloads: {
-                    select: {
-                        id: true,
-                    },
-                },
-            },
-        });
+  try {
+    const productStats = await prisma.product.findMany({
+      select: {
+        id: true,
+        name: true,
+        brand: true,
+        orders: { select: { id: true } },
+      },
+    });
 
-        // Transform data for charts
-        const popularDevices = deviceStats
-            .map((device) => ({
-                deviceId: device.id,
-                deviceName: `${device.brand} ${device.name}`,
-                downloads: device.downloads.length,
-            }))
-            .filter((device) => device.downloads > 0) // Only devices with downloads
-            .sort((a, b) => b.downloads - a.downloads) // Sort by most popular
-            .slice(0, 10); // Top 10
+    const popularProducts: ChartItem[] = (productStats as ProductStats[])
+      .map((product) => ({
+        productId: product.id,
+        productName: `${product.brand} ${product.name}`,
+        orders: product.orders.length,
+      }))
+      .filter((product) => product.orders > 0)
+      .sort((a, b) => b.orders - a.orders)
+      .slice(0, 10);
 
-        // Calculate total for percentages
-        const total = popularDevices.reduce((sum, device) => sum + device.downloads, 0);
+    const total = popularProducts.reduce((sum, product) => sum + product.orders, 0);
 
-        const chartData = popularDevices.map((device) => ({
-            ...device,
-            percentage: total > 0 ? Math.round((device.downloads / total) * 100 * 10) / 10 : 0,
-        }));
+    const chartData = popularProducts.map((product) => ({
+      ...product,
+      percentage: total > 0 ? Math.round((product.orders / total) * 1000) / 10 : 0,
+    }));
 
-        return NextResponse.json({ data: chartData, total });
-    } catch (error) {
-        console.error("Device popularity fetch failed:", error);
-        return NextResponse.json({ error: "Failed to fetch device stats" }, { status: 500 });
-    }
+    return NextResponse.json({ data: chartData, total });
+  } catch (error) {
+    console.error("Product popularity fetch failed:", error);
+    return NextResponse.json({ error: "Failed to fetch product stats" }, { status: 500 });
+  }
 }

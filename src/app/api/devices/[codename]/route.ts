@@ -8,12 +8,12 @@ export async function GET(
     { params }: { params: { codename: string } }
 ) {
     try {
-        const device = await prisma.device.findUnique({
+        const product = await prisma.product.findUnique({
             where: {
                 codename: params.codename,
             },
             include: {
-                roms: {
+                collections: {
                     orderBy: {
                         releaseDate: "desc",
                     },
@@ -21,13 +21,13 @@ export async function GET(
             },
         });
 
-        if (!device) {
-            return NextResponse.json({ error: "Device not found" }, { status: 404 });
+        if (!product) {
+            return NextResponse.json({ error: "Product not found" }, { status: 404 });
         }
 
-        return NextResponse.json(device);
+        return NextResponse.json(product);
     } catch (error) {
-        console.error("Device fetch failed:", error);
-        return NextResponse.json({ error: "Failed to fetch device" }, { status: 500 });
+        console.error("Product fetch failed:", error);
+        return NextResponse.json({ error: "Failed to fetch product" }, { status: 500 });
     }
 }

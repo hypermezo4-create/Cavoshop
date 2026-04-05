@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// GET /api/roms - List all ROMs
+// GET /api/collections - List all Collections
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const deviceId = searchParams.get("deviceId");
+    const productId = searchParams.get("productId");
     const type = searchParams.get("type");
     const status = searchParams.get("status");
 
     const where: any = {};
 
-    if (deviceId) {
-      where.deviceId = deviceId;
+    if (productId) {
+      where.productId = productId;
     }
 
     if (type) {
@@ -23,49 +23,49 @@ export async function GET(request: NextRequest) {
       where.status = status.toUpperCase();
     }
 
-    const roms = await prisma.rom.findMany({
+    const collections = await prisma.rom.findMany({
       where,
       include: {
-        device: true,
+        product: true,
         _count: {
-          select: { downloads: true },
+          select: { orders: true },
         },
       },
       orderBy: { releaseDate: "desc" },
     });
 
-    return NextResponse.json({ success: true, data: roms });
+    return NextResponse.json({ success: true, data: collections });
   } catch (error) {
-    console.error("Error fetching ROMs:", error);
+    console.error("Error fetching Collections:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch ROMs" },
+      { success: false, error: "Failed to fetch Collections" },
       { status: 500 }
     );
   }
 }
 
-// POST /api/roms - Create a new ROM
+// POST /api/collections - Create a new Collection
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const {
-      deviceId,
+      productId,
       name,
       version,
       androidVersion,
       type,
-      downloadUrl,
+      orderUrl,
       fileSize,
       changelog,
       releaseDate,
-      screenshots,
+      gallery,
       installationGuide,
       status,
       isVipOnly,
     } = body;
 
     // Validate required fields
-    if (!deviceId || !name || !version || !androidVersion || !downloadUrl) {
+    if (!productId || !name || !version || !androidVersion || !orderUrl) {
       return NextResponse.json(
         { success: false, error: "Missing required fields" },
         { status: 400 }
@@ -74,16 +74,16 @@ export async function POST(request: NextRequest) {
 
     const rom = await prisma.rom.create({
       data: {
-        deviceId,
+        productId,
         name,
         version,
         androidVersion,
         type: type?.toUpperCase() || "FREE",
-        downloadUrl,
+        orderUrl,
         fileSize: fileSize || "Unknown",
         changelog: changelog || "",
         releaseDate: releaseDate ? new Date(releaseDate) : new Date(),
-        screenshots: screenshots || [],
+        gallery: gallery || [],
         installationGuide,
         status: status?.toUpperCase() || "ACTIVE",
         isVipOnly: isVipOnly || false,
@@ -95,9 +95,9 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating ROM:", error);
+    console.error("Error creating Collection:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to create ROM" },
+      { success: false, error: "Failed to create Collection" },
       { status: 500 }
     );
   }

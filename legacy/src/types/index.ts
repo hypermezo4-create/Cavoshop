@@ -2,7 +2,7 @@
 
 export type Role = "OWNER" | "MANAGER" | "SALES" | "DESIGNER" | "MARKETING";
 
-export interface TeamMember {
+export interface StaffMember {
   id: string;
   name: string;
   role: Role;
@@ -10,9 +10,9 @@ export interface TeamMember {
   image?: string;
   whatsapp?: string;
   instagram?: string;
-  github?: string; // خليناها عشان ميعملش Error لو مستخدمة في مكان تاني
+  instagram?: string; // خليناها عشان ميعملش Error لو مستخدمة في مكان تاني
   twitter?: string;
-  telegram?: string;
+  whatsapp?: string;
   website?: string;
 }
 
@@ -23,7 +23,7 @@ export interface Rom {
   androidVersion: string;
   releaseDate: string;
   fileSize: string;
-  downloadUrl: string;
+  orderUrl: string;
   changelog: string;
   isVipOnly: boolean;
   status: "ACTIVE" | "INACTIVE";
@@ -40,11 +40,11 @@ export interface Product {
   slug: string;
   image?: string;
   status: "ACTIVE" | "INACTIVE";
-  roms?: Rom[]; // بنسيب دي عشان لو الكود القديم بيعتمد عليها ميعطلش
+  collections?: Rom[]; // بنسيب دي عشان لو الكود القديم بيعتمد عليها ميعطلش
 }
 
-// بنخلي Device هي هي Product عشان الكود القديم يفضل شغال
-export type Device = Product;
+// بنخلي Product هي هي Product عشان الكود القديم يفضل شغال
+export type Product = Product;
 
 export interface Stats {
   totalProducts: number;
@@ -54,8 +54,8 @@ export interface Stats {
   salesPerDay: any[];
   topSellingShoes: any[];
   // المسميات القديمة عشان ميعملش Error
-  totalDevices?: number;
+  totalProducts?: number;
   totalRoms?: number;
-  totalDownloads?: number;
-  totalTeamMembers?: number;
+  totalOrders?: number;
+  totalStaffMembers?: number;
 }

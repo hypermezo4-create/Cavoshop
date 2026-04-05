@@ -1,8 +1,8 @@
--- Project Move Database Schema (Raw - No Sample Data)
--- PostgreSQL Schema for MoveOS Website
+-- Cavo Store Database Schema (Raw - No Sample Data)
+-- PostgreSQL Schema for Cavo Website
 
--- Device Table
-CREATE TABLE IF NOT EXISTS "Device" (
+-- Product Table
+CREATE TABLE IF NOT EXISTS "Product" (
     "id" TEXT PRIMARY KEY,
     "codename" TEXT UNIQUE NOT NULL,
     "name" TEXT NOT NULL,
@@ -14,43 +14,43 @@ CREATE TABLE IF NOT EXISTS "Device" (
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- ROM Table
+-- Collection Table
 CREATE TABLE IF NOT EXISTS "Rom" (
     "id" TEXT PRIMARY KEY,
     "name" TEXT NOT NULL,
     "version" TEXT NOT NULL,
     "androidVersion" TEXT,
     "buildDate" TIMESTAMP,
-    "downloadUrl" TEXT,
+    "orderUrl" TEXT,
     "changelog" TEXT,
     "fileSize" TEXT,
     "isArchived" BOOLEAN DEFAULT FALSE,
-    "deviceId" TEXT REFERENCES "Device"("id") ON DELETE CASCADE,
+    "productId" TEXT REFERENCES "Product"("id") ON DELETE CASCADE,
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Download Tracking Table (with Analytics)
-CREATE TABLE IF NOT EXISTS "Download" (
+-- Order Tracking Table (with Analytics)
+CREATE TABLE IF NOT EXISTS "Order" (
     "id" TEXT PRIMARY KEY,
     "romId" TEXT REFERENCES "Rom"("id") ON DELETE CASCADE,
-    "deviceId" TEXT REFERENCES "Device"("id") ON DELETE SET NULL,
+    "productId" TEXT REFERENCES "Product"("id") ON DELETE SET NULL,
     "ipAddress" TEXT,
     "userAgent" TEXT,
     "country" TEXT,
     "city" TEXT,
-    "downloadedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    "orderedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Team Member Table
-CREATE TABLE IF NOT EXISTS "TeamMember" (
+-- Staff Member Table
+CREATE TABLE IF NOT EXISTS "StaffMember" (
     "id" TEXT PRIMARY KEY,
     "name" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "bio" TEXT,
     "avatarUrl" TEXT,
-    "githubUrl" TEXT,
-    "telegramUrl" TEXT,
+    "instagramUrl" TEXT,
+    "whatsappUrl" TEXT,
     "twitterUrl" TEXT,
     "websiteUrl" TEXT,
     "country" TEXT,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS "ContactForm" (
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Screenshots Gallery Table
+-- Gallery Gallery Table
 CREATE TABLE IF NOT EXISTS "Screenshot" (
     "id" TEXT PRIMARY KEY,
     "title" TEXT NOT NULL,
@@ -116,17 +116,17 @@ CREATE TABLE IF NOT EXISTS "SocialLink" (
 -- Indexes for better query performance
 -- Run these AFTER creating and populating the tables
 
--- Device indexes
-CREATE INDEX IF NOT EXISTS "idx_device_codename" ON "Device"("codename");
-CREATE INDEX IF NOT EXISTS "idx_device_active" ON "Device"("isActive");
+-- Product indexes
+CREATE INDEX IF NOT EXISTS "idx_product_codename" ON "Product"("codename");
+CREATE INDEX IF NOT EXISTS "idx_product_active" ON "Product"("isActive");
 
 -- Rom indexes
-CREATE INDEX IF NOT EXISTS "idx_rom_device" ON "Rom"("deviceId");
+CREATE INDEX IF NOT EXISTS "idx_rom_product" ON "Rom"("productId");
 CREATE INDEX IF NOT EXISTS "idx_rom_archived" ON "Rom"("isArchived");
 
--- Download indexes
-CREATE INDEX IF NOT EXISTS "idx_download_rom" ON "Download"("romId");
-CREATE INDEX IF NOT EXISTS "idx_download_device" ON "Download"("deviceId");
+-- Order indexes
+CREATE INDEX IF NOT EXISTS "idx_order_rom" ON "Order"("romId");
+CREATE INDEX IF NOT EXISTS "idx_order_product" ON "Order"("productId");
 
 -- FAQ indexes
 CREATE INDEX IF NOT EXISTS "idx_faq_category" ON "Faq"("category");

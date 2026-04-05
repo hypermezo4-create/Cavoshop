@@ -9,14 +9,14 @@ import {
     Settings,
     LogOut,
     Zap,
-    HelpCircle,
     Mail,
     Image as ImageIcon,
-    Link as LinkIcon,
     Menu,
     X,
     ChevronRight,
-    TrendingUp
+    TrendingUp,
+    Tags,
+    ShoppingBag
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,14 +24,14 @@ import { cn } from "@/lib/utils";
 
 const adminNavItems = [
     { label: "Dashboard", icon: LayoutDashboard, href: "/admin" },
-    { label: "Devices", icon: Smartphone, href: "/admin/devices" },
+    { label: "Products", icon: Smartphone, href: "/admin/products" },
+    { label: "Categories", icon: Tags, href: "/admin/categories" },
+    { label: "Offers", icon: Zap, href: "/admin/offers" },
+    { label: "Orders", icon: ShoppingBag, href: "/admin/orders" },
     { label: "Analytics", icon: TrendingUp, href: "/admin/analytics" },
-    { label: "ROM Clusters", icon: Zap, href: "/admin/roms" },
-    { label: "Team Members", icon: Users, href: "/admin/team" },
-    { label: "FAQ", icon: HelpCircle, href: "/admin/faq" },
-    { label: "Contact Forms", icon: Mail, href: "/admin/contact" },
-    { label: "Screenshots", icon: ImageIcon, href: "/admin/screenshots" },
-    { label: "Social Links", icon: LinkIcon, href: "/admin/social" },
+    { label: "Image Uploads", icon: ImageIcon, href: "/admin/screenshots" },
+    { label: "Customer Messages", icon: Mail, href: "/admin/contact" },
+    { label: "Team", icon: Users, href: "/admin/team" },
     { label: "Settings", icon: Settings, href: "/admin/settings" },
 ];
 
@@ -44,21 +44,21 @@ export default function AdminLayout({
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#030406] text-white font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+        <div className="min-h-screen bg-[#030406] text-white font-sans selection:bg-amber-500/30 selection:text-amber-200">
             {/* Background Effects */}
             <div className="fixed inset-0 z-0">
                 <div className="absolute inset-0 bg-mesh opacity-40" />
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
             </div>
 
             {/* Mobile Header */}
             <header className="lg:hidden fixed top-0 left-0 right-0 z-[100] glass-premium border-b border-white/[0.05]">
                 <div className="flex items-center justify-between px-6 py-4">
                     <Link href="/" className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                        <div className="w-9 h-9 bg-gradient-to-br from-amber-600 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-600/20">
                             <Zap className="text-white w-5 h-5 fill-white/20" />
                         </div>
-                        <span className="font-black text-lg tracking-tight uppercase">Move<span className="text-indigo-400">OS</span></span>
+                        <span className="font-black text-lg tracking-tight uppercase">Cavo<span className="text-amber-400">Admin</span></span>
                     </Link>
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -99,13 +99,13 @@ export default function AdminLayout({
                                             className={cn(
                                                 "flex items-center gap-4 px-5 py-4 rounded-2xl transition-all border border-transparent",
                                                 isActive
-                                                    ? "bg-indigo-600/10 text-white font-bold border-indigo-500/20"
+                                                    ? "bg-amber-600/10 text-white font-bold border-amber-500/20"
                                                     : "text-zinc-500 hover:text-zinc-200 hover:bg-white/[0.03]"
                                             )}
                                         >
                                             <div className={cn(
                                                 "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
-                                                isActive ? "bg-indigo-600 text-white" : "bg-white/[0.03]"
+                                                isActive ? "bg-amber-600 text-white" : "bg-white/[0.03]"
                                             )}>
                                                 <Icon className="w-5 h-5" />
                                             </div>
@@ -138,12 +138,12 @@ export default function AdminLayout({
                 <aside className="hidden lg:flex w-[300px] flex-col border-r border-white/[0.05] bg-[#080a0f]/80 backdrop-blur-3xl sticky top-0 h-screen">
                     <div className="p-8 pb-10">
                         <Link href="/" className="flex items-center gap-3 group">
-                            <div className="w-11 h-11 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-indigo-600/40 group-hover:scale-110 transition-all duration-500 rotate-0 group-hover:rotate-[360deg]">
+                            <div className="w-11 h-11 bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-amber-600/40 group-hover:scale-110 transition-all duration-500 rotate-0 group-hover:rotate-[360deg]">
                                 <Zap className="text-white w-6 h-6 fill-white/20" />
                             </div>
                             <div>
-                                <h1 className="text-xl font-black text-white tracking-tighter leading-none mb-1">Move<span className="text-indigo-400">OS</span></h1>
-                                <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em]">Administrative</p>
+                                <h1 className="text-xl font-black text-white tracking-tighter leading-none mb-1">Cavo<span className="text-amber-400">Admin</span></h1>
+                                <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em]">Store Control</p>
                             </div>
                         </Link>
                     </div>
@@ -161,21 +161,21 @@ export default function AdminLayout({
                                     className={cn(
                                         "w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all relative group overflow-hidden",
                                         isActive
-                                            ? "text-white font-bold bg-indigo-600/10 border border-indigo-500/20"
+                                            ? "text-white font-bold bg-amber-600/10 border border-amber-500/20"
                                             : "text-zinc-500 hover:text-zinc-200 hover:bg-white/[0.03] border border-transparent"
                                     )}
                                 >
                                     <div className={cn(
                                         "w-9 h-9 rounded-xl flex items-center justify-center transition-all z-10",
-                                        isActive ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/40" : "bg-white/[0.03] group-hover:scale-110"
+                                        isActive ? "bg-amber-600 text-white shadow-lg shadow-amber-600/40" : "bg-white/[0.03] group-hover:scale-110"
                                     )}>
-                                        <item.icon className={cn("w-4.5 h-4.5", isActive ? "" : "group-hover:text-indigo-400 transition-colors")} />
+                                        <item.icon className={cn("w-4.5 h-4.5", isActive ? "" : "group-hover:text-amber-400 transition-colors")} />
                                     </div>
                                     <span className="z-10 text-[14px] tracking-tight">{item.label}</span>
                                     {isActive && (
                                         <motion.div
                                             layoutId="active-indicator"
-                                            className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-indigo-500 rounded-l-full"
+                                            className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-amber-500 rounded-l-full"
                                             transition={{ type: "spring", bounce: 0.2 }}
                                         />
                                     )}

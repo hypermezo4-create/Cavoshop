@@ -9,24 +9,24 @@ export async function GET(request: NextRequest) {
 
     // Get counts
     const [
-      totalDevices,
+      totalProducts,
       totalRoms,
-      totalDownloads,
-      totalTeamMembers,
-      activeDevices,
+      totalOrders,
+      totalStaffMembers,
+      activeProducts,
     ] = await Promise.all([
-      prisma.device.count(),
+      prisma.product.count(),
       prisma.rom.count(),
-      prisma.download.count(),
-      prisma.teamMember.count(),
-      prisma.device.count({ where: { status: "ACTIVE" } }),
+      prisma.order.count(),
+      prisma.staffMember.count(),
+      prisma.product.count({ where: { status: "ACTIVE" } }),
     ]);
 
-    // Get recent downloads
+    // Get recent orders
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 
-    const recentDownloads = await prisma.download.count({
+    const recentOrders = await prisma.order.count({
       where: {
         timestamp: {
           gte: startDate,
@@ -34,15 +34,15 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    // Get downloads by device
-    const downloadsByDevice = await prisma.device.findMany({
+    // Get orders by product
+    const ordersByProduct = await prisma.product.findMany({
       select: {
         name: true,
         codename: true,
-        roms: {
+        collections: {
           select: {
             _count: {
-              select: { downloads: true },
+              select: { orders: true },
             },
           },
         },
@@ -50,10 +50,10 @@ export async function GET(request: NextRequest) {
       take: 5,
     });
 
-    // Get latest ROMs
+    // Get latest Collections
     const latestRoms = await prisma.rom.findMany({
       include: {
-        device: {
+        product: {
           select: {
             name: true,
             codename: true,
@@ -70,14 +70,14 @@ export async function GET(request: NextRequest) {
       success: true,
       data: {
         counts: {
-          totalDevices,
+          totalProducts,
           totalRoms,
-          totalDownloads,
-          totalTeamMembers,
-          activeDevices,
+          totalOrders,
+          totalStaffMembers,
+          activeProducts,
         },
-        recentDownloads,
-        downloadsByDevice,
+        recentOrders,
+        ordersByProduct,
         latestRoms,
       },
     });

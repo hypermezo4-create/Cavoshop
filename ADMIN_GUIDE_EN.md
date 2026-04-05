@@ -1,9 +1,9 @@
-# ProjectMove Admin Dashboard Guide
+# Cavo Store Admin Dashboard Guide
 
-Welcome to the ProjectMove Admin Dashboard. This comprehensive guide covers every aspect of managing your platform, from real-time analytics to changing your core credentials.
+Welcome to the Cavo Store Admin Dashboard. This comprehensive guide covers every aspect of managing your platform, from real-time analytics to changing your core credentials.
 
-## 🚀 Control Center Overview
-The Admin Dashboard is the nerve center of the ProjectMove website. It allows you to synchronize database content with the frontend in real-time using `force-dynamic` rendering.
+## 🚀 Store Dashboard Overview
+The Admin Dashboard is the nerve center of the Cavo Store website. It allows you to synchronize database content with the frontend in real-time using `force-dynamic` rendering.
 
 ---
 
@@ -21,7 +21,7 @@ Your admin credentials are hardcoded for maximum speed and initial setup. To cha
 
 ---
 
-## 🖼️ How to Upload Images (Logo, Screenshots, etc.)
+## 🖼️ How to Upload Images (Logo, Gallery, etc.)
 The dashboard requires **direct image URLs**. We recommend using **[Catbox.moe](https://catbox.moe/)** because it is fast, free, and provides permanent direct links.
 
 1. **Visit Catbox**: Go to [https://catbox.moe/](https://catbox.moe/).
@@ -31,13 +31,13 @@ The dashboard requires **direct image URLs**. We recommend using **[Catbox.moe](
 
 ---
 
-## 📥 ROM Download Links
-The dashboard accepts any valid URL for ROM downloads. You can use popular hosting services such as:
+## 📥 Collection Order Links
+The dashboard accepts any valid URL for Collection orders. You can use popular hosting services such as:
 
 - **Google Drive**: Ensure the file is set to "Anyone with the link can view". 
 - **GoFile**: A fast, temporary/permanent hosting solution.
 - **Mega.nz / Mediafire**: Standard hosting platforms.
-- **SourceForge / AndroidFileHost**: Specialized hosting for Android ROMs.
+- **SourceForge / fashionFileHost**: Specialized hosting for footwear collections.
 
 **Tip**: Make sure the link is "Direct" if possible, or at least leads directly to the file's landing page so users don't get lost.
 
@@ -45,45 +45,45 @@ The dashboard accepts any valid URL for ROM downloads. You can use popular hosti
 
 ## 🛠 Detailed Page Guides
 
-### 1. Control Center (Main Dashboard)
-- **Dynamic Stats**: Displays real-time counts for Devices, ROMs, Downloads, and Team Members.
-- **Protocol Analytics**: A visual overview of the platform's trajectory.
-- **Pulse Feed**: Shows the 5 most recent activities (Downloads, ROM publications, etc.).
+### 1. Store Dashboard (Main Dashboard)
+- **Dynamic Stats**: Displays real-time counts for Products, Collections, Orders, and Staff.
+- **Store Analytics**: A visual overview of the platform's trajectory.
+- **Pulse Feed**: Shows the 5 most recent activities (Orders, Collection publications, etc.).
 - **Quick Access**: Buttons at the bottom for Hardware Registry, Cluster Release, and Personnel Hub.
 
 ### 2. Analytics Hub (`/admin/analytics`)
 Deep dive into your user base behavior:
-- **Download Trends**: Graphs showing daily/monthly download volume.
+- **Order Trends**: Graphs showing daily/monthly order volume.
 - **Geographical Distribution**: Lists the top 20 countries and detailed city-level data for the top country.
 - **Technical Specs**: Identifies browsers and operating systems used by your audience.
 
-### 3. Hardware Registry (Devices - `/admin/devices`)
+### 3. Hardware Registry (Products - `/admin/products`)
 Manage the ecosystem of supported hardware:
-- **Register Node**: Click the "+" button to add a new device.
+- **Register Node**: Click the "+" button to add a new product.
   - **Node Designation**: The marketing name (e.g., "Poco F5").
-  - **Registry Codename**: The internal device codename (e.g., "marble").
-  - **Manufacturer**: The brand (e.g., "Xiaomi").
+  - **Registry Codename**: The internal product codename (e.g., "marble").
+  - **Manufacturer**: The brand (e.g., "streetwear").
   - **Architecture**: The chipset used (e.g., "Snapdragon 7+ Gen 2").
-- **Modify/Delete**: Use the icons on each device card to update specs or remove a device.
+- **Modify/Delete**: Use the icons on each product card to update specs or remove a product.
 
-### 4. ROM Repository (ROMs - `/admin/roms`)
-Control the distribution of MoveOS builds:
-- **Authorize Build**: Links a ROM file to a specific device registry.
-  - **Target Hardware**: Select the device from the dropdown.
-  - **Build Designation**: The version name (e.g., "MoveOS v2 Stable").
+### 4. Collection Repository (Collections - `/admin/collections`)
+Control the distribution of Cavo builds:
+- **Authorize Build**: Links a Collection file to a specific product registry.
+  - **Target Hardware**: Select the product from the dropdown.
+  - **Build Designation**: The version name (e.g., "Cavo v2 Stable").
   - **Version Vector**: The specific version number (e.g., "2.0.1").
   - **Deployment Track**: Choose between "Official Stable", "Community", or "Experimental".
   - **Revision Changelog**: Use this area to detail what's new in this build.
 - **VIP Only**: Toggle builds to be accessible only by authorized users if configured.
 
-### 5. Personnel Hub (Team - `/admin/team`)
-- **Add Contributor**: Create profiles with names, bio, and social links (GitHub, Telegram, Twitter).
+### 5. Personnel Hub (Staff - `/admin/staff`)
+- **Add Contributor**: Create profiles with names, bio, and social links (Instagram, WhatsApp, Twitter).
 - **Assign Roles**: Set roles like "Founder", "Developer", or "Maintainer".
 - **Order Management**: Drag or set order numbers to control how members appear on the public page.
 
 ### 6. Interaction Log (Contact Forms - `/admin/contact`)
 - **Bug Reports**: Filter submissions specifically for bugs to prioritize development.
-- **Feature Requests**: Review user suggestions for future MoveOS versions.
+- **Feature Requests**: Review user suggestions for future Cavo versions.
 - **Audit Status**: Mark messages as "Read" or "Resolved" to track progress.
 
 ### 7. Knowledge Base (FAQ - `/admin/faq`)
@@ -93,16 +93,16 @@ Manage the platform's support documentation:
 - **Knowledge Payload**: The detailed official response.
 - **Sequence Index**: Set a number to control the order in which FAQs appear.
 
-### 8. Visual Assets (Screenshots - `/admin/screenshots`)
-Curate the high-fidelity gallery for MoveOS:
-- **Register Snapshot**: Add a new capture to the visual records.
-- **Asset Source URL**: Use a direct link (e.g., from Catbox) ending in `.jpg` or `.png`.
-- **Category Sector**: Group screenshots by "System UI", "Performance", etc.
+### 8. Visual Assets (Gallery - `/admin/gallery`)
+Curate the high-fidelity gallery for Cavo:
+- **Register Image**: Add a new capture to the visual records.
+- **Image URL**: Use a direct link (e.g., from Catbox) ending in `.jpg` or `.png`.
+- **Category**: Group gallery by "System UI", "Performance", etc.
 
-### 9. Community Outposts (Social Links - `/admin/social`)
+### 9. Community Outposts (Social Media - `/admin/social`)
 Manage external communication nodes:
 - **Deploy Outpost**: Connect a new social handle.
-- **Platform Vector**: Select from GitHub, Telegram, Twitter/X, or Discord.
+- **Platform Vector**: Select from Instagram, WhatsApp, Twitter/X, or Discord.
 - **Active State**: Toggle whether the link is visible on the public footer.
 
 ### 10. System Core (Settings - `/admin/settings`)
@@ -112,7 +112,7 @@ Configure global mainframe variables:
 
 ### 11. Identity Control (Users - `/admin/users`)
 Overview of core developers and access levels:
-- **Team Roster**: View profiles and roles of core infrastructure developers.
+- **Staff Roster**: View profiles and roles of core infrastructure developers.
 - **RBAC Active**: Monitor Role-Based Access Control status and clearance levels.
 - **Provisioning**: (Admin Only) Manage specialized invitation tokens for new developers.
 

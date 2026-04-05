@@ -5,10 +5,10 @@ import { getClientIP, detectLocation } from "@/lib/analytics";
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { romId, deviceId } = body;
+        const { romId, productId } = body;
 
         if (!romId) {
-            return NextResponse.json({ error: "ROM ID is required" }, { status: 400 });
+            return NextResponse.json({ error: "Collection ID is required" }, { status: 400 });
         }
 
         // Extract tracking data
@@ -18,11 +18,11 @@ export async function POST(req: Request) {
         // Detect geographic location (async, non-blocking)
         const { country, city } = await detectLocation(clientIP);
 
-        // Create download record with full analytics data
-        const download = await prisma.download.create({
+        // Create order record with full analytics data
+        const order = await prisma.order.create({
             data: {
                 romId,
-                deviceId: deviceId || null,
+                productId: productId || null,
                 ipAddress: clientIP,
                 userAgent,
                 country,
@@ -30,9 +30,9 @@ export async function POST(req: Request) {
             },
         });
 
-        return NextResponse.json({ success: true, download });
+        return NextResponse.json({ success: true, order });
     } catch (error) {
-        console.error("Download tracking failed:", error);
-        return NextResponse.json({ error: "Failed to track download" }, { status: 500 });
+        console.error("Order tracking failed:", error);
+        return NextResponse.json({ error: "Failed to track order" }, { status: 500 });
     }
 }
