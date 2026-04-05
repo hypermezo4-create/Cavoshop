@@ -1,1 +1,2 @@
-export { default, dynamic } from "../roms/page";
+export const dynamic = "force-dynamic";
+export { default } from "../roms/page";
